@@ -21,7 +21,7 @@
             var $this = $(this);
 
             $this.bind({
-                paste: function(e) {
+                'paste': function(e) {
                     var clipboardData = e.originalEvent.clipboardData;
                     for (var i = 0; i < clipboardData.items.length; i++) {
                         var item = clipboardData.items[i];
@@ -31,14 +31,18 @@
                         }
                     }
                 },
-                drop: function(e) {
+                'drop': function(e) {
+                    e.stopPropagation();
+                    e.preventDefault();
                     // TODO What to do with multiple files?
                     upload_files($this, e.originalEvent.dataTransfer.files, settings.upload_url);
+                },
+
+                'dragenter dragover': function(e) {
+                    e.stopPropagation();
                     e.preventDefault();
-                    return false;
                 }
             });
-
         });
     };
 
