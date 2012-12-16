@@ -33,8 +33,9 @@
                 },
                 drop: function(e) {
                     // TODO What to do with multiple files?
-                    upload_files($this, e.originalEvent.dataTransfer.files[0], settings.upload_url);
+                    upload_files($this, e.originalEvent.dataTransfer.files, settings.upload_url);
                     e.preventDefault();
+                    return false;
                 }
             });
 
