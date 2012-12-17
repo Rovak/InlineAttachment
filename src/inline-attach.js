@@ -8,109 +8,104 @@
  *
  * Version 0.1
  */
-(function($) {
-
-    var last_upload; // TODO wrong scope
-
-    $.fn.inlineattach = function(options) {
-
-        var settings = $.extend($.fn.inlineattach.defaults, options);
-
-        return this.each(function() {
-
-            var $this = $(this);
-
-            $this.bind({
-                'paste': function(e) {
-                    var clipboardData = e.originalEvent.clipboardData;
-                    for (var i = 0; i < clipboardData.items.length; i++) {
-                        var item = clipboardData.items[i];
-                        if (item.kind === "file") {
-                            upload_files($this, [item.getAsFile()], settings.upload_url);
-                            return false;
-                        }
-                    }
-                },
-                'drop': function(e) {
-                    e.stopPropagation();
-                    e.preventDefault();
-                    // TODO What to do with multiple files?
-                    upload_files($this, e.originalEvent.dataTransfer.files, settings.upload_url);
-                },
-
-                'dragenter dragover': function(e) {
-                    e.stopPropagation();
-                    e.preventDefault();
-                }
-            });
-        });
-    };
+(function(document, window) {
 
     /**
-     * Show a thumbnail of the given image
+     * Simple function to merge the given objects
      * 
-     * @param {File} file
-     * @returns {void}
+     * @param {Object[]} object Multiple object parameters
+     * @returns {Object}
      */
-    function show_thumbnail(file) {
-        var reader = new FileReader();
-        reader.onload = function(event) {
-            var image = new Image();
-            $('body').append($('<img/>', {
-                src: event.target.result,
-                width: 100
-            }));
-        };
-        reader.readAsDataURL(file);
+    function merge() {
+        var result = {};
+        for (var i = arguments.length - 1; i >= 0; i--) {
+            var obj = arguments[i];
+            for (var k in obj) {
+                result[k] = obj[k];
+            }
+        }
+        return result;
     }
 
     /**
-     * Upload the given files
-     * 
-     * @param {jQuery} textElem A jQuery element
-     * @param {File[]} files
-     * @param {string} upload_url
-     * @returns {void}
+     * @param {Object} options
      */
-    function upload_files(textElem, files, upload_url) {
-        var formData = new FormData();
-        for (var i = 0; i < files.length; i++) {
-            formData.append('file', files[i]);
-            show_thumbnail(files[i]);
-        }
+    window.inlineAttach = function(options) {
 
-        // New XHR Request
-        var xhr = new XMLHttpRequest();
-        xhr.open('POST', upload_url);
-        xhr.upload.onprogress = function(event) {
-            // TODO show progress in text
+        var defaults = {
+            upload_url: 'asfas',
+            allowed_types: ['']
         };
-        xhr.onload = function(e) {
-            if (xhr.status === 200) {
-                var data = JSON.parse(xhr.responseText);
-                if (data.filename) {
-                    val = textElem.val().replace(last_upload, "![file](" + data.filename + ")")
-                    textElem.val(val);
+
+        var settings = merge(options, defaults);
+        var me = this;
+
+        /**
+         * Upload a given file blob
+         * 
+         * @param {Blob} file
+         */
+        this.uploadFile = function(file) {
+            console.log('uploading file!', settings.upload_url);
+            var formData = new FormData();
+            formData.append('file', file);
+
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', settings.upload_url);
+            xhr.upload.onprogress = function(event) {
+                // TODO show progress in text
+            };
+            xhr.onload = function(e) {
+                if (xhr.status === 200) {
+                    var data = JSON.parse(xhr.responseText);
+                    me.onUploadedFile(data);
                 }
-            } else {
-                // onError remove the last inserted text
-                val = textElem.val().replace(last_upload, "")
-                textElem.val(val);
+            };
+
+            xhr.send(formData);
+        };
+
+        /**
+         * Catches the paste event
+         * 
+         * @param {Event} e
+         * @returns {undefined}
+         */
+        this.onPaste = function(e) {
+            var clipboardData = e.clipboardData;
+            for (var i = 0; i < clipboardData.items.length; i++) {
+                var item = clipboardData.items[i];
+                if (item.kind === "file") {
+                    me.onRecievedFile(item.getAsFile());
+                    me.uploadFile(item.getAsFile());
+                    return false;
+                }
             }
         };
-
-        last_upload = '![Uploadf file...]()';
-
-        textElem.val(textElem.val() + "\n\n" + last_upload);
-
-        xhr.send(formData);
-    }
-
-    /**
-     * Default configuration
-     */
-    $.fn.inlineattach.defaults = {
-        upload_url: null, // Location to which to upload attachment data,
-        allowed_types: ['']     // The filetypes which should be handled
+        
+        /**
+         * Catches onDrop event
+         * 
+         * @param {Event} e
+         */
+        this.onDrop = function(e) {
+            for (var i = 0; i < e.dataTransfer.files.length; i++) {
+                me.uploadFile(e.dataTransfer.files[i]);
+            }
+        };
+        
+        /**
+         * When a file is recieved by drag-drop or paste
+         * 
+         * @param {Blob} file
+         */
+        this.onRecievedFile = function(file) {};
+        
+        /**
+         * When a file has succesfully been uploaded
+         * 
+         * @param {Object} json Recieved json data
+         */
+        this.onUploadedFile = function(json) {};
     };
-})(jQuery);
+})(document, window);
