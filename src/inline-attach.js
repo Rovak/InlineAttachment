@@ -33,7 +33,7 @@
     window.inlineAttach = function(options) {
 
         var defaults = {
-            upload_url: 'asfas',
+            upload_url: 'upload_attachment.php',
             allowed_types: ['']
         };
 
@@ -46,7 +46,6 @@
          * @param {Blob} file
          */
         this.uploadFile = function(file) {
-            console.log('uploading file!', settings.upload_url);
             var formData = new FormData();
             formData.append('file', file);
 
@@ -78,11 +77,10 @@
                 if (item.kind === "file") {
                     me.onRecievedFile(item.getAsFile());
                     me.uploadFile(item.getAsFile());
-                    return false;
                 }
             }
         };
-        
+
         /**
          * Catches onDrop event
          * 
@@ -93,19 +91,21 @@
                 me.uploadFile(e.dataTransfer.files[i]);
             }
         };
-        
+
         /**
          * When a file is recieved by drag-drop or paste
          * 
          * @param {Blob} file
          */
-        this.onRecievedFile = function(file) {};
-        
+        this.onRecievedFile = function(file) {
+        };
+
         /**
          * When a file has succesfully been uploaded
          * 
          * @param {Object} json Recieved json data
          */
-        this.onUploadedFile = function(json) {};
+        this.onUploadedFile = function(json) {
+        };
     };
 })(document, window);

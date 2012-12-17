@@ -1,15 +1,37 @@
-
+/**
+ * jQuery plugin for inline attach
+ *
+ * @param {jQuery} $
+ */
 (function($) {
+
+    /**
+     * Show a thumbnail of the given image
+     *
+     * @param {File} file
+     * @returns {void}
+     */
+    function show_thumbnail(file) {
+        var reader = new FileReader();
+        reader.onload = function(event) {
+            var image = new Image();
+            $('body').append($('<img/>', {
+                src: event.target.result,
+                width: 100
+            }));
+        };
+        reader.readAsDataURL(file);
+    }
 
     var last_upload; // TODO wrong scope
 
 
     $.fn.inlineattach = function(options) {
 
-
         return this.each(function() {
- 
-            var inlineattach = new inlineAttach(options);
+
+            var inlineattach = new inlineAttach(options),
+                    $this = $(this);
 
             inlineattach.onRecievedFile = function(file) {
                 last_upload = '![Uploadf file...]()';
@@ -24,7 +46,6 @@
                 }
             };
 
-            var $this = $(this);
 
             $this.bind({
                 'paste': function(e) {
@@ -43,22 +64,4 @@
             });
         });
     };
-
-    /**
-     * Show a thumbnail of the given image
-     * 
-     * @param {File} file
-     * @returns {void}
-     */
-    function show_thumbnail(file) {
-        var reader = new FileReader();
-        reader.onload = function(event) {
-            var image = new Image();
-            $('body').append($('<img/>', {
-                src: event.target.result,
-                width: 100
-            }));
-        };
-        reader.readAsDataURL(file);
-    }
 })(jQuery);
