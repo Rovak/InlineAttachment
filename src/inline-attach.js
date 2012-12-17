@@ -60,7 +60,6 @@
                     me.onUploadedFile(data);
                 }
             };
-
             xhr.send(formData);
         };
 
@@ -97,15 +96,25 @@
          * 
          * @param {Blob} file
          */
-        this.onRecievedFile = function(file) {
-        };
+        
+        this.onRecievedFile = function(file) {};
 
         /**
          * When a file has succesfully been uploaded
          * 
          * @param {Object} json Recieved json data
          */
-        this.onUploadedFile = function(json) {
-        };
+        this.onUploadedFile = function(json) {};
     };
+
+    /**
+     * Attach to a standard input field
+     * 
+     * @param {Input} input
+     * @param {Object} options
+     */
+    window.inlineAttach.attachToInput = function(input, options) {
+        // TODO
+    };
+
 })(document, window);
