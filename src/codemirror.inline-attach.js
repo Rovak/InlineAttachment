@@ -1,23 +1,28 @@
+/**
+ * CodeMirror version for inlineAttach
+ * 
+ * Call inlineAttach.attachToCodeMirror(editor) to attach to a codemirror instance
+ * 
+ * @param {document} document
+ * @param {window} window
+ */
 (function(document, window) {
 
     /**
-     * 
      * @param {CodeMirror} codeMirror
      */
     window.inlineAttach.attachToCodeMirror = function(codeMirror, options) {
-
-        var last_upload;
 
         if (!codeMirror.getWrapperElement) {
             throw "Invalid CodeMirror object given";
         }
 
-        var el = codeMirror.getWrapperElement();
-
-        var inlineattach = new inlineAttach(options || {});
+        var el = codeMirror.getWrapperElement(),
+            inlineattach = new inlineAttach(options || {}),
+            last_upload;
 
         inlineattach.onRecievedFile = function(file) {
-
+            
         };
 
         inlineattach.onUploadedFile = function(data) {
