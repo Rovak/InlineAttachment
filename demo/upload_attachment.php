@@ -1,7 +1,7 @@
 <?php
 
 $uploadFolder = __DIR__ . '/../data/';
-$onlinePath = 'http://localhost/jquery-inlinetextattachment/data/';
+$onlinePath = 'http://localhost/inlineattachment/data/';
 
 $response = array();
 

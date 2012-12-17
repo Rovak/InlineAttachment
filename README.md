@@ -1,5 +1,5 @@
-jQuery Inline Text Attachment 0.1
-=================================
+Inline Attachment 0.1
+=====================
 
 Adds upload functionality to a textarea by either drag-dropping or pasting (only in chrome) an image inside it.
 
