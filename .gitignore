@@ -1,2 +1,4 @@
-/nbproject/private/
+nbproject
 data
+node_modules
+dist

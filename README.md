@@ -15,6 +15,13 @@ $('textarea').inlineattach({
 });
 ```
 
+## Building
+
+The source can be build with Grunt, you can follow the [install grunt](https://github.com/gruntjs/grunt/tree/0.3-stable#installing-grunt) to
+setup the Grunt tool.
+
+When Grunt is up-and-running go to the project folder and use `grunt` to build.
+
 ## Notes
 
 The current version is still work in progress and has only been tested on the latest Chrome and only offers markdown syntax. 
