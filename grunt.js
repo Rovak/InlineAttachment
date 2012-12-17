@@ -13,16 +13,34 @@ module.exports = function(grunt) {
                 '<%= grunt.template.today("yyyy-mm-dd") %> */'
         },
         concat: {
-            dist: {
+            normal: {
+                src: ['<banner>', 'src/inline-attach.js' ],
+                dest: 'dist/inline-attach.js'
+            },
+            jquery: {
                 src: ['<banner>', 'src/inline-attach.js', 'src/jquery.inline-attach.js' ],
                 dest: 'dist/jquery.inline-attach.js'
+            },
+            codemirror: {
+                src: ['<banner>', 'src/inline-attach.js', 'src/codemirror.inline-attach.js' ],
+                dest: 'dist/codemirror.inline-attach.js'
             }
         },
         // Lists of files to be minified with UglifyJS.
         min: {
-            dist: {
+            normal: {
+                src: [ '<banner>', 'dist/inline-attach.js' ],
+                dest: 'dist/inline-attach.min.js',
+                separator: ';'
+            },
+            jquery: {
                 src: [ '<banner>', 'dist/jquery.inline-attach.js' ],
                 dest: 'dist/jquery.inline-attach.min.js',
+                separator: ';'
+            },
+            codemirror: {
+                src: [ '<banner>', 'dist/codemirror.inline-attach.js' ],
+                dest: 'dist/codemirror.inline-attach.min.js',
                 separator: ';'
             }
         }
