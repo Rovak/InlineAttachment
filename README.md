@@ -11,11 +11,11 @@ It mimics the comment system on issues which is used on Github.
 
 __Configuration__
 
-All version can be configured using the following options:
+All versions can be configured using the following options:
 
 ```javascript
 {
-    // File which handles the data
+    // URL which handles the data
     upload_url: 'upload_attachment.php',
 
     // List of allowed MIME types
@@ -31,26 +31,20 @@ All version can be configured using the following options:
 __jQuery__
 
 ```javascript
-$('textarea').inlineattach({
-    upload_url: 'upload_attachment.php' // The url which handles the uploads
-});
+$('textarea').inlineattach(options);
 ```
 
 __CodeMirror__
 
 ```javascript
 var editor = CodeMirror.fromTextArea(document.getElementById("textarea_editor"),);
-inlineAttach.attachToCodeMirror(editor, { 
-    // Options
-});
+inlineAttach.attachToCodeMirror(editor, options);
 ```
 
 __Input field__
 
 ```javascript
-inlineAttach.attachToInput(document.getElementById('inputfield'), {
-    // Options
-});
+inlineAttach.attachToInput(document.getElementById('inputfield'), options);
 ```
 
 ## Build
