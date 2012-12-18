@@ -25,7 +25,7 @@
 
     $.fn.inlineattach = function(options) {
 
-        return this.each(function() {
+        this.each(function() {
 
             options.onRecievedFile = function(file) {
                 last_upload = '![Uploadf file...]()';
@@ -41,7 +41,7 @@
             };
  
             var inlineattach    = new inlineAttach(options),
-                $this           = $(this),
+                $this = $(this),
                 last_upload;
 
             $this.bind({
@@ -59,5 +59,7 @@
                 }
             });
         });
+    
+        return this;
     };
 })(jQuery);
