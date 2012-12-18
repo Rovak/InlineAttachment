@@ -1,13 +1,32 @@
-Inline Attachment 0.1
+Inline Attachment 0.2
 =====================
 
-Adds upload functionality to a textarea by either drag-dropping or pasting (only in chrome) an image inside it.
+Adds upload functionality to a textarea or CodeMirror instance by either drag-dropping or pasting (only in chrome) an image inside it.
 
 It mimics the comment system on issues which is used on Github.
 
 ![demo](https://f.cloud.github.com/assets/21/678/248aac6a-40a2-11e2-9a76-fd59ded28bbe.gif)
 
 ## Usage
+
+__Configuration__
+
+All version can be configured using the following options:
+
+```javascript
+{
+    // File which handles the data
+    upload_url: 'upload_attachment.php',
+
+    // List of allowed MIME types
+    allowed_types: [
+        'image/jpeg',
+        'image/png',
+        'image/jpg',
+        'image/gif'
+    ]
+}
+```
 
 __jQuery__
 
