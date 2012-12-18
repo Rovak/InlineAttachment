@@ -17,15 +17,14 @@
             throw "Invalid CodeMirror object given";
         }
 
-        var el = codeMirror.getWrapperElement(),
-            inlineattach = new inlineAttach(options || {}),
-            last_upload;
+        options = options || {};
 
-        inlineattach.onRecievedFile = function(file) {
-            
+        options.onRecievedFile = function() {
+            last_upload = '[Upload file...]';
+            codeMirror.replaceRange(last_upload, codeMirror.getCursor());
         };
 
-        inlineattach.onUploadedFile = function(data) {
+        options.onUploadedFile = function(data) {
             if (data.filename) {
                 var cursor = editor.getCursor();
                 editor.setValue(editor.getValue().replace(last_upload, "![file](" + data.filename + ")"));
@@ -33,13 +32,21 @@
             }
         };
 
-        function onPaste(e) {
-            last_upload = '[Upload file...]';
-            codeMirror.replaceRange(last_upload, codeMirror.getCursor());
-            inlineattach.onPaste(e);
-        }
+        var el = codeMirror.getWrapperElement(),
+                inlineattach = new inlineAttach(options),
+                last_upload;
 
-        el.addEventListener("paste", onPaste, false);
+        // onPaste
+        el.addEventListener('paste', function(e) {
+            inlineattach.onPaste(e);
+        }, false);
+
+        codeMirror.setOption('onDragEvent', function(data, e) {
+            e.stopPropagation();
+            e.preventDefault();
+            inlineattach.onDrop(e);
+            return true;
+        });
     };
 
 })(document, window);

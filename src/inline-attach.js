@@ -32,13 +32,8 @@
      */
     window.inlineAttach = function(options) {
 
-        var defaults = {
-            upload_url: 'upload_attachment.php',
-            allowed_types: ['']
-        };
-
-        var settings = merge(options, defaults);
-        var me = this;
+        var settings = merge(options, inlineAttach.defaults),
+            me = this;
 
         /**
          * Upload a given file blob
@@ -46,10 +41,11 @@
          * @param {Blob} file
          */
         this.uploadFile = function(file) {
-            var formData = new FormData();
+            var formData = new FormData(),
+                xhr = new XMLHttpRequest();
+
             formData.append('file', file);
 
-            var xhr = new XMLHttpRequest();
             xhr.open('POST', settings.upload_url);
             xhr.upload.onprogress = function(event) {
                 // TODO show progress in text
@@ -57,7 +53,7 @@
             xhr.onload = function(e) {
                 if (xhr.status === 200) {
                     var data = JSON.parse(xhr.responseText);
-                    me.onUploadedFile(data);
+                    settings.onUploadedFile(data);
                 }
             };
             xhr.send(formData);
@@ -74,8 +70,8 @@
             for (var i = 0; i < clipboardData.items.length; i++) {
                 var item = clipboardData.items[i];
                 if (item.kind === "file") {
-                    me.onRecievedFile(item.getAsFile());
-                    me.uploadFile(item.getAsFile());
+                    settings.onRecievedFile(item.getAsFile());
+                    this.uploadFile(item.getAsFile());
                 }
             }
         };
@@ -88,23 +84,29 @@
         this.onDrop = function(e) {
             for (var i = 0; i < e.dataTransfer.files.length; i++) {
                 me.uploadFile(e.dataTransfer.files[i]);
+                settings.onRecievedFile(e.dataTransfer.files[i]);
             }
         };
+    };
 
+    /**
+     * Default configuration
+     */
+    window.inlineAttach.defaults = {
+        upload_url: 'upload_attachment.php',
+        allowed_types: [''],
         /**
          * When a file is recieved by drag-drop or paste
          * 
          * @param {Blob} file
          */
-        
-        this.onRecievedFile = function(file) {};
-
+        onRecievedFile: function(file) {},
         /**
          * When a file has succesfully been uploaded
          * 
          * @param {Object} json Recieved json data
          */
-        this.onUploadedFile = function(json) {};
+        onUploadedFile: function(json) {}
     };
 
     /**

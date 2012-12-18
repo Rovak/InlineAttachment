@@ -23,29 +23,26 @@
         reader.readAsDataURL(file);
     }
 
-    var last_upload; // TODO wrong scope
-
-
     $.fn.inlineattach = function(options) {
 
         return this.each(function() {
 
-            var inlineattach = new inlineAttach(options),
-                    $this = $(this);
-
-            inlineattach.onRecievedFile = function(file) {
+            options.onRecievedFile = function(file) {
                 last_upload = '![Uploadf file...]()';
                 $this.val($this.val() + "\n\n" + last_upload);
                 show_thumbnail(file);
             };
 
-            inlineattach.onUploadedFile = function(data) {
+            options.onUploadedFile = function(data) {
                 if (data.filename) {
                     var val = $this.val().replace(last_upload, "![file](" + data.filename + ")")
                     $this.val(val);
                 }
             };
-
+ 
+            var inlineattach    = new inlineAttach(options),
+                $this           = $(this),
+                last_upload;
 
             $this.bind({
                 'paste': function(e) {
@@ -54,7 +51,6 @@
                 'drop': function(e) {
                     e.stopPropagation();
                     e.preventDefault();
-                    console.log('drop!');
                     inlineattach.onDrop(e.originalEvent);
                 },
                 'dragenter dragover': function(e) {
