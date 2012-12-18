@@ -34,7 +34,6 @@
             options.onRecievedFile = function(file) {
                 last_upload = '![Uploadf file...]()';
                 $this.val($this.val() + "\n\n" + last_upload);
-                show_thumbnail(file);
             };
  
             options.onUploadedFile = function(data) {
