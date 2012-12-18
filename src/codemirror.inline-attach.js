@@ -44,8 +44,7 @@
         codeMirror.setOption('onDragEvent', function(data, e) {
             e.stopPropagation();
             e.preventDefault();
-            inlineattach.onDrop(e);
-            return true;
+            return inlineattach.onDrop(e);
         });
     };
 

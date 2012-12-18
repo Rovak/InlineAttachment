@@ -58,34 +58,55 @@
             };
             xhr.send(formData);
         };
+        
+        /**
+         * Check if the given file is allowed
+         * 
+         * @param {File} file
+         */
+        this.isAllowedFile = function(file) {
+            return settings.allowed_types.indexOf(file.type) >= 0;
+        };
 
         /**
          * Catches the paste event
          * 
          * @param {Event} e
-         * @returns {undefined}
+         * @returns {Boolean} If a file is handled
          */
         this.onPaste = function(e) {
-            var clipboardData = e.clipboardData;
+            var result = false,
+                clipboardData = e.clipboardData;
             for (var i = 0; i < clipboardData.items.length; i++) {
                 var item = clipboardData.items[i];
-                if (item.kind === "file") {
+                if (me.isAllowedFile(item)) {
+                    result = true;
                     settings.onRecievedFile(item.getAsFile());
                     this.uploadFile(item.getAsFile());
                 }
             }
+        
+            return result;
         };
 
         /**
          * Catches onDrop event
          * 
          * @param {Event} e
+         * @returns {Boolean} If a file is handled
          */
         this.onDrop = function(e) {
+            var result = false;
             for (var i = 0; i < e.dataTransfer.files.length; i++) {
-                me.uploadFile(e.dataTransfer.files[i]);
-                settings.onRecievedFile(e.dataTransfer.files[i]);
+                var file = e.dataTransfer.files[i];
+                if (me.isAllowedFile(file)) {
+                    result = true;
+                    me.uploadFile(file);
+                    settings.onRecievedFile(file);
+                }
             }
+ 
+            return result;
         };
     };
 
@@ -94,7 +115,12 @@
      */
     window.inlineAttach.defaults = {
         upload_url: 'upload_attachment.php',
-        allowed_types: [''],
+        allowed_types: [
+            'image/jpeg',
+            'image/png',
+            'image/jpg',
+            'image/gif'
+        ],
         /**
          * When a file is recieved by drag-drop or paste
          * 
