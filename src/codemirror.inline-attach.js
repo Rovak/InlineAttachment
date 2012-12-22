@@ -26,9 +26,9 @@
 
         options.onUploadedFile = function(data) {
             if (data.filename) {
-                var cursor = editor.getCursor();
-                editor.setValue(editor.getValue().replace(last_upload, "![file](" + data.filename + ")"));
-                editor.setCursor(cursor);
+                var cursor = codeMirror.getCursor();
+                codeMirror.setValue(codeMirror.getValue().replace(last_upload, "![file](" + data.filename + ")"));
+                codeMirror.setCursor(cursor);
             }
         };
 
