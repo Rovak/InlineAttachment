@@ -47,6 +47,10 @@ __Input field__
 inlineAttach.attachToInput(document.getElementById('inputfield'), options);
 ```
 
+## Handling image uploads
+
+The Demo folder contains an example in PHP on how to handle uploads.
+
 ## Build
 
 To build the project you need node, npm and grunt installed. These tools can be installed on Ubuntu as follows:
