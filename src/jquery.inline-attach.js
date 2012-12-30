@@ -5,23 +5,20 @@
  */
 (function($) {
 
-    /**
-     * Show a thumbnail of the given image
-     *
-     * @param {File} file
-     * @returns {void}
-     */
-    function show_thumbnail(file) {
-        var reader = new FileReader();
-        reader.onload = function(event) {
-            var image = new Image();
-            $('body').append($('<img/>', {
-                src: event.target.result,
-                width: 100
-            }));
+    function jQueryEditor(instance) {
+
+        var $this = $(instance);
+
+        this.getValue = function() {
+            return $this.val();
         };
-        reader.readAsDataURL(file);
+
+        this.setValue = function(val) {
+            $this.val(val);
+        };
     }
+
+    jQueryEditor.prototype = new inlineAttach.Editor();
 
     $.fn.inlineattach = function(options) {
 
@@ -29,21 +26,10 @@
 
         set.each(function() {
 
-            var $this = $(this);
+            var $this           = $(this),
+                editor          = new jQueryEditor($this),
+                inlineattach    = new inlineAttach(options, editor),
 
-            options.onRecievedFile = function(file) {
-                last_upload = '![Uploadf file...]()';
-                $this.val($this.val() + "\n\n" + last_upload);
-            };
-
-            options.onUploadedFile = function(data) {
-                if (data.filename) {
-                    var val = $this.val().replace(last_upload, "![file](" + data.filename + ")");
-                    $this.val(val);
-                }
-            };
-
-            var inlineattach = new inlineAttach(options),
                 last_upload;
 
             $this.bind({

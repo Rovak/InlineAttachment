@@ -1,40 +1,44 @@
 /**
  * CodeMirror version for inlineAttach
- * 
+ *
  * Call inlineAttach.attachToCodeMirror(editor) to attach to a codemirror instance
- * 
+ *
  * @param {document} document
  * @param {window} window
  */
 (function(document, window) {
+
+    function CodeMirrorEditor(instance) {
+
+        if (!instance.getWrapperElement) {
+            throw "Invalid CodeMirror object given";
+        }
+
+        var codeMirror = instance;
+
+        this.getValue = function() {
+            return codeMirror.getValue();
+        };
+
+        this.setValue = function(val) {
+            var cursor = codeMirror.getCursor();
+            codeMirror.setValue(val);
+            codeMirror.setCursor(cursor);
+        };
+    }
+
+    CodeMirrorEditor.prototype = new inlineAttach.Editor();
 
     /**
      * @param {CodeMirror} codeMirror
      */
     window.inlineAttach.attachToCodeMirror = function(codeMirror, options) {
 
-        if (!codeMirror.getWrapperElement) {
-            throw "Invalid CodeMirror object given";
-        }
-
         options = options || {};
 
-        options.onRecievedFile = function() {
-            last_upload = '[Upload file...]';
-            codeMirror.replaceRange(last_upload, codeMirror.getCursor());
-        };
-
-        options.onUploadedFile = function(data) {
-            if (data.filename) {
-                var cursor = codeMirror.getCursor();
-                codeMirror.setValue(codeMirror.getValue().replace(last_upload, "![file](" + data.filename + ")"));
-                codeMirror.setCursor(cursor);
-            }
-        };
-
-        var el = codeMirror.getWrapperElement(),
-                inlineattach = new inlineAttach(options),
-                last_upload;
+        var editor          = new CodeMirrorEditor(codeMirror),
+            inlineattach    = new inlineAttach(options, editor),
+            el              = codeMirror.getWrapperElement();
 
         el.addEventListener('paste', function(e) {
             inlineattach.onPaste(e);

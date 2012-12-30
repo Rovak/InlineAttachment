@@ -30,9 +30,12 @@
     /**
      * @param {Object} options
      */
-    window.inlineAttach = function(options) {
+    window.inlineAttach = function(options, instance) {
 
         var settings = merge(options, inlineAttach.defaults),
+            editor = instance,
+            filenameTag = '{filename}',
+            lastValue,
             me = this;
 
         /**
@@ -46,14 +49,14 @@
 
             formData.append('file', file);
 
-            xhr.open('POST', settings.upload_url);
+            xhr.open('POST', settings.uploadUrl);
             xhr.upload.onprogress = function(event) {
                 // TODO show progress in text
             };
             xhr.onload = function(e) {
                 if (xhr.status === 200) {
                     var data = JSON.parse(xhr.responseText);
-                    settings.onUploadedFile(data);
+                    me.onUploadedFile(data);
                 }
             };
             xhr.send(formData);
@@ -65,7 +68,32 @@
          * @param {File} file
          */
         this.isAllowedFile = function(file) {
-            return settings.allowed_types.indexOf(file.type) >= 0;
+            return settings.allowedTypes.indexOf(file.type) >= 0;
+        };
+
+        /**
+         * When a file has finished uploading
+         *
+         * @param {Object} data
+         */
+        this.onUploadedFile = function(data) {
+            var result = settings.onUploadedFile(data);
+            if (result !== false && data.filename) {
+                var text = editor.getValue().replace(lastValue, settings.urlText.replace(filenameTag, data.filename));
+                editor.setValue(text);
+            }
+        };
+
+        /**
+         * When a file has been recieved by a drop or paste event
+         * @param {Blob} file
+         */
+        this.onRecievedFile = function(file) {
+            var result = settings.onRecievedFile(file);
+            if (result !== false) {
+                lastValue = settings.progressText;
+                editor.setValue(editor.getValue() + "\n\n" + lastValue);
+            }
         };
 
         /**
@@ -77,11 +105,12 @@
         this.onPaste = function(e) {
             var result = false,
                 clipboardData = e.clipboardData;
+
             for (var i = 0; i < clipboardData.items.length; i++) {
                 var item = clipboardData.items[i];
                 if (me.isAllowedFile(item)) {
                     result = true;
-                    settings.onRecievedFile(item.getAsFile());
+                    this.onRecievedFile(item.getAsFile());
                     this.uploadFile(item.getAsFile());
                 }
             }
@@ -101,8 +130,8 @@
                 var file = e.dataTransfer.files[i];
                 if (me.isAllowedFile(file)) {
                     result = true;
-                    me.uploadFile(file);
-                    settings.onRecievedFile(file);
+                    this.onRecievedFile(file);
+                    this.uploadFile(file);
                 }
             }
 
@@ -111,22 +140,52 @@
     };
 
     /**
+     * Editor
+     */
+    window.inlineAttach.Editor = function(instance) {
+
+        var input = instance;
+
+        this.getValue = function() {
+            return input.value;
+        };
+
+        this.setValue = function(val) {
+            input.value = val;
+        };
+    };
+
+    /**
      * Default configuration
      */
     window.inlineAttach.defaults = {
-        upload_url: 'upload_attachment.php',
-        allowed_types: [
+        uploadUrl: 'upload_attachment.php',
+        allowedTypes: [
             'image/jpeg',
             'image/png',
             'image/jpg',
             'image/gif'
         ],
+
+        /**
+         * Will be inserted on a drop or paste event
+         */
+        progressText: '![Uploading file...]()',
+
+        /**
+         * When a file has successfully been uploaded the last inserted text
+         * will be replaced by the urlText, the {filename} tag will be replaced
+         * by the filename that has been returned by the server
+         */
+        urlText: "![file]({filename})",
+
         /**
          * When a file is recieved by drag-drop or paste
          *
          * @param {Blob} file
          */
         onRecievedFile: function(file) {},
+
         /**
          * When a file has succesfully been uploaded
          *
@@ -145,20 +204,8 @@
 
         options = options || {};
 
-        options.onRecievedFile = function(file) {
-            last_upload = '![Uploadf file...]()';
-            input.value = (input.value + "\n\n" + last_upload);
-        };
-
-        options.onUploadedFile = function(data) {
-            if (data.filename) {
-                var val = input.value.replace(last_upload, "![file](" + data.filename + ")");
-                input.value = val;
-            }
-        };
-
-        var inlineattach = new inlineAttach(options),
-            last_upload;
+        var editor          = new inlineAttach.Editor(input),
+            inlineattach    = new inlineAttach(options, editor);
 
         input.addEventListener('paste', function(e) {
             inlineattach.onPaste(e);
