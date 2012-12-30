@@ -9,6 +9,7 @@
  * Version 0.1
  */
 (function(document, window) {
+    "use strict";
 
     /**
      * Simple function to merge the given objects

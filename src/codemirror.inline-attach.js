@@ -7,6 +7,7 @@
  * @param {window} window
  */
 (function(document, window) {
+    "use strict";
 
     function CodeMirrorEditor(instance) {
 

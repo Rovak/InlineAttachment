@@ -4,6 +4,7 @@
  * @param {jQuery} $
  */
 (function($) {
+    "use strict";
 
     function jQueryEditor(instance) {
 
