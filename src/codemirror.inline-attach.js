@@ -36,7 +36,6 @@
                 inlineattach = new inlineAttach(options),
                 last_upload;
 
-        // onPaste
         el.addEventListener('paste', function(e) {
             inlineattach.onPaste(e);
         }, false);

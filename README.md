@@ -1,4 +1,4 @@
-Inline Attachment 0.2
+Inline Attachment 0.3
 =====================
 
 Adds upload functionality to a textarea or CodeMirror instance by either drag-dropping or pasting (only in chrome) an image inside it.
