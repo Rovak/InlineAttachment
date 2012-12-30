@@ -72,7 +72,7 @@ __Input field__
 inlineAttach.attachToInput(document.getElementById('inputfield'), options);
 ```
 
-## Handling image uploads
+__Handling image uploads__
 
 The Demo folder contains an example in PHP on how to handle uploads.
 
