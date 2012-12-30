@@ -26,6 +26,18 @@ All versions can be configured using the following options:
     ],
 
     /**
+     * Will be inserted on a drop or paste event
+     */
+    progressText: '![Uploading file...]()',
+
+    /**
+     * When a file has successfully been uploaded the last inserted text
+     * will be replaced by the urlText, the {filename} tag will be replaced
+     * by the filename that has been returned by the server
+     */
+    urlText: "![file]({filename})",
+
+    /**
      * When a file is recieved by drag-drop or paste
      *
      * @param {Blob} file
