@@ -27,14 +27,14 @@ All versions can be configured using the following options:
 
     /**
      * When a file is recieved by drag-drop or paste
-     * 
+     *
      * @param {Blob} file
      */
     onRecievedFile: function(file) {},
 
     /**
      * When a file has succesfully been uploaded
-     * 
+     *
      * @param {Object} json JSON data returned from the server
      */
     onUploadedFile: function(json) {}
