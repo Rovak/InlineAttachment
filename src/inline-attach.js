@@ -142,7 +142,40 @@
      * @param {Object} options
      */
     window.inlineAttach.attachToInput = function(input, options) {
-        // TODO
+
+        options = options || {};
+
+        options.onRecievedFile = function(file) {
+            last_upload = '![Uploadf file...]()';
+            input.value = (input.value + "\n\n" + last_upload);
+        };
+
+        options.onUploadedFile = function(data) {
+            if (data.filename) {
+                var val = input.value.replace(last_upload, "![file](" + data.filename + ")")
+                input.value = val;
+            }
+        };
+
+        var inlineattach = new inlineAttach(options),
+            last_upload;
+        
+        input.addEventListener('paste', function(e) {
+            inlineattach.onPaste(e);
+        }, false);
+        input.addEventListener('drop', function(e) {
+            e.stopPropagation();
+            e.preventDefault();
+            inlineattach.onDrop(e);
+        }, false);
+        input.addEventListener('dragenter', function(e) {
+            e.stopPropagation();
+            e.preventDefault();
+        }, false);
+        input.addEventListener('dragover', function(e) {
+            e.stopPropagation();
+            e.preventDefault();
+        }, false);
     };
 
 })(document, window);
