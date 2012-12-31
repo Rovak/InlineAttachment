@@ -1,5 +1,4 @@
-Inline Attachment 1.0
-=====================
+# Inline Attachment 1.0 [![Master Branch Build Status](https://api.travis-ci.org/Rovak/InlineAttachment.png?branch=master)](http://travis-ci.org/Rovak/InlineAttachment)
 
 Adds upload functionality to a textarea or CodeMirror instance by either drag-dropping or pasting (only in chrome) an image inside it.
 
@@ -62,13 +61,13 @@ Go to the project folder and run the following:
 ```sh
 npm install
 grunt
-``` 
+```
 
 This should build the project and the files will appear in the `dist/` folder
 
 ## Notes
 
-The current version is still work in progress and has only been tested on the latest Chrome and only offers markdown syntax. 
+The current version is still work in progress and has only been tested on the latest Chrome and only offers markdown syntax.
 Future versions will support the latest browsers and the ability to change the syntax.
 
 ## Authors
