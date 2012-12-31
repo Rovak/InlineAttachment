@@ -43,12 +43,14 @@ module.exports = function(grunt) {
                 dest: 'dist/codemirror.inline-attach.min.js',
                 separator: ';'
             }
+        },
+        lint: {
+            src: ["src/*.js"]
         }
     });
 
-    // Load the plugin that provides the "uglify" task.
     grunt.loadNpmTasks('grunt-contrib-uglify');
 
-    // Default task(s).
-    grunt.registerTask('default', ['concat', 'min']);
+    grunt.registerTask('qa', ['lint']);
+    grunt.registerTask('default', ['qa', 'concat', 'min']);
 };
