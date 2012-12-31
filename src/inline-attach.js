@@ -1,9 +1,9 @@
 /*
  * Inline Text Attachment
- * 
- * Copyright 2012 Roy van Kaathoven. 
+ *
+ * Copyright 2012 Roy van Kaathoven.
  * Contact: royvankaathoven@hotmail.com
- * 
+ *
  * Licensed under the MIT License.
  *
  * Version 0.1
@@ -12,7 +12,7 @@
 
     /**
      * Simple function to merge the given objects
-     * 
+     *
      * @param {Object[]} object Multiple object parameters
      * @returns {Object}
      */
@@ -37,7 +37,7 @@
 
         /**
          * Upload a given file blob
-         * 
+         *
          * @param {Blob} file
          */
         this.uploadFile = function(file) {
@@ -58,10 +58,10 @@
             };
             xhr.send(formData);
         };
-        
+
         /**
          * Check if the given file is allowed
-         * 
+         *
          * @param {File} file
          */
         this.isAllowedFile = function(file) {
@@ -70,7 +70,7 @@
 
         /**
          * Catches the paste event
-         * 
+         *
          * @param {Event} e
          * @returns {Boolean} If a file is handled
          */
@@ -85,13 +85,13 @@
                     this.uploadFile(item.getAsFile());
                 }
             }
-        
+
             return result;
         };
 
         /**
          * Catches onDrop event
-         * 
+         *
          * @param {Event} e
          * @returns {Boolean} If a file is handled
          */
@@ -105,7 +105,7 @@
                     settings.onRecievedFile(file);
                 }
             }
- 
+
             return result;
         };
     };
@@ -123,13 +123,13 @@
         ],
         /**
          * When a file is recieved by drag-drop or paste
-         * 
+         *
          * @param {Blob} file
          */
         onRecievedFile: function(file) {},
         /**
          * When a file has succesfully been uploaded
-         * 
+         *
          * @param {Object} json Recieved json data
          */
         onUploadedFile: function(json) {}
@@ -137,7 +137,7 @@
 
     /**
      * Attach to a standard input field
-     * 
+     *
      * @param {Input} input
      * @param {Object} options
      */
@@ -152,14 +152,14 @@
 
         options.onUploadedFile = function(data) {
             if (data.filename) {
-                var val = input.value.replace(last_upload, "![file](" + data.filename + ")")
+                var val = input.value.replace(last_upload, "![file](" + data.filename + ")");
                 input.value = val;
             }
         };
 
         var inlineattach = new inlineAttach(options),
             last_upload;
-        
+
         input.addEventListener('paste', function(e) {
             inlineattach.onPaste(e);
         }, false);
