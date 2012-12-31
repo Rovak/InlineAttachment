@@ -1,3 +1,5 @@
+/*jslint newcap: true */
+/*global inlineAttach: false */
 /**
  * CodeMirror version for inlineAttach
  *
@@ -17,14 +19,15 @@
 
         var codeMirror = instance;
 
-        this.getValue = function() {
-            return codeMirror.getValue();
-        };
-
-        this.setValue = function(val) {
-            var cursor = codeMirror.getCursor();
-            codeMirror.setValue(val);
-            codeMirror.setCursor(cursor);
+        return {
+            getValue: function() {
+                return codeMirror.getValue();
+            },
+            setValue: function(val) {
+                var cursor = codeMirror.getCursor();
+                codeMirror.setValue(val);
+                codeMirror.setCursor(cursor);
+            }
         };
     }
 

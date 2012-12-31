@@ -1,11 +1,11 @@
 {
-    "name": "inline-attach",
-    "authors": [
-        "Roy van Kaathoven @razko <royvankaathoven@hotmail.com> (https://github.com/rovak)"
-    ],
-    "version": "1.1.0",
-    "devDependencies": {
-        "grunt": "~0.3.17",
-        "grunt-contrib-uglify": "~0.1.0"
-    }
+  "name": "inline-attach",
+  "authors": [
+    "Roy van Kaathoven @razko <royvankaathoven@hotmail.com> (https://github.com/rovak)"
+  ],
+  "version": "1.1.0",
+  "devDependencies": {
+    "grunt": "~0.3.17",
+    "grunt-contrib-uglify": "~0.1.0"
+  }
 }

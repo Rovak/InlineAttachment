@@ -45,7 +45,7 @@ module.exports = function(grunt) {
             }
         },
         lint: {
-            src: ["src/*.js"]
+            files: ["src/*.js"],
         }
     });
 

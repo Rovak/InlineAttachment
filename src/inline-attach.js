@@ -1,3 +1,5 @@
+/*jslint newcap: true */
+/*global XMLHttpRequest: false, inlineAttach: false, FormData: false */
 /*
  * Inline Text Attachment
  *
@@ -147,12 +149,13 @@
 
         var input = instance;
 
-        this.getValue = function() {
-            return input.value;
-        };
-
-        this.setValue = function(val) {
-            input.value = val;
+        return {
+            getValue: function() {
+                return input.value;
+            },
+            setValue: function(val) {
+                input.value = val;
+            }
         };
     };
 

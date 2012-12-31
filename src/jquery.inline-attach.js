@@ -1,21 +1,26 @@
+/*jslint newcap: true */
+/*global inlineAttach: false */
 /**
  * jQuery plugin for inline attach
  *
+ * @param {document} document
+ * @param {window} window
  * @param {jQuery} $
  */
-(function($) {
+(function(document, window, $) {
     "use strict";
 
     function jQueryEditor(instance) {
 
         var $this = $(instance);
 
-        this.getValue = function() {
-            return $this.val();
-        };
-
-        this.setValue = function(val) {
-            $this.val(val);
+        return {
+            getValue: function() {
+                return $this.val();
+            },
+            setValue: function(val) {
+                $this.val(val);
+            }
         };
     }
 
@@ -51,4 +56,4 @@
 
         return this;
     };
-})(jQuery);
+})(document, window, jQuery);
