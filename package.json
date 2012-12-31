@@ -1,5 +1,8 @@
 {
     "name": "inline-attach",
+    "authors": [
+        "Roy van Kaathoven @razko <royvankaathoven@hotmail.com> (https://github.com/rovak)"
+    ],
     "version": "0.1.0",
     "devDependencies": {
         "grunt": "~0.3.17"
