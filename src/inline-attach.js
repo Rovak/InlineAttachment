@@ -152,7 +152,7 @@
 
         options.onUploadedFile = function(data) {
             if (data.filename) {
-                var val = input.value.replace(last_upload, "![file](" + data.filename + ")")
+                var val = input.value.replace(last_upload, "![file](" + data.filename + ")");
                 input.value = val;
             }
         };
