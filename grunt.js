@@ -52,5 +52,5 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-uglify');
 
     grunt.registerTask('qa', ['lint']);
-    grunt.registerTask('default', ['code_review', 'concat', 'min']);
+    grunt.registerTask('default', ['qa', 'concat', 'min']);
 };
