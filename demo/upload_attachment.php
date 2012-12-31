@@ -12,7 +12,6 @@ if (isset($_FILES['file'])) {
     move_uploaded_file($file['tmp_name'], $uploadFolder . $filename);
 
     $response['filename'] = $onlinePath . $filename;
-    $response['full'] = $uploadFolder . $filename;
 } else {
     $response['error'] = 'Error while uploading file';
 }
