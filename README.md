@@ -23,7 +23,33 @@ All versions can be configured using the following options:
         'image/png',
         'image/jpg',
         'image/gif'
-    ]
+    ],
+
+    /**
+     * Will be inserted on a drop or paste event
+     */
+    progressText: '![Uploading file...]()',
+
+    /**
+     * When a file has successfully been uploaded the last inserted text
+     * will be replaced by the urlText, the {filename} tag will be replaced
+     * by the filename that has been returned by the server
+     */
+    urlText: "![file]({filename})",
+
+    /**
+     * When a file is recieved by drag-drop or paste
+     *
+     * @param {Blob} file
+     */
+    onRecievedFile: function(file) {},
+
+    /**
+     * When a file has succesfully been uploaded
+     *
+     * @param {Object} json JSON data returned from the server
+     */
+    onUploadedFile: function(json) {}
 }
 ```
 
@@ -46,7 +72,7 @@ __Input field__
 inlineAttach.attachToInput(document.getElementById('inputfield'), options);
 ```
 
-## Handling image uploads
+__Handling image uploads__
 
 The Demo folder contains an example in PHP on how to handle uploads.
 
@@ -69,6 +95,19 @@ This should build the project and the files will appear in the `dist/` folder
 
 The current version is still work in progress and has only been tested on the latest Chrome and only offers markdown syntax.
 Future versions will support the latest browsers and the ability to change the syntax.
+
+## Changelog
+
+### 1.1
+
+* Changed options parameters, upload_url to uploadUrl and allowed_types to allowedTypes.
+* Added `onRecievedFile` and `onUploadedFile` hooks.
+* Changed the way different editors are handled.
+* The markdown syntax can now be replaced by changing the `progressText` and `urlText` options.
+
+### 1.0.0 (30-12-2012)
+
+* Markdown, jQuery, Codemirror and standard Textarea support.
 
 ## Authors
 
