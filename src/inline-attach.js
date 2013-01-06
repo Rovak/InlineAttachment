@@ -7,8 +7,6 @@
  * Contact: royvankaathoven@hotmail.com
  *
  * Licensed under the MIT License.
- *
- * Version 0.1
  */
 (function(document, window) {
     "use strict";
