@@ -98,7 +98,7 @@ Future versions will support the latest browsers and the ability to change the s
 
 ## Changelog
 
-### 1.1
+### 1.1.0 (05-01-2013)
 
 * Changed options parameters, upload_url to uploadUrl and allowed_types to allowedTypes.
 * Added `onRecievedFile` and `onUploadedFile` hooks.
