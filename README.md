@@ -91,11 +91,6 @@ grunt
 
 This should build the project and the files will appear in the `dist/` folder
 
-## Notes
-
-The current version is still work in progress and has only been tested on the latest Chrome and only offers markdown syntax.
-Future versions will support the latest browsers and the ability to change the syntax.
-
 ## Changelog
 
 ### 1.1.0 (05-01-2013)
