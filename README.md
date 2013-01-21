@@ -6,6 +6,10 @@ It mimics the comment system on issues which is used on Github.
 
 ![demo](https://f.cloud.github.com/assets/21/678/248aac6a-40a2-11e2-9a76-fd59ded28bbe.gif)
 
+## Download
+
+The most recent minified versions can be found [here](http://data.razko.nl/projects/inlineattachment/remotes/origin/HEAD/)
+
 ## Usage
 
 __Configuration__
