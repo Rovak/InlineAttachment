@@ -3,7 +3,7 @@
   "authors": [
     "Roy van Kaathoven @razko <ik@royvankaathoven.nl> (https://github.com/rovak)"
   ],
-  "version": "1.1.0",
+  "version": "1.1.1",
   "devDependencies": {
     "grunt": "~0.3.17",
     "grunt-contrib-uglify": "~0.1.0"
