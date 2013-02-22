@@ -1,7 +1,7 @@
 {
   "name": "inline-attach",
   "authors": [
-    "Roy van Kaathoven @razko <royvankaathoven@hotmail.com> (https://github.com/rovak)"
+    "Roy van Kaathoven @razko <ik@royvankaathoven.nl> (https://github.com/rovak)"
   ],
   "version": "1.1.0",
   "devDependencies": {
