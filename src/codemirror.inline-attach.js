@@ -49,9 +49,11 @@
         }, false);
 
         codeMirror.setOption('onDragEvent', function(data, e) {
-            e.stopPropagation();
-            e.preventDefault();
-            return inlineattach.onDrop(e);
+            if (e.type === "drop") {
+                e.stopPropagation();
+                e.preventDefault();
+                return inlineattach.onDrop(e);
+            }
         });
     };
 

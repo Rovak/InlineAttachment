@@ -107,14 +107,17 @@
             var result = false,
                 clipboardData = e.clipboardData;
 
-            for (var i = 0; i < clipboardData.items.length; i++) {
-                var item = clipboardData.items[i];
-                if (me.isAllowedFile(item)) {
-                    result = true;
-                    this.onRecievedFile(item.getAsFile());
-                    this.uploadFile(item.getAsFile());
+            if (typeof clipboardData === "object" && clipboardData.items !== null) {
+                for (var i = 0; i < clipboardData.items.length; i++) {
+                    var item = clipboardData.items[i];
+                    if (me.isAllowedFile(item)) {
+                        result = true;
+                        this.onRecievedFile(item.getAsFile());
+                        this.uploadFile(item.getAsFile());
+                    }
                 }
             }
+
 
             return result;
         };
