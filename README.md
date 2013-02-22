@@ -97,6 +97,10 @@ This should build the project and the files will appear in the `dist/` folder
 
 ## Changelog
 
+### 1.1.1 (22-02-2013)
+
+* Fixed paste, drag & drop and CodeMirror events in Firefox
+
 ### 1.1.0 (05-01-2013)
 
 * Changed options parameters, upload_url to uploadUrl and allowed_types to allowedTypes.
