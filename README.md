@@ -19,10 +19,10 @@ All versions can be configured using the following options:
 ```javascript
 {
     // URL which handles the data
-    upload_url: 'upload_attachment.php',
+    uploadUrl: 'upload_attachment.php',
 
     // List of allowed MIME types
-    allowed_types: [
+    allowedTypes: [
         'image/jpeg',
         'image/png',
         'image/jpg',
