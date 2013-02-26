@@ -48,7 +48,7 @@
             var formData = new FormData(),
                 xhr = new XMLHttpRequest();
 
-            formData.append('file', file);
+            formData.append(settings.uploadFieldName, file);
 
             xhr.open('POST', settings.uploadUrl);
             xhr.upload.onprogress = function(event) {
@@ -165,7 +165,10 @@
      * Default configuration
      */
     window.inlineAttach.defaults = {
+        // URL to upload the attachment
         uploadUrl: 'upload_attachment.php',
+        // Request field name where the attachment will be placed in the form data
+        uploadFieldName: 'file',
         allowedTypes: [
             'image/jpeg',
             'image/png',

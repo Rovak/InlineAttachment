@@ -21,6 +21,9 @@ All versions can be configured using the following options:
     // URL which handles the data
     uploadUrl: 'upload_attachment.php',
 
+    // Name of the POST field where the file will be sent. Defaults to 'file'.
+    uploadFieldName: 'file',
+
     // List of allowed MIME types
     allowedTypes: [
         'image/jpeg',
