@@ -87,11 +87,11 @@
         };
 
         /**
-         * When a file has been recieved by a drop or paste event
+         * When a file has been received by a drop or paste event
          * @param {Blob} file
          */
-        this.onRecievedFile = function(file) {
-            var result = settings.onRecievedFile(file);
+        this.onReceivedFile = function(file) {
+            var result = settings.onReceivedFile(file);
             if (result !== false) {
                 lastValue = settings.progressText;
                 editor.setValue(editor.getValue() + "\n\n" + lastValue);
@@ -113,7 +113,7 @@
                     var item = clipboardData.items[i];
                     if (me.isAllowedFile(item)) {
                         result = true;
-                        this.onRecievedFile(item.getAsFile());
+                        this.onReceivedFile(item.getAsFile());
                         this.uploadFile(item.getAsFile());
                     }
                 }
@@ -135,7 +135,7 @@
                 var file = e.dataTransfer.files[i];
                 if (me.isAllowedFile(file)) {
                     result = true;
-                    this.onRecievedFile(file);
+                    this.onReceivedFile(file);
                     this.uploadFile(file);
                 }
             }
@@ -186,16 +186,16 @@
         urlText: "![file]({filename})",
 
         /**
-         * When a file is recieved by drag-drop or paste
+         * When a file is received by drag-drop or paste
          *
          * @param {Blob} file
          */
-        onRecievedFile: function(file) {},
+        onReceivedFile: function(file) {},
 
         /**
          * When a file has succesfully been uploaded
          *
-         * @param {Object} json Recieved json data
+         * @param {Object} json Received json data
          */
         onUploadedFile: function(json) {}
     };
