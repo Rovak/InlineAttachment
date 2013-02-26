@@ -87,14 +87,23 @@
         };
 
         /**
+         * Append a line of text at the bottom, ensuring there aren't unnecessary newlines
+         */
+        function appendInItsOwnLine(previous, appended) {
+          return (previous + "\n\n[[D]]" + appended)
+                  .replace(/(\n{2,})\[\[D\]\]/, "\n\n")
+                  .replace(/^(\n*)/, "");
+        }
+
+        /**
          * When a file has been received by a drop or paste event
          * @param {Blob} file
          */
         this.onReceivedFile = function(file) {
-            var result = settings.onReceivedFile(file);
+            var result = settings.onReceivedFile(file), text;
             if (result !== false) {
                 lastValue = settings.progressText;
-                editor.setValue(editor.getValue() + "\n\n" + lastValue);
+                editor.setValue(appendInItsOwnLine(editor.getValue(), lastValue));
             }
         };
 
