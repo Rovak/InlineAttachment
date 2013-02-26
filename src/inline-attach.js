@@ -55,7 +55,8 @@
                 // TODO show progress in text
             };
             xhr.onload = function(e) {
-                if (xhr.status === 200) {
+                // If HTTP status is OK or Created
+                if (xhr.status === 200 || xhr.status === 201) {
                     var data = JSON.parse(xhr.responseText);
                     me.onUploadedFile(data);
                 }
