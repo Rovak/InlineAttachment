@@ -1,4 +1,4 @@
-# Inline Attachment 1.1.1 [![Master Branch Build Status](https://api.travis-ci.org/Rovak/InlineAttachment.png?branch=master)](http://travis-ci.org/Rovak/InlineAttachment) ![project status](http://stillmaintained.com/Rovak/InlineAttachment.png)
+# Inline Attachment 1.2.0 [![Master Branch Build Status](https://api.travis-ci.org/Rovak/InlineAttachment.png?branch=master)](http://travis-ci.org/Rovak/InlineAttachment) ![project status](http://stillmaintained.com/Rovak/InlineAttachment.png)
 
 Adds upload functionality to a textarea or CodeMirror instance by either drag-dropping or pasting (only in chrome) an image inside it.
 
@@ -18,13 +18,21 @@ All versions can be configured using the following options:
 
 ```javascript
 {
-    // URL which handles the data
+    /**
+     * URL which handles the data
+     */
     uploadUrl: 'upload_attachment.php',
 
-    // Name of the POST field where the file will be sent. Defaults to 'file'.
+    /**
+     * Name of the POST field where the file will be sent. 
+     * Defaults to 'file'.
+     */
     uploadFieldName: 'file',
 
-    // Name of the field from the response where the file can be downloaded. Defaults to 'filename'
+    /**
+     * Name of the field from the response where the file can be downloaded. 
+     * Defaults to 'filename'
+     */
     downloadFieldName: 'file',
 
     // List of allowed MIME types
@@ -103,6 +111,15 @@ This should build the project and the files will appear in the `dist/` folder
 
 ## Changelog
 
+### 1.2.0 (27-02-2013) 
+
+* Added 201 code on upload to make it compatible with a REST create response
+* Now supports custom field names for upload
+* Added default filename for Chrome's paste
+* Better newline handling for pastes
+
+Thanks to [micho](https://github.com/micho) for this patch!
+
 ### 1.1.1 (22-02-2013)
 
 * Fixed paste, drag & drop and CodeMirror events in Firefox
@@ -117,7 +134,3 @@ This should build the project and the files will appear in the `dist/` folder
 ### 1.0.0 (30-12-2012)
 
 * Markdown, jQuery, Codemirror and standard Textarea support.
-
-## Authors
-
-* Roy van Kaathoven
