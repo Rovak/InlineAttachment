@@ -8,7 +8,7 @@ It mimics the comment system on issues which is used on Github.
 
 ## Download
 
-The most recent minified versions can be found [here](http://data.razko.nl/projects/inlineattachment/remotes/origin/HEAD/)
+The most recent minified versions can be found [here](http://data.razko.nl/projects/inlineattachment/latest/)
 
 ## Usage
 
