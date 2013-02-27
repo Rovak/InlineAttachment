@@ -48,14 +48,17 @@
             var formData = new FormData(),
                 xhr = new XMLHttpRequest();
 
-            formData.append('file', file);
+            // Attach the file. If coming from clipboard, add a default filename (only works in Chrome for now)
+            // http://stackoverflow.com/questions/6664967/how-to-give-a-blob-uploaded-as-formdata-a-file-name
+            formData.append(settings.uploadFieldName, file, "image-" + Date.now() + ".png");
 
             xhr.open('POST', settings.uploadUrl);
             xhr.upload.onprogress = function(event) {
                 // TODO show progress in text
             };
             xhr.onload = function(e) {
-                if (xhr.status === 200) {
+                // If HTTP status is OK or Created
+                if (xhr.status === 200 || xhr.status === 201) {
                     var data = JSON.parse(xhr.responseText);
                     me.onUploadedFile(data);
                 }
@@ -78,22 +81,32 @@
          * @param {Object} data
          */
         this.onUploadedFile = function(data) {
-            var result = settings.onUploadedFile(data);
-            if (result !== false && data.filename) {
-                var text = editor.getValue().replace(lastValue, settings.urlText.replace(filenameTag, data.filename));
+            var result = settings.onUploadedFile(data),
+                filename = data[settings.downloadFieldName];
+            if (result !== false && filename) {
+                var text = editor.getValue().replace(lastValue, settings.urlText.replace(filenameTag, filename));
                 editor.setValue(text);
             }
         };
 
         /**
-         * When a file has been recieved by a drop or paste event
+         * Append a line of text at the bottom, ensuring there aren't unnecessary newlines
+         */
+        function appendInItsOwnLine(previous, appended) {
+          return (previous + "\n\n[[D]]" + appended)
+                  .replace(/(\n{2,})\[\[D\]\]/, "\n\n")
+                  .replace(/^(\n*)/, "");
+        }
+
+        /**
+         * When a file has been received by a drop or paste event
          * @param {Blob} file
          */
-        this.onRecievedFile = function(file) {
-            var result = settings.onRecievedFile(file);
+        this.onReceivedFile = function(file) {
+            var result = settings.onReceivedFile(file), text;
             if (result !== false) {
                 lastValue = settings.progressText;
-                editor.setValue(editor.getValue() + "\n\n" + lastValue);
+                editor.setValue(appendInItsOwnLine(editor.getValue(), lastValue));
             }
         };
 
@@ -112,7 +125,7 @@
                     var item = clipboardData.items[i];
                     if (me.isAllowedFile(item)) {
                         result = true;
-                        this.onRecievedFile(item.getAsFile());
+                        this.onReceivedFile(item.getAsFile());
                         this.uploadFile(item.getAsFile());
                     }
                 }
@@ -134,7 +147,7 @@
                 var file = e.dataTransfer.files[i];
                 if (me.isAllowedFile(file)) {
                     result = true;
-                    this.onRecievedFile(file);
+                    this.onReceivedFile(file);
                     this.uploadFile(file);
                 }
             }
@@ -164,7 +177,12 @@
      * Default configuration
      */
     window.inlineAttach.defaults = {
+        // URL to upload the attachment
         uploadUrl: 'upload_attachment.php',
+        // Request field name where the attachment will be placed in the form data
+        uploadFieldName: 'file',
+        // Where is the filename placed in the response
+        downloadFieldName: 'filename',
         allowedTypes: [
             'image/jpeg',
             'image/png',
@@ -185,16 +203,16 @@
         urlText: "![file]({filename})",
 
         /**
-         * When a file is recieved by drag-drop or paste
+         * When a file is received by drag-drop or paste
          *
          * @param {Blob} file
          */
-        onRecievedFile: function(file) {},
+        onReceivedFile: function(file) {},
 
         /**
          * When a file has succesfully been uploaded
          *
-         * @param {Object} json Recieved json data
+         * @param {Object} json Received json data
          */
         onUploadedFile: function(json) {}
     };
