@@ -81,9 +81,10 @@
          * @param {Object} data
          */
         this.onUploadedFile = function(data) {
-            var result = settings.onUploadedFile(data);
-            if (result !== false && data.filename) {
-                var text = editor.getValue().replace(lastValue, settings.urlText.replace(filenameTag, data.filename));
+            var result = settings.onUploadedFile(data),
+                filename = data[settings.downloadFieldName];
+            if (result !== false && filename) {
+                var text = editor.getValue().replace(lastValue, settings.urlText.replace(filenameTag, filename));
                 editor.setValue(text);
             }
         };
@@ -180,6 +181,8 @@
         uploadUrl: 'upload_attachment.php',
         // Request field name where the attachment will be placed in the form data
         uploadFieldName: 'file',
+        // Where is the filename placed in the response
+        downloadFieldName: 'filename',
         allowedTypes: [
             'image/jpeg',
             'image/png',
