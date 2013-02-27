@@ -19,10 +19,16 @@ All versions can be configured using the following options:
 ```javascript
 {
     // URL which handles the data
-    upload_url: 'upload_attachment.php',
+    uploadUrl: 'upload_attachment.php',
+
+    // Name of the POST field where the file will be sent. Defaults to 'file'.
+    uploadFieldName: 'file',
+
+    // Name of the field from the response where the file can be downloaded. Defaults to 'filename'
+    downloadFieldName: 'file',
 
     // List of allowed MIME types
-    allowed_types: [
+    allowedTypes: [
         'image/jpeg',
         'image/png',
         'image/jpg',
@@ -42,11 +48,11 @@ All versions can be configured using the following options:
     urlText: "![file]({filename})",
 
     /**
-     * When a file is recieved by drag-drop or paste
+     * When a file is received by drag-drop or paste
      *
      * @param {Blob} file
      */
-    onRecievedFile: function(file) {},
+    onReceivedFile: function(file) {},
 
     /**
      * When a file has succesfully been uploaded
@@ -104,7 +110,7 @@ This should build the project and the files will appear in the `dist/` folder
 ### 1.1.0 (05-01-2013)
 
 * Changed options parameters, upload_url to uploadUrl and allowed_types to allowedTypes.
-* Added `onRecievedFile` and `onUploadedFile` hooks.
+* Added `onReceivedFile` and `onUploadedFile` hooks.
 * Changed the way different editors are handled.
 * The markdown syntax can now be replaced by changing the `progressText` and `urlText` options.
 
