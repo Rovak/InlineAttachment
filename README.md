@@ -80,7 +80,7 @@ $('textarea').inlineattach(options);
 __CodeMirror__
 
 ```javascript
-var editor = CodeMirror.fromTextArea(document.getElementById("textarea_editor"),);
+var editor = CodeMirror.fromTextArea(document.getElementById("textarea_editor"));
 inlineAttach.attachToCodeMirror(editor, options);
 ```
 
