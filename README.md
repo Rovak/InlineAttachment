@@ -70,13 +70,13 @@ All versions can be configured using the following options:
     onUploadedFile: function(json) {}
 
     /**
-     * Custom upload handler, must return true to prevent default handler.
+     * Custom upload handler, must return false to prevent default handler.
      * Can be used to send file via custom transport(like socket.io)
      *
      * @param {Blob} file
-     * @return true, if prevents default handler, false if not
+     * @return {Boolean} when false is returned it will prevent default upload behavior
      */
-    customUploadHandler: function(file) {return false;}
+    customUploadHandler: function(file) { return true; }
 }
 ```
 

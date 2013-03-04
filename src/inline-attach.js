@@ -87,10 +87,10 @@
         };
 
         /**
-         * Custom upload handler, must return false to work.
+         * Custom upload handler
          *
          * @param {Blob} file
-         * @return {Boolean} When false is returned it prevents default upload handler
+         * @return {Boolean} when false is returned it will prevent default upload behavior
          */
         this.customUploadHandler = function(file) {
             return settings.customUploadHandler(file);
@@ -222,7 +222,9 @@
         onReceivedFile: function() {},
 
         /**
-         * Custom upload handler, must return false to work.
+         * Custom upload handler
+         *
+         * @return {Boolean} when false is returned it will prevent default upload behavior
          */
         customUploadHandler: function() { return true; },
 
