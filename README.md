@@ -1,4 +1,4 @@
-# Inline Attachment 1.2.0 [![Master Branch Build Status](https://api.travis-ci.org/Rovak/InlineAttachment.png?branch=master)](http://travis-ci.org/Rovak/InlineAttachment) ![project status](http://stillmaintained.com/Rovak/InlineAttachment.png)
+# Inline Attachment 1.2.1 [![Master Branch Build Status](https://api.travis-ci.org/Rovak/InlineAttachment.png?branch=master)](http://travis-ci.org/Rovak/InlineAttachment) ![project status](http://stillmaintained.com/Rovak/InlineAttachment.png)
 
 Adds upload functionality to a textarea or CodeMirror instance by either drag-dropping or pasting (only in chrome) an image inside it.
 
@@ -24,13 +24,13 @@ All versions can be configured using the following options:
     uploadUrl: 'upload_attachment.php',
 
     /**
-     * Name of the POST field where the file will be sent. 
+     * Name of the POST field where the file will be sent.
      * Defaults to 'file'.
      */
     uploadFieldName: 'file',
 
     /**
-     * Name of the field from the response where the file can be downloaded. 
+     * Name of the field from the response where the file can be downloaded.
      * Defaults to 'filename'
      */
     downloadFieldName: 'file',
@@ -68,8 +68,8 @@ All versions can be configured using the following options:
      * @param {Object} json JSON data returned from the server
      */
     onUploadedFile: function(json) {}
-    
-    /** 
+
+    /**
      * Custom upload handler, must return true to prevent default handler.
      * Can be used to send file via custom transport(like socket.io)
      *
@@ -124,7 +124,7 @@ This should build the project and the files will appear in the `dist/` folder
 
 * Added onUploadedFile callback ([ROMB](https://github.com/ROMB))
 
-### 1.2.0 (27-02-2013) 
+### 1.2.0 (27-02-2013)
 
 * Added 201 code on upload to make it compatible with a REST create response
 * Now supports custom field names for upload
