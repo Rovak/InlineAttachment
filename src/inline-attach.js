@@ -53,10 +53,7 @@
             formData.append(settings.uploadFieldName, file, "image-" + Date.now() + ".png");
 
             xhr.open('POST', settings.uploadUrl);
-            xhr.upload.onprogress = function(event) {
-                // TODO show progress in text
-            };
-            xhr.onload = function(e) {
+            xhr.onload = function() {
                 // If HTTP status is OK or Created
                 if (xhr.status === 200 || xhr.status === 201) {
                     var data = JSON.parse(xhr.responseText);
@@ -89,22 +86,24 @@
             }
         };
 
-        /** 
-         * Custom upload handler, must return false to work.
+        /**
+         * Custom upload handler
          *
          * @param {Blob} file
-         * @return false, if prevents default handler, true if not
+         * @return {Boolean} when false is returned it will prevent default upload behavior
          */
         this.customUploadHandler = function(file) {
-          var result = settings.customUploadHandler(file);
-          return result;
+            return settings.customUploadHandler(file);
         };
 
         /**
          * Append a line of text at the bottom, ensuring there aren't unnecessary newlines
+         *
+         * @param {String} appended Current content
+         * @param {String} previous Value which should be appended after the current content
          */
         function appendInItsOwnLine(previous, appended) {
-          return (previous + "\n\n[[D]]" + appended)
+            return (previous + "\n\n[[D]]" + appended)
                   .replace(/(\n{2,})\[\[D\]\]/, "\n\n")
                   .replace(/^(\n*)/, "");
         }
@@ -114,7 +113,7 @@
          * @param {Blob} file
          */
         this.onReceivedFile = function(file) {
-            var result = settings.onReceivedFile(file), text;
+            var result = settings.onReceivedFile(file);
             if (result !== false) {
                 lastValue = settings.progressText;
                 editor.setValue(appendInItsOwnLine(editor.getValue(), lastValue));
@@ -138,7 +137,7 @@
                         result = true;
                         this.onReceivedFile(item.getAsFile());
                         if(this.customUploadHandler(item.getAsFile())){
-                          this.uploadFile(item.getAsFile());
+                            this.uploadFile(item.getAsFile());
                         }
                     }
                 }
@@ -162,7 +161,7 @@
                     result = true;
                     this.onReceivedFile(file);
                     if(this.customUploadHandler(file)){
-                      this.uploadFile(file);
+                        this.uploadFile(file);
                     }
                 }
             }
@@ -219,25 +218,20 @@
 
         /**
          * When a file is received by drag-drop or paste
-         *
-         * @param {Blob} file
          */
-        onReceivedFile: function(file) {},
-        
-        /** 
-         * Custom upload handler, must return false to work.
+        onReceivedFile: function() {},
+
+        /**
+         * Custom upload handler
          *
-         * @param {Blob} file
-         * @return false, if prevents default handler, true if not
+         * @return {Boolean} when false is returned it will prevent default upload behavior
          */
-         customUploadHandler: function(file) {return true;},
+        customUploadHandler: function() { return true; },
 
         /**
          * When a file has succesfully been uploaded
-         *
-         * @param {Object} json Received json data
          */
-        onUploadedFile: function(json) {}
+        onUploadedFile: function() {}
     };
 
     /**

@@ -1,4 +1,4 @@
-# Inline Attachment 1.2.1 [![Master Branch Build Status](https://api.travis-ci.org/Rovak/InlineAttachment.png?branch=master)](http://travis-ci.org/Rovak/InlineAttachment) ![project status](http://stillmaintained.com/Rovak/InlineAttachment.png)
+# Inline Attachment 1.2.2 [![Master Branch Build Status](https://api.travis-ci.org/Rovak/InlineAttachment.png?branch=master)](http://travis-ci.org/Rovak/InlineAttachment) ![project status](http://stillmaintained.com/Rovak/InlineAttachment.png)
 
 Adds upload functionality to a textarea or CodeMirror instance by either drag-dropping or pasting (only in chrome) an image inside it.
 
@@ -70,13 +70,13 @@ All versions can be configured using the following options:
     onUploadedFile: function(json) {}
 
     /**
-     * Custom upload handler, must return true to prevent default handler.
+     * Custom upload handler, must return false to prevent default handler.
      * Can be used to send file via custom transport(like socket.io)
      *
      * @param {Blob} file
-     * @return true, if prevents default handler, false if not
+     * @return {Boolean} when false is returned it will prevent default upload behavior
      */
-    customUploadHandler: function(file) {return false;}
+    customUploadHandler: function(file) { return true; }
 }
 ```
 
@@ -119,6 +119,10 @@ grunt
 This should build the project and the files will appear in the `dist/` folder
 
 ## Changelog
+
+### 1.2.2 (04-03-2012)
+
+* Fixed some documentation errors
 
 ### 1.2.1 (04-03-2013)
 
