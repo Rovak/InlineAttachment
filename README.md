@@ -120,6 +120,10 @@ This should build the project and the files will appear in the `dist/` folder
 
 ## Changelog
 
+### 1.2.1 (04-03-2013)
+
+* Added onUploadedFile callback ([ROMB](https://github.com/ROMB))
+
 ### 1.2.0 (27-02-2013) 
 
 * Added 201 code on upload to make it compatible with a REST create response
