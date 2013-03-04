@@ -1,5 +1,5 @@
 /*jslint newcap: true */
-/*global inlineAttach: false */
+/*global inlineAttach: false, jQuery: false */
 /**
  * jQuery plugin for inline attach
  *
@@ -34,9 +34,7 @@
 
             var $this           = $(this),
                 editor          = new jQueryEditor($this),
-                inlineattach    = new inlineAttach(options, editor),
-
-                last_upload;
+                inlineattach    = new inlineAttach(options, editor);
 
             $this.bind({
                 'paste': function(e) {

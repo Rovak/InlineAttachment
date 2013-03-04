@@ -53,10 +53,7 @@
             formData.append(settings.uploadFieldName, file, "image-" + Date.now() + ".png");
 
             xhr.open('POST', settings.uploadUrl);
-            xhr.upload.onprogress = function(event) {
-                // TODO show progress in text
-            };
-            xhr.onload = function(e) {
+            xhr.onload = function() {
                 // If HTTP status is OK or Created
                 if (xhr.status === 200 || xhr.status === 201) {
                     var data = JSON.parse(xhr.responseText);
@@ -104,7 +101,7 @@
          * Append a line of text at the bottom, ensuring there aren't unnecessary newlines
          */
         function appendInItsOwnLine(previous, appended) {
-          return (previous + "\n\n[[D]]" + appended)
+            return (previous + "\n\n[[D]]" + appended)
                   .replace(/(\n{2,})\[\[D\]\]/, "\n\n")
                   .replace(/^(\n*)/, "");
         }
@@ -114,7 +111,7 @@
          * @param {Blob} file
          */
         this.onReceivedFile = function(file) {
-            var result = settings.onReceivedFile(file), text;
+            var result = settings.onReceivedFile(file);
             if (result !== false) {
                 lastValue = settings.progressText;
                 editor.setValue(appendInItsOwnLine(editor.getValue(), lastValue));
@@ -219,10 +216,8 @@
 
         /**
          * When a file is received by drag-drop or paste
-         *
-         * @param {Blob} file
          */
-        onReceivedFile: function(file) {},
+        onReceivedFile: function() {},
         
         /** 
          * Custom upload handler, must return false to work.
@@ -234,10 +229,8 @@
 
         /**
          * When a file has succesfully been uploaded
-         *
-         * @param {Object} json Received json data
          */
-        onUploadedFile: function(json) {}
+        onUploadedFile: function() {}
     };
 
     /**
