@@ -68,6 +68,15 @@ All versions can be configured using the following options:
      * @param {Object} json JSON data returned from the server
      */
     onUploadedFile: function(json) {}
+    
+    /** 
+     * Custom upload handler, must return true to prevent default handler.
+     * Can be used to send file via custom transport(like socket.io)
+     *
+     * @param {Blob} file
+     * @return true, if prevents default handler, false if not
+     */
+    customUploadHandler: function(file) {return false;}
 }
 ```
 
