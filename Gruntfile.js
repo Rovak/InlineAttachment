@@ -44,12 +44,23 @@ module.exports = function(grunt) {
                 separator: ';'
             }
         },
-        lint: {
-            files: ["src/*.js"],
+        jshint: {
+            all: ['src/*.js'],
+            options: {
+                curly: true,
+                eqeqeq: true,
+                eqnull: true,
+                browser: true,
+                undef: true,
+                unused: true,
+                strict: true,
+                trailing: true,
+                indent: 4
+            }
         }
     });
 
-    grunt.loadNpmTasks('grunt-contrib-uglify');
+    grunt.loadNpmTasks('grunt-contrib-jshint');
 
     grunt.registerTask('qa', ['lint']);
     grunt.registerTask('default', ['qa', 'concat', 'min']);
