@@ -1,18 +1,18 @@
 /**
  * Grunt Build File
  */
-
 module.exports = function(grunt) {
+
+    var banner = '/*! <%= pkg.name %> - v<%= pkg.version %> - ' +
+                 '<%= grunt.template.today("yyyy-mm-dd") %> */\n';
 
     // Project configuration.
     grunt.initConfig({
-        pkg: grunt.file.readJSON('package.json'),
-        // Project metadata, used by the <banner> directive.
-        meta: {
-            banner: '/*! <%= pkg.name %> - v<%= pkg.version %> - ' +
-                '<%= grunt.template.today("yyyy-mm-dd") %> */'
-        },
+        pkg: require('./package.json'),
         concat: {
+            options: {
+                banner: banner
+            },
             normal: {
                 src: ['<banner>', 'src/inline-attach.js' ],
                 dest: 'dist/inline-attach.js'
@@ -27,7 +27,10 @@ module.exports = function(grunt) {
             }
         },
         // Lists of files to be minified with UglifyJS.
-        min: {
+        uglify: {
+            options: {
+                banner: banner
+            },
             normal: {
                 src: [ '<banner>', 'dist/inline-attach.js' ],
                 dest: 'dist/inline-attach.min.js',
@@ -61,7 +64,9 @@ module.exports = function(grunt) {
     });
 
     grunt.loadNpmTasks('grunt-contrib-jshint');
+    grunt.loadNpmTasks('grunt-contrib-concat');
+    grunt.loadNpmTasks('grunt-contrib-uglify');
 
     grunt.registerTask('qa', ['jshint']);
-    grunt.registerTask('default', ['qa', 'concat', 'min']);
+    grunt.registerTask('default', ['qa', 'concat', 'uglify']);
 };
