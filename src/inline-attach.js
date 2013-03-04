@@ -86,7 +86,7 @@
             }
         };
 
-        /** 
+        /**
          * Custom upload handler, must return false to work.
          *
          * @param {Blob} file
@@ -218,8 +218,8 @@
          * When a file is received by drag-drop or paste
          */
         onReceivedFile: function() {},
-        
-        /** 
+
+        /**
          * Custom upload handler, must return false to work.
          *
          * @param {Blob} file
