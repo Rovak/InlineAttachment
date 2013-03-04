@@ -89,6 +89,17 @@
             }
         };
 
+        /** 
+         * Custom upload handler, must return false to work.
+         *
+         * @param {Blob} file
+         * @return false, if prevents default handler, true if not
+         */
+        this.customUploadHandler = function(file) {
+          var result = settings.customUploadHandler(file);
+          return result;
+        };
+
         /**
          * Append a line of text at the bottom, ensuring there aren't unnecessary newlines
          */
@@ -126,7 +137,9 @@
                     if (me.isAllowedFile(item)) {
                         result = true;
                         this.onReceivedFile(item.getAsFile());
-                        this.uploadFile(item.getAsFile());
+                        if(this.customUploadHandler(item.getAsFile())){
+                          this.uploadFile(item.getAsFile());
+                        }
                     }
                 }
             }
@@ -148,7 +161,9 @@
                 if (me.isAllowedFile(file)) {
                     result = true;
                     this.onReceivedFile(file);
-                    this.uploadFile(file);
+                    if(this.customUploadHandler(file)){
+                      this.uploadFile(file);
+                    }
                 }
             }
 
@@ -208,6 +223,14 @@
          * @param {Blob} file
          */
         onReceivedFile: function(file) {},
+        
+        /** 
+         * Custom upload handler, must return false to work.
+         *
+         * @param {Blob} file
+         * @return false, if prevents default handler, true if not
+         */
+         customUploadHandler: function(file) {return true;},
 
         /**
          * When a file has succesfully been uploaded
