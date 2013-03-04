@@ -90,15 +90,17 @@
          * Custom upload handler, must return false to work.
          *
          * @param {Blob} file
-         * @return false, if prevents default handler, true if not
+         * @return {Boolean} When false is returned it prevents default upload handler
          */
         this.customUploadHandler = function(file) {
-          var result = settings.customUploadHandler(file);
-          return result;
+            return settings.customUploadHandler(file);
         };
 
         /**
          * Append a line of text at the bottom, ensuring there aren't unnecessary newlines
+         *
+         * @param {String} appended Current content
+         * @param {String} previous Value which should be appended after the current content
          */
         function appendInItsOwnLine(previous, appended) {
             return (previous + "\n\n[[D]]" + appended)
@@ -135,7 +137,7 @@
                         result = true;
                         this.onReceivedFile(item.getAsFile());
                         if(this.customUploadHandler(item.getAsFile())){
-                          this.uploadFile(item.getAsFile());
+                            this.uploadFile(item.getAsFile());
                         }
                     }
                 }
@@ -159,7 +161,7 @@
                     result = true;
                     this.onReceivedFile(file);
                     if(this.customUploadHandler(file)){
-                      this.uploadFile(file);
+                        this.uploadFile(file);
                     }
                 }
             }
@@ -221,11 +223,8 @@
 
         /**
          * Custom upload handler, must return false to work.
-         *
-         * @param {Blob} file
-         * @return false, if prevents default handler, true if not
          */
-         customUploadHandler: function(file) {return true;},
+        customUploadHandler: function() { return true; },
 
         /**
          * When a file has succesfully been uploaded
