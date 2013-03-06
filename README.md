@@ -67,7 +67,15 @@ All versions can be configured using the following options:
      *
      * @param {Object} json JSON data returned from the server
      */
-    onUploadedFile: function(json) {}
+    onUploadedFile: function(json) {},
+
+    /**
+     * Custom error handler. Runs after removing the placeholder text and before the alert().
+     * Return false from this function to prevent the alert dialog.
+     *
+     * @return {Boolean} when false is returned it will prevent default error behavior
+     */
+    customErrorHandler: function() { return true; },
 
     /**
      * Custom upload handler, must return false to prevent default handler.
