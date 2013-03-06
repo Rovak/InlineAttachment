@@ -55,11 +55,11 @@
             xhr.open('POST', settings.uploadUrl);
             xhr.onload = function() {
                 // If HTTP status is OK or Created
-                var data = JSON.parse(xhr.responseText);
                 if (xhr.status === 200 || xhr.status === 201) {
+                    var data = JSON.parse(xhr.responseText);
                     me.onUploadedFile(data);
                 } else {
-                    me.onErrorUploading(data);
+                    me.onErrorUploading();
                 }
             };
             xhr.send(formData);
@@ -104,10 +104,10 @@
          *
          * @param {Object} data
          */
-        this.onErrorUploading = function(data) {
+        this.onErrorUploading = function() {
             var text = editor.getValue().replace(lastValue, "");
             editor.setValue(text);
-            if (settings.customErrorHandler(data)) {
+            if (settings.customErrorHandler()) {
                 window.alert(settings.errorText);
             }
         };
