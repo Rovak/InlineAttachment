@@ -84,7 +84,12 @@ All versions can be configured using the following options:
      * @param {Blob} file
      * @return {Boolean} when false is returned it will prevent default upload behavior
      */
-    customUploadHandler: function(file) { return true; }
+    customUploadHandler: function(file) { return true; },
+
+    /**
+     * Error message for default error handler
+     */
+    errorText: "Error uploading file"
 }
 ```
 
