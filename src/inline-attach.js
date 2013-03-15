@@ -58,6 +58,8 @@
                 if (xhr.status === 200 || xhr.status === 201) {
                     var data = JSON.parse(xhr.responseText);
                     me.onUploadedFile(data);
+                } else {
+                    me.onErrorUploading();
                 }
             };
             xhr.send(formData);
@@ -94,6 +96,20 @@
          */
         this.customUploadHandler = function(file) {
             return settings.customUploadHandler(file);
+        };
+
+        /**
+         * When a file didn't upload properly.
+         * Override by passing your own onErrorUploading function with settings.
+         *
+         * @param {Object} data
+         */
+        this.onErrorUploading = function() {
+            var text = editor.getValue().replace(lastValue, "");
+            editor.setValue(text);
+            if (settings.customErrorHandler()) {
+                window.alert(settings.errorText);
+            }
         };
 
         /**
@@ -227,6 +243,19 @@
          * @return {Boolean} when false is returned it will prevent default upload behavior
          */
         customUploadHandler: function() { return true; },
+
+        /**
+         * Custom error handler. Runs after removing the placeholder text and before the alert().
+         * Return false from this function to prevent the alert dialog.
+         *
+         * @return {Boolean} when false is returned it will prevent default error behavior
+         */
+        customErrorHandler: function() { return true; },
+
+        /**
+         * Text for default error when uploading
+         */
+        errorText: "Error uploading file",
 
         /**
          * When a file has succesfully been uploaded
