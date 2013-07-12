@@ -46,11 +46,18 @@
          */
         this.uploadFile = function(file) {
             var formData = new FormData(),
-                xhr = new XMLHttpRequest();
+                xhr = new XMLHttpRequest(),
+                extension = 'png';
 
             // Attach the file. If coming from clipboard, add a default filename (only works in Chrome for now)
-            // http://stackoverflow.com/questions/6664967/how-to-give-a-blob-uploaded-as-formdata-a-file-name
-            formData.append(settings.uploadFieldName, file, "image-" + Date.now() + ".png");
+            // http://stackoverflow.com/questions/6664967/how-to-give-a-blob-uploaded-as-formdata-a-file-name	 
+            if (file.name) {
+              var fileNameMatches = file.name.match(/\.(.+)$/); 
+              if (fileNameMatches) {
+                extension = fileNameMatches[1];
+              }
+            }
+            formData.append(settings.uploadFieldName, file, "image-" + Date.now() + "." + extension);
 
             xhr.open('POST', settings.uploadUrl);
             xhr.onload = function() {
