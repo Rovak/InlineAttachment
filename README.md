@@ -133,46 +133,4 @@ This should build the project and the files will appear in the `dist/` folder
 
 ## Changelog
 
-### 1.2.5 (12-07-2013)
-
-* Detect filename extension in chrome [goruha](https://github.com/goruha)
-
-### 1.2.4 (15-03-2013)
-
-* Added custom error handler [micho](https://github.com/micho)
-
-### 1.2.3 (04-03-2013)
-
-* Updated Grunt.js tasks
-
-### 1.2.2 (04-03-2013)
-
-* Fixed some documentation errors
-
-### 1.2.1 (04-03-2013)
-
-* Added onUploadedFile callback ([ROMB](https://github.com/ROMB))
-
-### 1.2.0 (27-02-2013)
-
-* Added 201 code on upload to make it compatible with a REST create response
-* Now supports custom field names for upload
-* Added default filename for Chrome's paste
-* Better newline handling for pastes
-
-Thanks to [micho](https://github.com/micho) for this patch!
-
-### 1.1.1 (22-02-2013)
-
-* Fixed paste, drag & drop and CodeMirror events in Firefox
-
-### 1.1.0 (05-01-2013)
-
-* Changed options parameters, upload_url to uploadUrl and allowed_types to allowedTypes.
-* Added `onReceivedFile` and `onUploadedFile` hooks.
-* Changed the way different editors are handled.
-* The markdown syntax can now be replaced by changing the `progressText` and `urlText` options.
-
-### 1.0.0 (30-12-2012)
-
-* Markdown, jQuery, Codemirror and standard Textarea support.
+[See Github releases](https://github.com/Rovak/InlineAttachment/releases)
