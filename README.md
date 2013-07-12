@@ -1,4 +1,4 @@
-# Inline Attachment 1.2.4 [![Master Branch Build Status](https://api.travis-ci.org/Rovak/InlineAttachment.png?branch=master)](http://travis-ci.org/Rovak/InlineAttachment) ![project status](http://stillmaintained.com/Rovak/InlineAttachment.png)
+# Inline Attachment 1.2.5 [![Master Branch Build Status](https://api.travis-ci.org/Rovak/InlineAttachment.png?branch=master)](http://travis-ci.org/Rovak/InlineAttachment) ![project status](http://stillmaintained.com/Rovak/InlineAttachment.png)
 
 Adds upload functionality to a textarea or CodeMirror instance by either drag-dropping or pasting (only in chrome) an image inside it.
 
@@ -132,6 +132,10 @@ grunt
 This should build the project and the files will appear in the `dist/` folder
 
 ## Changelog
+
+### 1.2.5 (12-07-2013)
+
+* Detect filename extension in chrome [goruha](https://github.com/goruha)
 
 ### 1.2.4 (15-03-2013)
 
