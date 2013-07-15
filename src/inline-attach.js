@@ -3,10 +3,8 @@
 /*
  * Inline Text Attachment
  *
- * Copyright 2012 Roy van Kaathoven.
- * Contact: royvankaathoven@hotmail.com
- *
- * Licensed under the MIT License.
+ * Author: Roy van Kaathoven
+ * Contact: ik@royvankaathoven.nl
  */
 (function(document, window) {
     "use strict";
