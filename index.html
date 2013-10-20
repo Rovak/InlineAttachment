@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <title>Inline Attachment by Rovak</title>
+  </head>
+
+  <body>
+    <header>
+      <div class="inner">
+        <h1>Inline Attachment</h1>
+        <h2>Embed images inside textareas</h2>
+        <a href="https://github.com/Rovak/InlineAttachment" class="button"><small>View project on</small>GitHub</a>
+      </div>
+    </header>
+
+    <div id="content-wrapper">
+      <div class="inner clearfix">
+        <section id="main-content">
+          <p>Adds upload functionality to a textarea or CodeMirror instance by either drag-dropping or pasting (only in chrome) an image inside it.</p>
+
+<p>It mimics the comment system on issues which is used on Github.</p>
+
+<p><img src="https://f.cloud.github.com/assets/21/678/248aac6a-40a2-11e2-9a76-fd59ded28bbe.gif" alt="demo"></p>
+
+<h2>
+<a name="download" class="anchor" href="#download"><span class="octicon octicon-link"></span></a>Download</h2>
+
+<p>The most recent minified versions can be found <a href="http://data.razko.nl/projects/inlineattachment/latest/">here</a></p>
+
+<h2>
+<a name="usage" class="anchor" href="#usage"><span class="octicon octicon-link"></span></a>Usage</h2>
+
+<p><strong>Configuration</strong></p>
+
+<p>All versions can be configured using the following options:</p>
+
+<div class="highlight highlight-javascript"><pre><span class="p">{</span>
+    <span class="cm">/**</span>
+<span class="cm">     * URL which handles the data</span>
+<span class="cm">     */</span>
+    <span class="nx">uploadUrl</span><span class="o">:</span> <span class="s1">'upload_attachment.php'</span><span class="p">,</span>
+
+    <span class="cm">/**</span>
+<span class="cm">     * Name of the POST field where the file will be sent.</span>
+<span class="cm">     * Defaults to 'file'.</span>
+<span class="cm">     */</span>
+    <span class="nx">uploadFieldName</span><span class="o">:</span> <span class="s1">'file'</span><span class="p">,</span>
+
+    <span class="cm">/**</span>
+<span class="cm">     * Name of the field from the response where the file can be downloaded.</span>
+<span class="cm">     * Defaults to 'filename'</span>
+<span class="cm">     */</span>
+    <span class="nx">downloadFieldName</span><span class="o">:</span> <span class="s1">'file'</span><span class="p">,</span>
+
+    <span class="c1">// List of allowed MIME types</span>
+    <span class="nx">allowedTypes</span><span class="o">:</span> <span class="p">[</span>
+        <span class="s1">'image/jpeg'</span><span class="p">,</span>
+        <span class="s1">'image/png'</span><span class="p">,</span>
+        <span class="s1">'image/jpg'</span><span class="p">,</span>
+        <span class="s1">'image/gif'</span>
+    <span class="p">],</span>
+
+    <span class="cm">/**</span>
+<span class="cm">     * Will be inserted on a drop or paste event</span>
+<span class="cm">     */</span>
+    <span class="nx">progressText</span><span class="o">:</span> <span class="s1">'![Uploading file...]()'</span><span class="p">,</span>
+
+    <span class="cm">/**</span>
+<span class="cm">     * When a file has successfully been uploaded the last inserted text</span>
+<span class="cm">     * will be replaced by the urlText, the {filename} tag will be replaced</span>
+<span class="cm">     * by the filename that has been returned by the server</span>
+<span class="cm">     */</span>
+    <span class="nx">urlText</span><span class="o">:</span> <span class="s2">"![file]({filename})"</span><span class="p">,</span>
+
+    <span class="cm">/**</span>
+<span class="cm">     * When a file is received by drag-drop or paste</span>
+<span class="cm">     *</span>
+<span class="cm">     * @param {Blob} file</span>
+<span class="cm">     */</span>
+    <span class="nx">onReceivedFile</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">file</span><span class="p">)</span> <span class="p">{},</span>
+
+    <span class="cm">/**</span>
+<span class="cm">     * When a file has succesfully been uploaded</span>
+<span class="cm">     *</span>
+<span class="cm">     * @param {Object} json JSON data returned from the server</span>
+<span class="cm">     */</span>
+    <span class="nx">onUploadedFile</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">json</span><span class="p">)</span> <span class="p">{},</span>
+
+    <span class="cm">/**</span>
+<span class="cm">     * Custom error handler. Runs after removing the placeholder text and before the alert().</span>
+<span class="cm">     * Return false from this function to prevent the alert dialog.</span>
+<span class="cm">     *</span>
+<span class="cm">     * @return {Boolean} when false is returned it will prevent default error behavior</span>
+<span class="cm">     */</span>
+    <span class="nx">customErrorHandler</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="kc">true</span><span class="p">;</span> <span class="p">},</span>
+
+    <span class="cm">/**</span>
+<span class="cm">     * Custom upload handler, must return false to prevent default handler.</span>
+<span class="cm">     * Can be used to send file via custom transport(like socket.io)</span>
+<span class="cm">     *</span>
+<span class="cm">     * @param {Blob} file</span>
+<span class="cm">     * @return {Boolean} when false is returned it will prevent default upload behavior</span>
+<span class="cm">     */</span>
+    <span class="nx">customUploadHandler</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">file</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="kc">true</span><span class="p">;</span> <span class="p">},</span>
+
+    <span class="cm">/**</span>
+<span class="cm">     * Error message for default error handler</span>
+<span class="cm">     */</span>
+    <span class="nx">errorText</span><span class="o">:</span> <span class="s2">"Error uploading file"</span>
+<span class="p">}</span>
+</pre></div>
+
+<p><strong>jQuery</strong></p>
+
+<div class="highlight highlight-javascript"><pre><span class="nx">$</span><span class="p">(</span><span class="s1">'textarea'</span><span class="p">).</span><span class="nx">inlineattach</span><span class="p">(</span><span class="nx">options</span><span class="p">);</span>
+</pre></div>
+
+<p><strong>CodeMirror</strong></p>
+
+<div class="highlight highlight-javascript"><pre><span class="kd">var</span> <span class="nx">editor</span> <span class="o">=</span> <span class="nx">CodeMirror</span><span class="p">.</span><span class="nx">fromTextArea</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">"textarea_editor"</span><span class="p">));</span>
+<span class="nx">inlineAttach</span><span class="p">.</span><span class="nx">attachToCodeMirror</span><span class="p">(</span><span class="nx">editor</span><span class="p">,</span> <span class="nx">options</span><span class="p">);</span>
+</pre></div>
+
+<p><strong>Input field</strong></p>
+
+<div class="highlight highlight-javascript"><pre><span class="nx">inlineAttach</span><span class="p">.</span><span class="nx">attachToInput</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">'inputfield'</span><span class="p">),</span> <span class="nx">options</span><span class="p">);</span>
+</pre></div>
+
+<p><strong>Handling image uploads</strong></p>
+
+<p>The Demo folder contains an example in PHP on how to handle uploads.</p>
+
+<h2>
+<a name="build" class="anchor" href="#build"><span class="octicon octicon-link"></span></a>Build</h2>
+
+<p>To build the project you need node, npm and grunt installed. These tools can be installed on Ubuntu as follows:</p>
+
+<p>Follow the Node.js guide: <a href="https://github.com/joyent/node/wiki/Installing-Node.js-via-package-manager">Node.js installation</a></p>
+
+<p>Go to the project folder and run the following:</p>
+
+<div class="highlight highlight-sh"><pre>npm install
+grunt
+</pre></div>
+
+<p>This should build the project and the files will appear in the <code>dist/</code> folder</p>
+
+<h2>
+<a name="changelog" class="anchor" href="#changelog"><span class="octicon octicon-link"></span></a>Changelog</h2>
+
+<p><a href="https://github.com/Rovak/InlineAttachment/releases">See Github releases</a></p>
+        </section>
+
+        <aside id="sidebar">
+          <a href="https://github.com/Rovak/InlineAttachment/zipball/master" class="button">
+            <small>Download</small>
+            .zip file
+          </a>
+          <a href="https://github.com/Rovak/InlineAttachment/tarball/master" class="button">
+            <small>Download</small>
+            .tar.gz file
+          </a>
+
+          <p class="repo-owner"><a href="https://github.com/Rovak/InlineAttachment"></a> is maintained by <a href="https://github.com/Rovak">Rovak</a>.</p>
+
+          <p>This page was generated by <a href="pages.github.com">GitHub Pages</a> using the Architect theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.</p>
+        </aside>
+      </div>
+    </div>
+
+  
+  </body>
+</html>
