@@ -111,7 +111,7 @@ inlineAttach.attachToCodeMirror(editor, options);
 Textarea
 
 ```html
-<textarea rows="10" cols="50"
+<textarea
     inlineattach
     inlineattach-progress-text="Sending..."
     inlineattach-on-received-file="receivedFile"></textarea>
