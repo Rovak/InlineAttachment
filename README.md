@@ -106,6 +106,27 @@ var editor = CodeMirror.fromTextArea(document.getElementById("textarea_editor"))
 inlineAttach.attachToCodeMirror(editor, options);
 ```
 
+__AngularJS__
+
+Textarea
+
+```html
+<textarea rows="10" cols="50"
+    inlineattach
+    inlineattach-progress-text="Sending..."
+    inlineattach-on-received-file="receivedFile"></textarea>
+```
+
+Controller
+
+```javascript
+function textAreaCtrl($scope) {
+    $scope.receivedFile = function(file) {
+        console.log('received file!', file);
+    }
+}
+```
+
 __Input field__
 
 ```javascript
