@@ -11,13 +11,18 @@
         <script src="../src/angularjs.inline-attach.js"></script>
         <script type="text/javascript">
             function textAreaCtrl($scope) {
-
+                $scope.receivedFile = function(file) {
+                    console.log('received file!', file);
+                }
             }
         </script>
     </head>
     <body ng-app="inlineattachment">
         <div ng-controller="textAreaCtrl">
-            <textarea rows="10" cols="50" inlineattach inlineattach-progress-text="Sending..."></textarea>
+            <textarea rows="10" cols="50"
+                inlineattach
+                inlineattach-progress-text="Sending..."
+                inlineattach-on-received-file="receivedFile"></textarea>
             <textarea rows="10" cols="50" inlineattach></textarea>
             <textarea rows="10" cols="50" inlineattach></textarea>
         </div>
