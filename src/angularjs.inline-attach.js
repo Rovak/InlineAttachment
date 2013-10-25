@@ -25,7 +25,7 @@
     function readParameters(obj, scope) {
         var result = {},
             attrs = obj.$attr,
-            option, scopeFunc, value;
+            option, value;
 
         for (var key in attrs) {
             option = lcfirst(key.substr(attrName.length));
