@@ -22,12 +22,20 @@
      * @param  {Object} obj attributes
      * @return {Object}
      */
-    function readParameters(obj) {
-        var result = {};
-        for (var key in obj) {
+    function readParameters(obj, scope) {
+        var result = {},
+            attrs = obj.$attr,
+            option, scopeFunc, value;
+
+        for (var key in attrs) {
+            option = lcfirst(key.substr(attrName.length));
+            value = obj[key];
             // Check if the given key is a valid string type, not empty and starts with the attribute name
-            if (typeof obj[key] === 'string' && obj[key] && key.substring(0, attrName.length) === attrName) {
-                result[lcfirst(key.substr(attrName.length))] = obj[key];
+            if ((option.length > 0) && (key.substring(0, attrName.length) === attrName)) {
+                result[option] = value;
+                if (typeof scope[value] === 'function') {
+                    result[option] = scope[value];
+                }
             }
         }
 
@@ -36,7 +44,7 @@
 
     module.directive(attrName, function () {
         return function (scope, element, attrs) {
-            var options = readParameters(attrs);
+            var options = readParameters(attrs, scope);
             inlineAttach.attachToInput(element.context, options);
         };
     });
