@@ -3,7 +3,8 @@
   "authors": [
     "Roy van Kaathoven @razko <ik@royvankaathoven.nl> (https://github.com/rovak)"
   ],
-  "version": "1.2.5",
+  "version": "1.2.6",
+  "dependencies" : {},
   "devDependencies": {
     "grunt": "~0.4",
     "grunt-contrib-jshint": "~0.2.0",
