@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>AngularJS InlineAttachment Demo</title>
+
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script>
+
+        <script src="../src/inline-attach.js"></script>
+        <script src="../src/angularjs.inline-attach.js"></script>
+        <script type="text/javascript">
+            function textAreaCtrl($scope) {
+                $scope.receivedFile = function(file) {
+                    console.log('received file!', file);
+                }
+            }
+        </script>
+    </head>
+    <body ng-app="inlineattachment">
+        <div ng-controller="textAreaCtrl">
+            <textarea rows="10" cols="50"
+                inlineattach
+                inlineattach-progress-text="Sending..."
+                inlineattach-on-received-file="receivedFile"></textarea>
+            <textarea rows="10" cols="50" inlineattach></textarea>
+            <textarea rows="10" cols="50" inlineattach></textarea>
+        </div>
+    </body>
+</html>

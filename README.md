@@ -93,26 +93,47 @@ All versions can be configured using the following options:
 }
 ```
 
-__jQuery__
+### jQuery
 
 ```javascript
 $('textarea').inlineattach(options);
 ```
 
-__CodeMirror__
+### CodeMirror
 
 ```javascript
 var editor = CodeMirror.fromTextArea(document.getElementById("textarea_editor"));
 inlineAttach.attachToCodeMirror(editor, options);
 ```
 
-__Input field__
+### AngularJS
+
+Textarea
+
+```html
+<textarea
+    inlineattach
+    inlineattach-progress-text="Sending..."
+    inlineattach-on-received-file="receivedFile"></textarea>
+```
+
+Controller
+
+```javascript
+function textAreaCtrl($scope) {
+    $scope.receivedFile = function(file) {
+        console.log('received file!', file);
+    }
+}
+```
+
+### Input field
 
 ```javascript
 inlineAttach.attachToInput(document.getElementById('inputfield'), options);
 ```
 
-__Handling image uploads__
+## Handling image uploads
 
 The Demo folder contains an example in PHP on how to handle uploads.
 

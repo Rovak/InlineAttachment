@@ -24,6 +24,10 @@ module.exports = function(grunt) {
             codemirror: {
                 src: ['<banner>', 'src/inline-attach.js', 'src/codemirror.inline-attach.js' ],
                 dest: 'dist/codemirror.inline-attach.js'
+            },
+            angularjs: {
+                src: ['<banner>', 'src/inline-attach.js', 'src/angularjs.inline-attach.js' ],
+                dest: 'dist/angularjs.inline-attach.js'
             }
         },
         // Lists of files to be minified with UglifyJS.
@@ -44,6 +48,11 @@ module.exports = function(grunt) {
             codemirror: {
                 src: [ '<banner>', 'dist/codemirror.inline-attach.js' ],
                 dest: 'dist/codemirror.inline-attach.min.js',
+                separator: ';'
+            },
+            angularjs: {
+                src: [ '<banner>', 'dist/angularjs.inline-attach.js' ],
+                dest: 'dist/angularjs.inline-attach.min.js',
                 separator: ';'
             }
         },
