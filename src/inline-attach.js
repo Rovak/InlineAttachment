@@ -88,9 +88,18 @@
             var result = settings.onUploadedFile(data),
                 filename = data[settings.downloadFieldName];
             if (result !== false && filename) {
-                var text = editor.getValue().replace(lastValue, settings.urlText.replace(filenameTag, filename));
-                editor.setValue(text);
+                this.replacePendingFilename(filename);
             }
+        };
+
+        /**
+         * Replace the filename for the currently pending request
+         *
+         * @param {String} filename the filename which should be placed in a loading tag
+         */
+        this.replacePendingFilename = function(filename) {
+            var text = editor.getValue().replace(lastValue, settings.urlText.replace(filenameTag, filename));
+            editor.setValue(text);
         };
 
         /**
