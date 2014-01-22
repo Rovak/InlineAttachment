@@ -42,7 +42,7 @@
          *
          * @param {Blob} file
          */
-        
+
         this.uploadFile = function(file) {
             var formData = new FormData(),
                 xhr = new XMLHttpRequest(),
@@ -57,17 +57,11 @@
                 }
             }
             formData.append(settings.uploadFieldName, file, "image-" + Date.now() + "." + extension);
-            
-            
             // Added functionality for a dynamic input form data's @ the uploadprocess, see more info @ jquery.inline-attach.js pls..
             if(options.exFormData != undefined) {
-                
-                $.each(options.exFormData,function(i,val_){
-                    
-                    formData.append(val_, editor.getNecessary[val_]);
-               
-                });
-            
+                for(var i in options.exFormData) {
+                    formData.append(options.exFormData[i], editor.getNecessary[options.exFormData[i]]);
+                }
             }
             
             xhr.open('POST', settings.uploadUrl);
@@ -82,7 +76,7 @@
             };
             xhr.send(formData);
         };
-
+        
         /**
          * Check if the given file is allowed
          *
@@ -91,7 +85,6 @@
         this.isAllowedFile = function(file) {
             return settings.allowedTypes.indexOf(file.type) >= 0;
         };
-
         /**
          * When a file has finished uploading
          *
