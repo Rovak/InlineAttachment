@@ -42,6 +42,7 @@
          *
          * @param {Blob} file
          */
+
         this.uploadFile = function(file) {
             var formData = new FormData(),
                 xhr = new XMLHttpRequest(),
@@ -56,7 +57,12 @@
                 }
             }
             formData.append(settings.uploadFieldName, file, "image-" + Date.now() + "." + extension);
-
+            // Added functionality for a dynamic input form data's @ the uploadprocess, see more info @ jquery.inline-attach.js pls..
+            if(options.exFormData !== undefined) {
+                for(var i in options.exFormData) {
+                    formData.append(options.exFormData[i], editor.getNecessary[options.exFormData[i]]);
+                }
+            }
             xhr.open('POST', settings.uploadUrl);
             xhr.onload = function() {
                 // If HTTP status is OK or Created
@@ -69,7 +75,6 @@
             };
             xhr.send(formData);
         };
-
         /**
          * Check if the given file is allowed
          *
@@ -78,7 +83,6 @@
         this.isAllowedFile = function(file) {
             return settings.allowedTypes.indexOf(file.type) >= 0;
         };
-
         /**
          * When a file has finished uploading
          *
@@ -92,7 +96,6 @@
                 editor.setValue(text);
             }
         };
-
         /**
          * Custom upload handler
          *
@@ -167,7 +170,6 @@
 
             return result;
         };
-
         /**
          * Catches onDrop event
          *
@@ -186,11 +188,9 @@
                     }
                 }
             }
-
             return result;
         };
     };
-
     /**
      * Editor
      */
@@ -207,7 +207,6 @@
             }
         };
     };
-
     /**
      * Default configuration
      */
@@ -228,14 +227,14 @@
         /**
          * Will be inserted on a drop or paste event
          */
-        progressText: '![Uploading file...]()',
+        progressText: '',
 
         /**
          * When a file has successfully been uploaded the last inserted text
          * will be replaced by the urlText, the {filename} tag will be replaced
          * by the filename that has been returned by the server
          */
-        urlText: "![file]({filename})",
+        urlText: "{filename}",
 
         /**
          * When a file is received by drag-drop or paste
@@ -266,6 +265,7 @@
          * When a file has succesfully been uploaded
          */
         onUploadedFile: function() {}
+
     };
 
     /**
@@ -287,6 +287,7 @@
         input.addEventListener('drop', function(e) {
             e.stopPropagation();
             e.preventDefault();
+           
             inlineattach.onDrop(e);
         }, false);
         input.addEventListener('dragenter', function(e) {
