@@ -28,7 +28,7 @@
             },
             getNecessary: []
         };
-        if(opt.neededAttrData !== undefined && opt.exFormData !== undefined') {
+        if(opt.neededAttrData !== undefined && opt.exFormData !== undefined) {
             $.each(opt.neededAttrData,function(i,val_){
                 /* Example to get it customized to my project: The needed Infos(example: rel-Attribute) are only @the Lookcontainer...
                  ret.getNecessary[opt.exFormData[i]] = $(instance).parents('.container').attr(val_); 
@@ -46,7 +46,7 @@
                 At this example the 'rel'-Attribute will set to be send as 'relatedToId' @ the formData() functionality @ L. 66 - 74 (inline-attach.js)
                 */
                 // getNecessary is the collector which will contain all options for the formData() functionality @each object
-                ret.getNecessary[opt.exFormData[i]] = $(instance).parents('.overContent').attr(val_);
+                ret.getNecessary[opt.exFormData[i]] = $(instance).attr(val_);
             });
         }
 
