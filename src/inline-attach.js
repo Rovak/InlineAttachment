@@ -58,12 +58,11 @@
             }
             formData.append(settings.uploadFieldName, file, "image-" + Date.now() + "." + extension);
             // Added functionality for a dynamic input form data's @ the uploadprocess, see more info @ jquery.inline-attach.js pls..
-            if(options.exFormData != undefined) {
+            if(options.exFormData !== undefined) {
                 for(var i in options.exFormData) {
                     formData.append(options.exFormData[i], editor.getNecessary[options.exFormData[i]]);
                 }
             }
-            
             xhr.open('POST', settings.uploadUrl);
             xhr.onload = function() {
                 // If HTTP status is OK or Created
@@ -76,7 +75,6 @@
             };
             xhr.send(formData);
         };
-        
         /**
          * Check if the given file is allowed
          *
@@ -98,7 +96,6 @@
                 editor.setValue(text);
             }
         };
-
         /**
          * Custom upload handler
          *
@@ -173,7 +170,6 @@
 
             return result;
         };
-
         /**
          * Catches onDrop event
          *
@@ -187,17 +183,14 @@
                 if (me.isAllowedFile(file)) {
                     result = true;
                     this.onReceivedFile(file);
-                    
                     if(this.customUploadHandler(file)){
                         this.uploadFile(file);
                     }
                 }
             }
-
             return result;
         };
     };
-
     /**
      * Editor
      */
@@ -214,7 +207,6 @@
             }
         };
     };
-
     /**
      * Default configuration
      */
