@@ -57,6 +57,15 @@
             }
             formData.append(settings.uploadFieldName, file, "image-" + Date.now() + "." + extension);
 
+            // Add any available extra parameters
+            if (typeof settings.extraParams == "object") {
+                for (var key in settings.extraParams) {
+                    if (settings.extraParams.hasOwnProperty(key)) {
+                        formData.append(key, settings.extraParams[key]);
+                    }
+                }
+            }
+
             xhr.open('POST', settings.uploadUrl);
             xhr.onload = function() {
                 // If HTTP status is OK or Created
@@ -253,6 +262,11 @@
          * Text for default error when uploading
          */
         errorText: "Error uploading file",
+
+        /**
+         * Extra parameters which will be send when uploading a file
+         */
+        extraParams: {},
 
         /**
          * When a file is received by drag-drop or paste
