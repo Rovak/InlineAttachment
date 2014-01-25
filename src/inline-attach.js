@@ -58,7 +58,7 @@
             formData.append(settings.uploadFieldName, file, "image-" + Date.now() + "." + extension);
 
             // Add any available extra parameters
-            if (typeof settings.extraParams == "object") {
+            if (typeof settings.extraParams === "object") {
                 for (var key in settings.extraParams) {
                     if (settings.extraParams.hasOwnProperty(key)) {
                         formData.append(key, settings.extraParams[key]);
