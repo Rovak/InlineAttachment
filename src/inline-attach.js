@@ -125,8 +125,8 @@
          */
         function appendInItsOwnLine(previous, appended) {
             return (previous + "\n\n[[D]]" + appended)
-                  .replace(/(\n{2,})\[\[D\]\]/, "\n\n")
-                  .replace(/^(\n*)/, "");
+                .replace(/(\n{2,})\[\[D\]\]/, "\n\n")
+                .replace(/^(\n*)/, "");
         }
 
         /**
@@ -157,7 +157,7 @@
                     if (me.isAllowedFile(item)) {
                         result = true;
                         this.onReceivedFile(item.getAsFile());
-                        if(this.customUploadHandler(item.getAsFile())){
+                        if (this.customUploadHandler(item.getAsFile())) {
                             this.uploadFile(item.getAsFile());
                         }
                     }
@@ -181,7 +181,7 @@
                 if (me.isAllowedFile(file)) {
                     result = true;
                     this.onReceivedFile(file);
-                    if(this.customUploadHandler(file)){
+                    if (this.customUploadHandler(file)) {
                         this.uploadFile(file);
                     }
                 }
@@ -212,12 +212,24 @@
      * Default configuration
      */
     window.inlineAttach.defaults = {
-        // URL to upload the attachment
+        /**
+         * URL to upload the attachment
+         */
         uploadUrl: 'upload_attachment.php',
-        // Request field name where the attachment will be placed in the form data
+
+        /**
+         * Request field name where the attachment will be placed in the form data
+         */
         uploadFieldName: 'file',
-        // Where is the filename placed in the response
+
+        /**
+         * Where is the filename placed in the response
+         */
         downloadFieldName: 'filename',
+
+        /**
+         * Allowed types
+         */
         allowedTypes: [
             'image/jpeg',
             'image/png',
@@ -238,6 +250,11 @@
         urlText: "![file]({filename})",
 
         /**
+         * Text for default error when uploading
+         */
+        errorText: "Error uploading file",
+
+        /**
          * When a file is received by drag-drop or paste
          */
         onReceivedFile: function() {},
@@ -247,7 +264,9 @@
          *
          * @return {Boolean} when false is returned it will prevent default upload behavior
          */
-        customUploadHandler: function() { return true; },
+        customUploadHandler: function() {
+            return true;
+        },
 
         /**
          * Custom error handler. Runs after removing the placeholder text and before the alert().
@@ -255,12 +274,9 @@
          *
          * @return {Boolean} when false is returned it will prevent default error behavior
          */
-        customErrorHandler: function() { return true; },
-
-        /**
-         * Text for default error when uploading
-         */
-        errorText: "Error uploading file",
+        customErrorHandler: function() {
+            return true;
+        },
 
         /**
          * When a file has succesfully been uploaded
@@ -278,8 +294,8 @@
 
         options = options || {};
 
-        var editor          = new inlineAttach.Editor(input),
-            inlineattach    = new inlineAttach(options, editor);
+        var editor = new inlineAttach.Editor(input),
+            inlineattach = new inlineAttach(options, editor);
 
         input.addEventListener('paste', function(e) {
             inlineattach.onPaste(e);
