@@ -56,6 +56,16 @@ All versions can be configured using the following options:
     urlText: "![file]({filename})",
 
     /**
+     * Error message for default error handler
+     */
+    errorText: "Error uploading file",
+
+    /**
+     * Extra parameters which will be send as POST data when sending a file
+     */
+    extraParams: {},
+
+    /**
      * When a file is received by drag-drop or paste
      *
      * @param {Blob} file
@@ -84,12 +94,7 @@ All versions can be configured using the following options:
      * @param {Blob} file
      * @return {Boolean} when false is returned it will prevent default upload behavior
      */
-    customUploadHandler: function(file) { return true; },
-
-    /**
-     * Error message for default error handler
-     */
-    errorText: "Error uploading file"
+    customUploadHandler: function(file) { return true; }
 }
 ```
 
