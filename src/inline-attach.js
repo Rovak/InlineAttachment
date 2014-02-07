@@ -158,11 +158,15 @@
          */
         this.onPaste = function(e) {
             var result = false,
-                clipboardData = e.clipboardData;
+                clipboardData = e.clipboardData,
+                items;
 
-            if (typeof clipboardData === "object" && clipboardData.items !== null) {
-                for (var i = 0; i < clipboardData.items.length; i++) {
-                    var item = clipboardData.items[i];
+            if (typeof clipboardData === "object") {
+
+                items = clipboardData.items || clipboardData.files || [];
+
+                for (var i = 0; i < items.length; i++) {
+                    var item = items[i];
                     if (me.isAllowedFile(item)) {
                         result = true;
                         this.onReceivedFile(item.getAsFile());
