@@ -95,6 +95,14 @@ All versions can be configured using the following options:
      * @return {Boolean} when false is returned it will prevent default upload behavior
      */
     customUploadHandler: function(file) { return true; }
+
+    /**
+     * Data processor after upload a file
+     *
+     * @param {Object} data JSON data returned from the server
+     * @return {Object} modified object
+     */
+    dataProcessor: function(data) { return data; }
 }
 ```
 
