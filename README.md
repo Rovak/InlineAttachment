@@ -90,6 +90,11 @@ All versions can be configured using the following options:
      * Error message for default error handler
      */
     errorText: "Error uploading file"
+
+    /**
+     * Data processor after upload a file
+     */
+    dataProcessor: function(data) { return data; }
 }
 ```
 

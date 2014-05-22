@@ -86,7 +86,14 @@
          */
         this.onUploadedFile = function(data) {
             var result = settings.onUploadedFile(data),
-                filename = data[settings.downloadFieldName];
+                filename;
+
+            if (settings.dataProcessor) {
+              data = settings.dataProcessor(data);
+            }
+
+            filename = data[settings.downloadFieldName];
+
             if (result !== false && filename) {
                 var text = editor.getValue().replace(lastValue, settings.urlText.replace(filenameTag, filename));
                 editor.setValue(text);
