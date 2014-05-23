@@ -98,7 +98,7 @@
                 filename;
 
             if (settings.dataProcessor) {
-              data = settings.dataProcessor(data);
+                data = settings.dataProcessor(data);
             }
 
             filename = data[settings.downloadFieldName];
