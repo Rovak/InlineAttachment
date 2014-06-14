@@ -3,20 +3,14 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to InlineAttachment's documentation!
+InlineAttachment |version| documentation
 ============================================
 
-Contents:
+:doc:`pages/getting-started`
+    Getting started
+
+:doc:`pages/configuration`
+    Configuring the plugin
 
 .. toctree::
-   :maxdepth: 2
-
-
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
-
+   :hidden:
