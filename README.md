@@ -66,6 +66,11 @@ All versions can be configured using the following options:
     extraParams: {},
 
     /**
+     * Extra headers which will be send as POST data when sending a file
+     */
+    extraHeaders: {},
+
+    /**
      * When a file is received by drag-drop or paste
      *
      * @param {Blob} file
