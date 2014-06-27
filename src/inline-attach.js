@@ -67,6 +67,16 @@
             }
 
             xhr.open('POST', settings.uploadUrl);
+
+            // Add any available extra headers
+            if (typeof settings.extraHeaders === "object") {
+                for (var header in settings.extraHeaders) {
+                    if (settings.extraHeaders.hasOwnProperty(header)) {
+                        xhr.setRequestHeader(header, settings.extraHeaders[header]);
+                    }
+                }
+            }
+
             xhr.onload = function() {
                 // If HTTP status is OK or Created
                 if (xhr.status === 200 || xhr.status === 201) {
@@ -278,6 +288,11 @@
          * Extra parameters which will be send when uploading a file
          */
         extraParams: {},
+
+        /**
+         * Extra headers which will be send when uploading a file
+         */
+        extraHeaders: {},
 
         /**
          * When a file is received by drag-drop or paste
