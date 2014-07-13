@@ -219,8 +219,8 @@ inlineAttachment.prototype.onFileUploadResponse = function(xhr) {
  * @return {Void}
  */
 inlineAttachment.prototype.onFileUploadError = function() {
-  var text = editor.getValue().replace(this.lastValue, "");
-  editor.setValue(text);
+  var text = this.editor.getValue().replace(this.lastValue, "");
+  this.editor.setValue(text);
 };
 
 /**
@@ -235,7 +235,7 @@ inlineAttachment.prototype.onFileInserted = function(file) {
 
   if (result !== false) {
     this.lastValue = this.settings.progressText;
-    this.editor.setValue(util.appendInItsOwnLine(editor.getValue(), this.lastValue));
+    this.editor.setValue(util.appendInItsOwnLine(this.editor.getValue(), this.lastValue));
   }
 };
 
