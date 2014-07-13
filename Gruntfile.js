@@ -14,7 +14,7 @@ module.exports = function(grunt) {
         banner: banner
       },
       normal: {
-        src: ['<banner>', 'src/inline-attachment.js'],
+        src: ['<banner>', 'src/inline-attachment.js', 'src/input.inline-attachment.js'],
         dest: 'dist/inline-attachment.js'
       },
       jquery: {
