@@ -1,5 +1,5 @@
 /*jslint newcap: true */
-/*global inlineAttach: false, jQuery: false */
+/*global inlineAttachment: false, jQuery: false */
 /**
  * jQuery plugin for inline attach
  *
@@ -10,7 +10,7 @@
 (function(document, window, $) {
   'use strict';
 
-  codemirror.editors.jquery = {};
+  inlineAttachment.editors.jquery = {};
 
   /**
    * Creates a new editor using jQuery
@@ -58,6 +58,6 @@
     return this;
   };
 
-  codemirror.editors.jquery.Editor = editor;
+  inlineAttachment.editors.jquery.Editor = editor;
 
 })(document, window, jQuery);

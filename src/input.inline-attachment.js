@@ -1,4 +1,7 @@
-(function(document, window) {
+/*jslint newcap: true */
+/*global inlineAttachment: false */
+(function() {
+  'use strict';
 
   inlineAttachment.editors.input = {
     Editor: function(instance) {
@@ -36,7 +39,7 @@
         e.stopPropagation();
         e.preventDefault();
       }, false);
-    },
+    }
   };
 
-})(document, window);
+})();

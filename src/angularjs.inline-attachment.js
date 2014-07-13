@@ -1,5 +1,5 @@
 /*jslint newcap: true */
-/*global inlineAttach: false, angular: false */
+/*global inlineAttachment: false, angular: false */
 /**
  * AngularJS plugin for inline attachment
  *
@@ -48,7 +48,7 @@
   module.directive(attrName, function() {
     return function(scope, element, attrs) {
       var options = readParameters(attrs, scope);
-      inlineAttach.attachToInput(element.context, options);
+      inlineAttachment.attachToInput(element.context, options);
     };
   });
 })(document, window, angular);

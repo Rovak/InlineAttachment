@@ -67,7 +67,7 @@ module.exports = function(grunt) {
         unused: true,
         strict: true,
         trailing: true,
-        indent: 4
+        indent: 2
       }
     }
   });

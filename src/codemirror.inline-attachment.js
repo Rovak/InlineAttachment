@@ -1,11 +1,11 @@
 /*jslint newcap: true */
-/*global inlineAttach: false */
+/*global inlineAttachment: false */
 /**
  * CodeMirror version for inlineAttachment
  *
- * Call inlineAttach.attachToCodeMirror(editor) to attach to a codemirror instance
+ * Call inlineAttachment.attachToCodeMirror(editor) to attach to a codemirror instance
  */
-(function(document, window) {
+(function() {
   'use strict';
 
   inlineAttachment.editors.codemirror = {};
@@ -56,4 +56,4 @@
     });
   };
 
-})(document, window);
+})();
