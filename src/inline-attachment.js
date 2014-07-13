@@ -14,6 +14,31 @@ var inlineAttachment = function(options, instance) {
     me = this;
 };
 
+inlineAttachment.attachToInput = function(input, options) {
+
+  options = options || {};
+
+  var editor = new inlineAttachment.Editor(input),
+    inlineattach = new inlineAttachment(options, editor);
+
+  input.addEventListener('paste', function(e) {
+    inlineattach.onPaste(e);
+  }, false);
+  input.addEventListener('drop', function(e) {
+    e.stopPropagation();
+    e.preventDefault();
+    inlineattach.onDrop(e);
+  }, false);
+  input.addEventListener('dragenter', function(e) {
+    e.stopPropagation();
+    e.preventDefault();
+  }, false);
+  input.addEventListener('dragover', function(e) {
+    e.stopPropagation();
+    e.preventDefault();
+  }, false);
+};
+
 /**
  * Utility functions
  */
@@ -103,7 +128,7 @@ inlineAttachment.defaults = {
    *
    * @return {Boolean} when false is returned it will prevent default upload behavior
    */
-  onFileUpload: function() {
+  onFileUploadResponse: function(responseText) {
     return true;
   },
 
@@ -121,4 +146,50 @@ inlineAttachment.defaults = {
    * When a file has succesfully been uploaded
    */
   onUploadedFile: function() {}
+};
+
+/**
+ * Uploads the blob
+ *
+ * @param  {Blob} file blob data received from event.dataTransfer object
+ * @return {XMLHttpRequest} request object which sends the file
+ */
+inlineAttachment.prototype.uploadFile = function(file) {
+  var me = this,
+    formData = new FormData(),
+    xhr = new XMLHttpRequest(),
+    settings = this.settings,
+    extension = 'png';
+
+  // Attach the file. If coming from clipboard, add a default filename (only works in Chrome for now)
+  // http://stackoverflow.com/questions/6664967/how-to-give-a-blob-uploaded-as-formdata-a-file-name
+  if (file.name) {
+    var fileNameMatches = file.name.match(/\.(.+)$/);
+    if (fileNameMatches) {
+      extension = fileNameMatches[1];
+    }
+  }
+
+  formData.append(settings.uploadFieldName, file, "image-" + Date.now() + "." + extension);
+
+  // Append the extra parameters to the formdata
+  if (typeof settings.extraParams === "object") {
+    for (var key in settings.extraParams) {
+      if (settings.extraParams.hasOwnProperty(key)) {
+        formData.append(key, settings.extraParams[key]);
+      }
+    }
+  }
+
+  xhr.open('POST', settings.uploadUrl);
+  xhr.onload = function() {
+    // If HTTP status is OK or Created
+    if (xhr.status === 200 || xhr.status === 201) {
+      settings.onFileUploadResponse(xhr);
+    } else {
+      me.onFileUploadError(xhr);
+    }
+  };
+  xhr.send(formData);
+  return xhr;
 };
