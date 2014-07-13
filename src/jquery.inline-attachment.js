@@ -36,8 +36,8 @@
     set.each(function() {
 
       var $this = $(this),
-        editor = new editor($this),
-        inlineattach = new inlineAttachment(options, editor);
+        ed = new editor($this),
+        inlineattach = new inlineAttachment(options, ed);
 
       $this.bind({
         'paste': function(e) {
