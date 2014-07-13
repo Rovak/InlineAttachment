@@ -1,5 +1,5 @@
 /*jslint newcap: true */
-/*global XMLHttpRequest: false, inlineAttach: false, FormData: false */
+/*global XMLHttpRequest: false, FormData: false */
 /*
  * Inline Text Attachment
  *
@@ -7,37 +7,18 @@
  * Contact: ik@royvankaathoven.nl
  */
 var inlineAttachment = function(options, instance) {
-  var settings = merge(options, inlineAttach.defaults),
-    editor = instance,
-    filenameTag = '{filename}',
-    lastValue,
-    me = this;
+  this.settings = inlineAttachment.util.merge(options, inlineAttachment.defaults);
+  this.editor = instance;
+  this.filenameTag = '{filename}';
+  this.lastValue = null;
 };
 
-inlineAttachment.attachToInput = function(input, options) {
-
-  options = options || {};
-
-  var editor = new inlineAttachment.Editor(input),
-    inlineattach = new inlineAttachment(options, editor);
-
-  input.addEventListener('paste', function(e) {
-    inlineattach.onPaste(e);
-  }, false);
-  input.addEventListener('drop', function(e) {
-    e.stopPropagation();
-    e.preventDefault();
-    inlineattach.onDrop(e);
-  }, false);
-  input.addEventListener('dragenter', function(e) {
-    e.stopPropagation();
-    e.preventDefault();
-  }, false);
-  input.addEventListener('dragover', function(e) {
-    e.stopPropagation();
-    e.preventDefault();
-  }, false);
-};
+/**
+ * Will holds the available editors
+ *
+ * @type {Object}
+ */
+inlineAttachment.editors = {};
 
 /**
  * Utility functions
@@ -55,12 +36,24 @@ inlineAttachment.util = {
     for (var i = arguments.length - 1; i >= 0; i--) {
       var obj = arguments[i];
       for (var k in obj) {
-        if (obj.isOwnProperty(k)) {
+        if (obj.hasOwnProperty(k)) {
           result[k] = obj[k];
         }
       }
     }
     return result;
+  },
+
+  /**
+   * Append a line of text at the bottom, ensuring there aren't unnecessary newlines
+   *
+   * @param {String} appended Current content
+   * @param {String} previous Value which should be appended after the current content
+   */
+  appendInItsOwnLine: function(previous, appended) {
+    return (previous + "\n\n[[D]]" + appended)
+      .replace(/(\n{2,})\[\[D\]\]/, "\n\n")
+      .replace(/^(\n*)/, "");
   }
 };
 
@@ -83,7 +76,7 @@ inlineAttachment.defaults = {
   /**
    * JSON field which refers to the uploaded file URL
    */
-  downloadFieldName: 'filename',
+  jsonFieldName: 'filename',
 
   /**
    * Allowed MIME types
@@ -187,9 +180,107 @@ inlineAttachment.prototype.uploadFile = function(file) {
     if (xhr.status === 200 || xhr.status === 201) {
       settings.onFileUploadResponse(xhr);
     } else {
-      me.onFileUploadError(xhr);
+      settings.onFileUploadError(xhr);
     }
   };
   xhr.send(formData);
   return xhr;
+};
+
+/**
+ * Returns if the given file is allowed to handle
+ *
+ * @param {File} clipboard data file
+ */
+inlineAttachment.prototype.isFileAllowed = function(file) {
+  return this.settings.allowedTypes.indexOf(file.type) >= 0;
+};
+
+/**
+ * Handles upload response
+ *
+ * @param  {XMLHttpRequest} xhr
+ * @return {Void}
+ */
+inlineAttachment.prototype.onFileUploadResponse = function(xhr) {
+  var result = JSON.parse(xhr.responseText),
+    filename = result[settings.jsonFieldName];
+
+  if (result && filename) {
+    var newValue = this.settings.urlText.replace(this.filenameTag, filename);
+    var text = this.editor.getValue().replace(this.lastValue, newValue);
+    editor.setValue(text);
+  }
+};
+
+
+/**
+ * Called when a file has failed to upload
+ * @return {Void}
+ */
+inlineAttachment.prototype.onFileUploadError = function() {
+  var text = editor.getValue().replace(this.lastValue, "");
+  editor.setValue(text);
+};
+
+/**
+ * Called when a file has been inserted, either by drop or paste
+ *
+ * @param  {File} file
+ * @return {Void}
+ */
+inlineAttachment.prototype.onFileInserted = function(file) {
+  var result = this.settings.onFileReceived(file),
+    util = inlineAttachment.util;
+
+  if (result !== false) {
+    this.lastValue = this.settings.progressText;
+    this.editor.setValue(util.appendInItsOwnLine(editor.getValue(), this.lastValue));
+  }
+};
+
+
+/**
+ * Called when a paste event occured
+ * @param  {Event} e
+ * @return {Boolean} if the event was handled
+ */
+inlineAttachment.prototype.onPaste = function(e) {
+  var result = false,
+    clipboardData = e.clipboardData,
+    items;
+
+  if (typeof clipboardData === "object") {
+    items = clipboardData.items || clipboardData.files || [];
+
+    for (var i = 0; i < items.length; i++) {
+      var item = items[i];
+      if (this.isFileAllowed(item)) {
+        result = true;
+        this.onFileInserted(item.getAsFile());
+        this.uploadFile(item.getAsFile());
+      }
+    }
+  }
+
+  return result;
+};
+
+/**
+ * Called when a drop event occures
+ * @param  {Event} e
+ * @return {Boolean} if the event was handled
+ */
+inlineAttachment.prototype.onDrop = function(e) {
+  var result = false;
+  for (var i = 0; i < e.dataTransfer.files.length; i++) {
+    var file = e.dataTransfer.files[i];
+    if (this.isFileAllowed(file)) {
+      result = true;
+      this.onFileInserted(file);
+      this.uploadFile(file);
+    }
+  }
+
+  return result;
 };
