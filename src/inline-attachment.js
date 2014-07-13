@@ -46,22 +46,22 @@ inlineAttachment.util = {
  */
 inlineAttachment.defaults = {
   /**
-   * URL to upload the attachment
+   * URL where the file will be send
    */
   uploadUrl: 'upload_attachment.php',
 
   /**
-   * Request field name where the attachment will be placed in the form data
+   * Name in which the file will be placed
    */
   uploadFieldName: 'file',
 
   /**
-   * Where is the filename placed in the response
+   * JSON field which refers to the uploaded file URL
    */
   downloadFieldName: 'filename',
 
   /**
-   * Allowed types
+   * Allowed MIME types
    */
   allowedTypes: [
     'image/jpeg',
@@ -71,19 +71,20 @@ inlineAttachment.defaults = {
   ],
 
   /**
-   * Will be inserted on a drop or paste event
+   * Text which will be inserted when dropping or pasting a file.
+   * Acts as a placeholder which will be replaced when the file is done with uploading
    */
   progressText: '![Uploading file...]()',
 
   /**
-   * When a file has successfully been uploaded the last inserted text
+   * When a file has successfully been uploaded the progressText
    * will be replaced by the urlText, the {filename} tag will be replaced
    * by the filename that has been returned by the server
    */
   urlText: "![file]({filename})",
 
   /**
-   * Text for default error when uploading
+   * Text which will be used when uploading has failed
    */
   errorText: "Error uploading file",
 
@@ -93,16 +94,16 @@ inlineAttachment.defaults = {
   extraParams: {},
 
   /**
-   * When a file is received by drag-drop or paste
+   * Triggers when a file is dropped or pasted
    */
-  onReceivedFile: function() {},
+  onFileReceived: function() {},
 
   /**
    * Custom upload handler
    *
    * @return {Boolean} when false is returned it will prevent default upload behavior
    */
-  customUploadHandler: function() {
+  onFileUpload: function() {
     return true;
   },
 
@@ -112,7 +113,7 @@ inlineAttachment.defaults = {
    *
    * @return {Boolean} when false is returned it will prevent default error behavior
    */
-  customErrorHandler: function() {
+  onFileUploadError: function() {
     return true;
   },
 
