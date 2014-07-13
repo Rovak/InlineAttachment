@@ -53,12 +53,12 @@ extraParams: ``{}``
 Events
 ------
 
-receivedFile(file)
+fileReceived(file)
 
     :file:
         file blob
 
-success(result)
+success(response)
 
     :json:
         Simple object which contains the resulting JSON response
@@ -66,7 +66,7 @@ success(result)
     :return:
         `Boolean`
 
-failure(responseText)
+failure(response)
 
     Custom error handler. Runs after removing the placeholder text and before the alert().
     Return false from this function to prevent the alert dialog.
@@ -74,7 +74,11 @@ failure(responseText)
     :return:
         `Boolean` when false is returned it will prevent default error behavior
 
-uploadFileHandler(file)
+complete(response)
+
+    Fires when the upload request has finished
+
+uploadHandler(file)
 
     Custom upload handler, must return false to prevent default handler.
     Can be used to send file via custom transport(like socket.io)
@@ -86,7 +90,7 @@ uploadFileHandler(file)
         `Boolean`
          when false is returned it will prevent default upload behavior
 
-dataPreprocessor(data)
+dataPreprocessor(responseText)
 
     :data:
         data JSON data returned from the server
