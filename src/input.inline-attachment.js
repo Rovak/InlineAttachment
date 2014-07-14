@@ -12,6 +12,9 @@
         getValue: function() {
           return input.value;
         },
+        insertValue: function(val) {
+          inlineAttachment.util.insertTextAtCursor(input, val);
+        },
         setValue: function(val) {
           input.value = val;
         }

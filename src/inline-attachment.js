@@ -57,6 +57,45 @@
       return (previous + "\n\n[[D]]" + appended)
         .replace(/(\n{2,})\[\[D\]\]/, "\n\n")
         .replace(/^(\n*)/, "");
+    },
+
+    /**
+     * Inserts the given value at the current cursor position of the textarea element
+     *
+     * @param  {HtmlElement} el
+     * @param  {String} value Text which will be inserted at the cursor position
+     */
+    insertTextAtCursor: function(el, text) {
+      var scrollPos = el.scrollTop,
+        strPos = 0,
+        range;
+      var br = ((el.selectionStart || el.selectionStart == '0') ?
+        "ff" : (document.selection ? "ie" : false));
+
+      if (br == "ie") {
+        el.focus();
+        range = document.selection.createRange();
+        range.moveStart('character', -el.value.length);
+        strPos = range.text.length;
+      } else if (br == "ff") strPos = el.selectionStart;
+
+      var front = (el.value).substring(0, strPos);
+      var back = (el.value).substring(strPos, el.value.length);
+      el.value = front + text + back;
+      strPos = strPos + text.length;
+      if (br == "ie") {
+        el.focus();
+        range = document.selection.createRange();
+        range.moveStart('character', -el.value.length);
+        range.moveStart('character', strPos);
+        range.moveEnd('character', 0);
+        range.select();
+      } else if (br == "ff") {
+        el.selectionStart = strPos;
+        el.selectionEnd = strPos;
+        el.focus();
+      }
+      el.scrollTop = scrollPos;
     }
   };
 
@@ -151,7 +190,8 @@
    * @return {XMLHttpRequest} request object which sends the file
    */
   inlineAttachment.prototype.uploadFile = function(file) {
-    var formData = new FormData(),
+    var me = this,
+      formData = new FormData(),
       xhr = new XMLHttpRequest(),
       settings = this.settings,
       extension = 'png';
@@ -180,7 +220,9 @@
     xhr.onload = function() {
       // If HTTP status is OK or Created
       if (xhr.status === 200 || xhr.status === 201) {
-        settings.onFileUploadResponse(xhr);
+        if (settings.onFileUploadResponse(xhr)) {
+          me.onFileUploadResponse(xhr);
+        }
       } else {
         settings.onFileUploadError(xhr);
       }
@@ -237,7 +279,7 @@
 
     if (result !== false) {
       this.lastValue = this.settings.progressText;
-      this.editor.setValue(util.appendInItsOwnLine(this.editor.getValue(), this.lastValue));
+      this.editor.insertValue(this.lastValue);
     }
   };
 
