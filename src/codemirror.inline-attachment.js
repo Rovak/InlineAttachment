@@ -22,6 +22,9 @@
       getValue: function() {
         return codeMirror.getValue();
       },
+      insertValue: function(val) {
+        codeMirror.replaceSelection(val);
+      },
       setValue: function(val) {
         var cursor = codeMirror.getCursor();
         codeMirror.setValue(val);
