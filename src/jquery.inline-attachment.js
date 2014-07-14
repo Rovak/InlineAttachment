@@ -23,6 +23,9 @@
       getValue: function() {
         return $this.val();
       },
+      insertValue: function(val) {
+        inlineAttachment.util.insertTextAtCursor($this[0], val);
+      },
       setValue: function(val) {
         $this.val(val);
       }
