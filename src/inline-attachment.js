@@ -71,18 +71,18 @@
         browser = false,
         range;
 
-      if ((el.selectionStart || el.selectionStart == '0')) {
+      if ((el.selectionStart || el.selectionStart === '0')) {
         browser = "ff";
       } else if (document.selection) {
         browser = "ie";
       }
 
-      if (browser == "ie") {
+      if (browser === "ie") {
         el.focus();
         range = document.selection.createRange();
         range.moveStart('character', -el.value.length);
         strPos = range.text.length;
-      } else if (browser == "ff") {
+      } else if (browser === "ff") {
         strPos = el.selectionStart;
       }
 
@@ -90,14 +90,14 @@
       var back = (el.value).substring(strPos, el.value.length);
       el.value = front + text + back;
       strPos = strPos + text.length;
-      if (browser == "ie") {
+      if (browser === "ie") {
         el.focus();
         range = document.selection.createRange();
         range.moveStart('character', -el.value.length);
         range.moveStart('character', strPos);
         range.moveEnd('character', 0);
         range.select();
-      } else if (browser == "ff") {
+      } else if (browser === "ff") {
         el.selectionStart = strPos;
         el.selectionEnd = strPos;
         el.focus();
@@ -272,7 +272,7 @@
    * @return {Void}
    */
   inlineAttachment.prototype.onFileUploadResponse = function(xhr) {
-    if (settings.onFileUploadResponse(xhr) !== false) {
+    if (this.settings.onFileUploadResponse(xhr) !== false) {
       var result = JSON.parse(xhr.responseText),
         filename = result[this.settings.jsonFieldName];
 
@@ -292,7 +292,7 @@
    * @return {Void}
    */
   inlineAttachment.prototype.onFileUploadError = function(xhr) {
-    if (settings.onFileUploadError(xhr) !== false) {
+    if (this.settings.onFileUploadError(xhr) !== false) {
       var text = this.editor.getValue().replace(this.lastValue, "");
       this.editor.setValue(text);
     }
@@ -305,10 +305,7 @@
    * @return {Void}
    */
   inlineAttachment.prototype.onFileInserted = function(file) {
-    var result = this.settings.onFileReceived(file),
-      util = inlineAttachment.util;
-
-    if (result !== false) {
+    if (this.settings.onFileReceived(file) !== false) {
       this.lastValue = this.settings.progressText;
       this.editor.insertValue(this.lastValue);
     }
