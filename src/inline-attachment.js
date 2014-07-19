@@ -165,6 +165,13 @@
     extraParams: {},
 
     /**
+     * Before the file is send
+     */
+    beforeFileUpload: function() {
+      return true;
+    },
+
+    /**
      * Triggers when a file is dropped or pasted
      */
     onFileReceived: function() {},
@@ -231,14 +238,14 @@
     xhr.onload = function() {
       // If HTTP status is OK or Created
       if (xhr.status === 200 || xhr.status === 201) {
-        if (settings.onFileUploadResponse(xhr)) {
-          me.onFileUploadResponse(xhr);
-        }
+        me.onFileUploadResponse(xhr);
       } else {
         me.onFileUploadError(xhr);
       }
     };
-    xhr.send(formData);
+    if (settings.beforeFileUpload(xhr) !== false) {
+      xhr.send(formData);
+    }
     return xhr;
   };
 
@@ -258,13 +265,15 @@
    * @return {Void}
    */
   inlineAttachment.prototype.onFileUploadResponse = function(xhr) {
-    var result = JSON.parse(xhr.responseText),
-      filename = result[this.settings.jsonFieldName];
+    if (settings.onFileUploadResponse(xhr) !== false) {
+      var result = JSON.parse(xhr.responseText),
+        filename = result[this.settings.jsonFieldName];
 
-    if (result && filename) {
-      var newValue = this.settings.urlText.replace(this.filenameTag, filename);
-      var text = this.editor.getValue().replace(this.lastValue, newValue);
-      this.editor.setValue(text);
+      if (result && filename) {
+        var newValue = this.settings.urlText.replace(this.filenameTag, filename);
+        var text = this.editor.getValue().replace(this.lastValue, newValue);
+        this.editor.setValue(text);
+      }
     }
   };
 
