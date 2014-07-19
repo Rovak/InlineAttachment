@@ -68,29 +68,36 @@
     insertTextAtCursor: function(el, text) {
       var scrollPos = el.scrollTop,
         strPos = 0,
+        browser = false,
         range;
-      var br = ((el.selectionStart || el.selectionStart == '0') ?
-        "ff" : (document.selection ? "ie" : false));
 
-      if (br == "ie") {
+      if ((el.selectionStart || el.selectionStart == '0')) {
+        browser = "ff";
+      } else if (document.selection) {
+        browser = "ie";
+      }
+
+      if (browser == "ie") {
         el.focus();
         range = document.selection.createRange();
         range.moveStart('character', -el.value.length);
         strPos = range.text.length;
-      } else if (br == "ff") strPos = el.selectionStart;
+      } else if (browser == "ff") {
+        strPos = el.selectionStart;
+      }
 
       var front = (el.value).substring(0, strPos);
       var back = (el.value).substring(strPos, el.value.length);
       el.value = front + text + back;
       strPos = strPos + text.length;
-      if (br == "ie") {
+      if (browser == "ie") {
         el.focus();
         range = document.selection.createRange();
         range.moveStart('character', -el.value.length);
         range.moveStart('character', strPos);
         range.moveEnd('character', 0);
         range.select();
-      } else if (br == "ff") {
+      } else if (browser == "ff") {
         el.selectionStart = strPos;
         el.selectionEnd = strPos;
         el.focus();
