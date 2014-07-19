@@ -18,17 +18,27 @@ uploadUrl: ``upload_attachment.php``
 
     Specifies the URL where files will be send to, default: `upload_attachment.php`
 
+uploadMethod: ``POST``
+
+    Which HTTP method will be used to send the upload request
+
 uploadFieldName: ``file``
 
     Name of the POST field where the file will be sent.
 
-downloadFileName: ``downloadUrl``
+defaultExtension: ``png``
 
-    Name of the field which contains the URL of the uploaded file
+    Default extension when no extension could be detected
+
+jsonFieldName: ``downloadUrl``
+
+    By default the plugin assumes that json is returned, it
+    then checks if the given fieldName is available and uses it
+    to insert the image url
 
 allowedTypes: ``['image/jpeg', 'image/png', 'image/jpg', 'image/gif']``
 
-    Allowed mimetypes of any dropped files, others will be ignored
+    Which mimetypes are accepted as a dropped or pasted file. Others will be ignored and the default behavior will be triggered.
 
 progressText: ``![Uploading file...]()``
 
@@ -53,12 +63,12 @@ extraParams: ``{}``
 Events
 ------
 
-fileReceived(file)
+onFileReceived(file)
 
     :file:
         file blob
 
-success(response)
+onFileUploadResponse(response)
 
     :json:
         Simple object which contains the resulting JSON response
@@ -66,7 +76,7 @@ success(response)
     :return:
         `Boolean`
 
-failure(response)
+onFileUploadError(response)
 
     Custom error handler. Runs after removing the placeholder text and before the alert().
     Return false from this function to prevent the alert dialog.
@@ -74,7 +84,7 @@ failure(response)
     :return:
         `Boolean` when false is returned it will prevent default error behavior
 
-complete(response)
+onFileUploaded(response)
 
     Fires when the upload request has finished
 
@@ -89,11 +99,3 @@ uploadHandler(file)
     :return:
         `Boolean`
          when false is returned it will prevent default upload behavior
-
-dataPreprocessor(responseText)
-
-    :data:
-        data JSON data returned from the server
-
-    :return:
-        modified object

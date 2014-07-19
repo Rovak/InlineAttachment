@@ -111,9 +111,20 @@
     uploadUrl: 'upload_attachment.php',
 
     /**
+     * Which method will be used to send the file to the upload URL
+     */
+    uploadMethod: 'POST',
+
+    /**
      * Name in which the file will be placed
      */
     uploadFieldName: 'file',
+
+    /**
+     * Extension which will be used when a file extension could not
+     * be detected
+     */
+    defualtExtension: 'png',
 
     /**
      * JSON field which refers to the uploaded file URL
@@ -180,7 +191,7 @@
     /**
      * When a file has succesfully been uploaded
      */
-    onUploadedFile: function() {}
+    onFileUploaded: function() {}
   };
 
   /**
@@ -194,7 +205,7 @@
       formData = new FormData(),
       xhr = new XMLHttpRequest(),
       settings = this.settings,
-      extension = 'png';
+      extension = settings.defualtExtension;
 
     // Attach the file. If coming from clipboard, add a default filename (only works in Chrome for now)
     // http://stackoverflow.com/questions/6664967/how-to-give-a-blob-uploaded-as-formdata-a-file-name
@@ -224,7 +235,7 @@
           me.onFileUploadResponse(xhr);
         }
       } else {
-        settings.onFileUploadError(xhr);
+        me.onFileUploadError(xhr);
       }
     };
     xhr.send(formData);
@@ -260,11 +271,15 @@
 
   /**
    * Called when a file has failed to upload
+   *
+   * @param  {XMLHttpRequest} xhr
    * @return {Void}
    */
-  inlineAttachment.prototype.onFileUploadError = function() {
-    var text = this.editor.getValue().replace(this.lastValue, "");
-    this.editor.setValue(text);
+  inlineAttachment.prototype.onFileUploadError = function(xhr) {
+    if (settings.onFileUploadError(xhr) !== false) {
+      var text = this.editor.getValue().replace(this.lastValue, "");
+      this.editor.setValue(text);
+    }
   };
 
   /**
