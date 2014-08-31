@@ -4,11 +4,15 @@
     "Roy van Kaathoven @razko <ik@royvankaathoven.nl> (https://github.com/rovak)"
   ],
   "version": "1.3.1",
-  "dependencies" : {},
+  "dependencies": {},
   "devDependencies": {
     "grunt": "~0.4",
     "grunt-contrib-jshint": "~0.2.0",
     "grunt-contrib-concat": "~0.1.3",
-    "grunt-contrib-uglify": "~0.1.2"
+    "grunt-contrib-uglify": "~0.1.2",
+    "grunt-casperjs": "~2.0.0"
+  },
+  "scripts": {
+    "test": "grunt test"
   }
 }

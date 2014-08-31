@@ -69,12 +69,18 @@ module.exports = function(grunt) {
         trailing: true,
         indent: 2
       }
+    },
+    casperjs: {
+      options: {
+      },
+      files: ['tests/*.js']
     }
   });
 
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-casperjs');
 
   grunt.registerTask('qa', ['jshint']);
   grunt.registerTask('default', ['qa', 'concat', 'uglify']);
