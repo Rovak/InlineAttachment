@@ -10,11 +10,11 @@
   "version": "2.0.0",
   "dependencies": {},
   "devDependencies": {
-    "grunt": "~0.4",
-    "grunt-contrib-jshint": "~0.2.0",
-    "grunt-contrib-concat": "~0.1.3",
-    "grunt-contrib-uglify": "~0.1.2",
-    "grunt-casperjs": "~2.0.0"
+    "grunt": "~0.4.5",
+    "grunt-contrib-jshint": "0.2.*",
+    "grunt-contrib-concat": "0.1.*",
+    "grunt-contrib-uglify": "0.1.*",
+    "grunt-casperjs": "*"
   },
   "scripts": {
     "test": "grunt test"
