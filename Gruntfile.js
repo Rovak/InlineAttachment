@@ -21,9 +21,13 @@ module.exports = function(grunt) {
         src: ['<banner>', 'src/inline-attachment.js', 'src/jquery.inline-attachment.js'],
         dest: 'dist/jquery.inline-attachment.js'
       },
-      codemirror: {
-        src: ['<banner>', 'src/inline-attachment.js', 'src/codemirror.inline-attachment.js'],
-        dest: 'dist/codemirror.inline-attachment.js'
+      codemirror3: {
+        src: ['<banner>', 'src/inline-attachment.js', 'src/codemirror-3.inline-attachment.js'],
+        dest: 'dist/codemirror-3.inline-attachment.js'
+      },
+      codemirror4: {
+        src: ['<banner>', 'src/inline-attachment.js', 'src/codemirror-4.inline-attachment.js'],
+        dest: 'dist/codemirror-4.inline-attachment.js'
       },
       angularjs: {
         src: ['<banner>', 'src/inline-attachment.js', 'src/angularjs.inline-attachment.js'],
@@ -45,9 +49,14 @@ module.exports = function(grunt) {
         dest: 'dist/jquery.inline-attachment.min.js',
         separator: ';'
       },
-      codemirror: {
-        src: ['<banner>', 'dist/codemirror.inline-attachment.js'],
-        dest: 'dist/codemirror.inline-attachment.min.js',
+      codemirror3: {
+        src: ['<banner>', 'dist/codemirror-3.inline-attachment.js'],
+        dest: 'dist/codemirror-3.inline-attachment.min.js',
+        separator: ';'
+      },
+      codemirror4: {
+        src: ['<banner>', 'dist/codemirror-4.inline-attachment.js'],
+        dest: 'dist/codemirror-4.inline-attachment.min.js',
         separator: ';'
       },
       angularjs: {
