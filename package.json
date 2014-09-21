@@ -1,5 +1,9 @@
 {
-  "name": "inline-attach",
+  "name": "inline-attachment",
+  "repository" : {
+    "type" : "git",
+    "url"  : "https://github.com/Rovak/InlineAttachment.git"
+  },
   "authors": [
     "Roy van Kaathoven @razko <ik@royvankaathoven.nl> (https://github.com/rovak)"
   ],
