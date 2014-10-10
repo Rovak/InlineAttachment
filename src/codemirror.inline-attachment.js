@@ -76,9 +76,13 @@
     }, false);
 
     codeMirror.on('drop', function(data, e) {
-      e.stopPropagation();
-      e.preventDefault();
-      return inlineattach.onDrop(e);
+      if (inlineattach.onDrop(e)) {
+        e.stopPropagation();
+        e.preventDefault();
+        return true;
+      } else {
+        return false;
+      }
     });
   };
 
