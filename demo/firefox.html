@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Firefox Inline Attachment Demo</title>
+    </head>
+    <body>
+
+        <textarea id="code" rows="10" cols="50"></textarea>
+
+        <script type="text/javascript" src="../src/inline-attachment.js"></script>
+        <script type="text/javascript">
+
+           var pasteCatcher = document.createElement("div");
+           var previousTextarea;
+
+           // Firefox allows images to be pasted into contenteditable elements
+           pasteCatcher.setAttribute("contenteditable", "");
+
+           // We can hide the element and append it to the body,
+           //pasteCatcher.style.opacity = 0;
+           document.body.appendChild(pasteCatcher);
+
+           // as long as we make sure it is always in focus
+           pasteCatcher.focus();
+
+            var textarea = document.getElementById('code');
+            textarea.addEventListener("keydown", function(e){
+                previousTextarea = textarea;
+                if (e.ctrlKey && e.keyCode == 86) {
+                    console.log("keydown", e);
+                    pasteCatcher.focus();
+                    setTimeout(checkInput, 1);
+                }
+            });
+            textarea.addEventListener("paste", function(e){
+                previousTextarea = textarea;
+                pasteCatcher.focus();
+                setTimeout(checkInput, 1);
+            });
+
+            /* Parse the input in the paste catcher element */
+            function checkInput() {
+
+               // Store the pasted content in a variable
+               var child = pasteCatcher.childNodes[0];
+
+               // Clear the inner html to make sure we're always
+               // getting the latest inserted content
+               pasteCatcher.innerHTML = "";
+               if (child) {
+                  // If the user pastes an image, the src attribute
+                  // will represent the image as a base64 encoded string.
+                  if (child.tagName === "IMG") {
+                     createImage(child.src);
+                  }
+               }
+               console.log('focus', previousTextarea);
+               previousTextarea.focus();
+            }
+
+            /* Creates a new image from a given source */
+            function createImage(source) {
+                console.log('create image')
+                var pastedImage = new Image();
+                pastedImage.onload = function() {
+                    var formdata = new FormData();
+                    var xhr = new XMLHttpRequest();
+                    var blob = inlineAttachment.util.dataURItoBlob(pastedImage.src);
+                    formdata.append('file', blob, "image-" + Date.now() + ".png");
+                    xhr.open('POST', "upload_attachment.php");
+                    xhr.send(formdata);
+                }
+                pastedImage.src = source;
+            }
+        </script>
+    </body>
+</html>
