@@ -56,14 +56,14 @@
      */
     initPasteElement: function(inlineAttach) {
       inlineAttach.editor.getElement().addEventListener("keydown", function(e){
-          inlineAttachment.globals.lastFocusedEditor = this;
-          // Listen for Ctrl + V
-          if (e.ctrlKey && e.keyCode == 86) {
-              inlineAttach.editor.getPasteElement().focus();
-              setTimeout(function() {
-                inlineAttachment.util.checkPasteElementForInput(inlineAttach);
-              }, 1);
-          }
+        inlineAttachment.globals.lastFocusedEditor = this;
+        // Listen for Ctrl + V
+        if (e.ctrlKey && e.keyCode === 86) {
+          inlineAttach.editor.getPasteElement().focus();
+          setTimeout(function() {
+            inlineAttachment.util.checkPasteElementForInput(inlineAttach);
+          }, 1);
+        }
       });
     },
 
@@ -105,15 +105,15 @@
       pasteElement.innerHTML = "";
       if (child) {
         if (child.tagName === "IMG") {
-            var pastedImage = new Image();
-            pastedImage.onload = function() {
-                var imageFile = inlineAttachment.util.dataURItoBlob(pastedImage.src);
-                if (inlineAttach.isFileAllowed(imageFile)) {
-                  inlineAttach.onFileInserted(imageFile);
-                  inlineAttach.uploadFile(imageFile);
-                }
-            };
-            pastedImage.src = child.src;
+          var pastedImage = new Image();
+          pastedImage.onload = function() {
+            var imageFile = inlineAttachment.util.dataURItoBlob(pastedImage.src);
+            if (inlineAttach.isFileAllowed(imageFile)) {
+              inlineAttach.onFileInserted(imageFile);
+              inlineAttach.uploadFile(imageFile);
+            }
+          };
+          pastedImage.src = child.src;
         }
       }
       inlineAttachment.globals.lastFocusedEditor.focus();
@@ -206,10 +206,11 @@
     dataURItoBlob: function(dataURI) {
       // convert base64/URLEncoded data component to raw binary data held in a string
       var byteString;
-      if (dataURI.split(',')[0].indexOf('base64') >= 0)
+      if (dataURI.split(',')[0].indexOf('base64') >= 0) {
         byteString = atob(dataURI.split(',')[1]);
-      else
-        byteString = unescape(dataURI.split(',')[1]);
+      } else {
+        byteString = encodeURI(dataURI.split(',')[1]);
+      }
 
       // separate out the mime component
       var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
@@ -440,10 +441,7 @@
       clipboardData = e.clipboardData,
       items;
 
-    if (inlineAttachment.util.browser.isFirefox) {
-      var element = this.editor.getPasteElement();
-    }
-    else if (typeof clipboardData === "object") {
+    if (typeof clipboardData === "object") {
       items = clipboardData.items || clipboardData.files || [];
 
       for (var i = 0; i < items.length; i++) {
