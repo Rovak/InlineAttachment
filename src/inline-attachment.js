@@ -24,9 +24,100 @@
   inlineAttachment.editors = {};
 
   /**
+   * Global variables used on a page
+   */
+  inlineAttachment.globals = {
+    /**
+     * The last focused editor, used to switch back after
+     * pasting an image using a pasteElement
+     *
+     * @type {HtmlElement}
+     */
+    lastFocusedEditor: null
+  };
+
+  /**
    * Utility functions
    */
   inlineAttachment.util = {
+
+    /**
+     * Simple browser sniffing
+     */
+    browser: {
+      isFirefox: (typeof window.mozInnerScreenX !== 'undefined')
+    },
+
+    /**
+     * Hooks into the Ctrl + V event of the given inlineAttachment element
+     *
+     * @param  {inlineAttachment} inlineAttach inlineAttachment instance
+     * @return {Void}
+     */
+    initPasteElement: function(inlineAttach) {
+      inlineAttach.editor.getElement().addEventListener("keydown", function(e){
+          inlineAttachment.globals.lastFocusedEditor = this;
+          // Listen for Ctrl + V
+          if (e.ctrlKey && e.keyCode == 86) {
+              inlineAttach.editor.getPasteElement().focus();
+              setTimeout(function() {
+                inlineAttachment.util.checkPasteElementForInput(inlineAttach);
+              }, 1);
+          }
+      });
+    },
+
+    /**
+     * Creates a new PasteElement, this is a div in which paste data will be captured.
+     * Used for browsers who do not support clipboard data like Firefox
+     *
+     * @return {Void}
+     */
+    createPasteElement: function() {
+      var pasteElement = document.createElement("div");
+      pasteElement.opacity = 0;
+      // Firefox allows images to be pasted into contenteditable elements
+      pasteElement.setAttribute("contenteditable", "");
+
+      // We can hide the element and append it to the body,
+      pasteElement.style.opacity = 0;
+      document.body.appendChild(pasteElement);
+      return pasteElement;
+    },
+
+    /**
+     * Checks the given inlineAttachment element for a paste element
+     * and checks if it contains an image.
+     *
+     * If an image is found then capture it and upload it
+     * After that refocus the last inlineAttachment editor
+     *
+     * @param  {InlineAttachment} inlineAttach
+     * @return {Void}
+     */
+    checkPasteElementForInput: function(inlineAttach) {
+      // Store the pasted content in a variable
+      var pasteElement = inlineAttach.editor.getPasteElement(),
+          child = pasteElement.childNodes[0];
+
+      // Clear the inner html to make sure we're always
+      // getting the latest inserted content
+      pasteElement.innerHTML = "";
+      if (child) {
+        if (child.tagName === "IMG") {
+            var pastedImage = new Image();
+            pastedImage.onload = function() {
+                var imageFile = inlineAttachment.util.dataURItoBlob(pastedImage.src);
+                if (inlineAttach.isFileAllowed(imageFile)) {
+                  inlineAttach.onFileInserted(imageFile);
+                  inlineAttach.uploadFile(imageFile);
+                }
+            };
+            pastedImage.src = child.src;
+        }
+      }
+      inlineAttachment.globals.lastFocusedEditor.focus();
+    },
 
     /**
      * Simple function to merge the given objects
@@ -349,7 +440,10 @@
       clipboardData = e.clipboardData,
       items;
 
-    if (typeof clipboardData === "object") {
+    if (inlineAttachment.util.browser.isFirefox) {
+      var element = this.editor.getPasteElement();
+    }
+    else if (typeof clipboardData === "object") {
       items = clipboardData.items || clipboardData.files || [];
 
       for (var i = 0; i < items.length; i++) {
