@@ -104,11 +104,11 @@
          * @param {Object} data
          */
         this.onUploadedFile = function(data) {
-            var result = settings.onUploadedFile(data),
+            var result = settings.onUploadedFile.call(this, data),
                 filename;
 
             if (settings.dataProcessor) {
-                data = settings.dataProcessor(data);
+                data = settings.dataProcessor.call(this, data);
             }
 
             filename = data[settings.downloadFieldName];
@@ -126,7 +126,7 @@
          * @return {Boolean} when false is returned it will prevent default upload behavior
          */
         this.customUploadHandler = function(file) {
-            return settings.customUploadHandler(file);
+            return settings.customUploadHandler.call(this, file);
         };
 
         /**
@@ -138,7 +138,7 @@
         this.onErrorUploading = function() {
             var text = editor.getValue().replace(lastValue, "");
             editor.setValue(text);
-            if (settings.customErrorHandler()) {
+            if (settings.customErrorHandler.call(this)) {
                 window.alert(settings.errorText);
             }
         };
@@ -160,7 +160,7 @@
          * @param {Blob} file
          */
         this.onReceivedFile = function(file) {
-            var result = settings.onReceivedFile(file);
+            var result = settings.onReceivedFile.call(this, file);
             if (result !== false) {
                 lastValue = settings.progressText;
                 editor.setValue(appendInItsOwnLine(editor.getValue(), lastValue));
