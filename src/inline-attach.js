@@ -347,7 +347,7 @@
          * @return {Object} containing a parsed version of the response
          *                  or a falsey value will default back to parsing the response as JSON
          */
-        customResponseParser: function(xhr) {
+        customResponseParser: function(xhr) { // jshint unused:false
             return null;
         },
 
