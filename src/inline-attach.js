@@ -55,7 +55,10 @@
                     extension = fileNameMatches[1];
                 }
             }
-            formData.append(settings.uploadFieldName, file, "image-" + Date.now() + "." + extension);
+            if (settings.addFileBeforeExtraParameters) {
+                formData.append(settings.uploadFieldName, file, "image-" + Date.now() + "." + extension);
+            }
+
 
             // Add any available extra parameters
             if (typeof settings.extraParams === "object") {
@@ -66,7 +69,12 @@
                 }
             }
 
-            xhr.open('POST', settings.uploadUrl);
+            // Add the file after the extra parameters
+            if (!settings.addFileBeforeExtraParameters) {
+                formData.append(settings.uploadFieldName, file, "image-" + Date.now() + "." + extension);
+            }
+
+            xhr.open(settings.uploadMethod, settings.uploadUrl);
 
             // Add any available extra headers
             if (typeof settings.extraHeaders === "object") {
@@ -80,13 +88,17 @@
             xhr.onload = function() {
                 // If HTTP status is OK or Created
                 if (xhr.status === 200 || xhr.status === 201) {
-                    var data = JSON.parse(xhr.responseText);
+                    var data = me.parseResponse(xhr);
                     me.onUploadedFile(data);
                 } else {
                     me.onErrorUploading();
                 }
             };
             xhr.send(formData);
+        };
+
+        this.parseResponse = function(xhr) {
+            return settings.customResponseParser.call(this, xhr) || JSON.parse(xhr.responseText);
         };
 
         /**
@@ -248,9 +260,20 @@
         uploadUrl: 'upload_attachment.php',
 
         /**
+         * Upload HTTP method used
+         */
+        uploadMethod: 'POST',
+
+        /**
          * Request field name where the attachment will be placed in the form data
          */
         uploadFieldName: 'file',
+
+        /**
+         * Add the file to the form data before adding the extra parameters
+         * (alternative being to add the file after the extra parameters)
+         */
+        addFileBeforeExtraParameters: true,
 
         /**
          * Where is the filename placed in the response
@@ -316,6 +339,16 @@
          */
         customErrorHandler: function() {
             return true;
+        },
+
+        /**
+         * Custom response parser
+         *
+         * @return {Object} containing a parsed version of the response
+         *                  or a falsey value will default back to parsing the response as JSON
+         */
+        customResponseParser: function(xhr) { // jshint unused:false
+            return null;
         },
 
         /**
