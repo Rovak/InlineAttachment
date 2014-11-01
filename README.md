@@ -80,9 +80,9 @@ All versions can be configured using the following options:
     /**
      * When a file has succesfully been uploaded
      *
-     * @param {Object} json JSON data returned from the server
+     * @param {Object} response By default JSON data, or the result of customResponseParser if implemented
      */
-    onUploadedFile: function(json) {},
+    onUploadedFile: function(response) {},
 
     /**
      * Custom error handler. Runs after removing the placeholder text and before the alert().
@@ -100,6 +100,23 @@ All versions can be configured using the following options:
      * @return {Boolean} when false is returned it will prevent default upload behavior
      */
     customUploadHandler: function(file) { return true; }
+
+    /**
+     * Parse the response before passing it to onUploadedFile
+     *
+     * @param  {XMLHttpRequest} xhr XMLHttpRequest result
+     * @return {Object} custom result
+     */
+    customReponseParser: function(xhr) {
+        return false;
+    },
+
+    /**
+     * HTTP method that is used to send data to the uploadUrl
+     *
+     * @type {String}
+     */
+    uploadMethod: 'POST',
 
     /**
      * Data processor after upload a file
