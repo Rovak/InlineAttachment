@@ -12,5 +12,20 @@ InlineAttachment |version| documentation
 :doc:`pages/configuration`
     Configuring the plugin
 
+Editors
+-------
+
+:doc:`pages/editors/textinput`
+    Text Input
+
+:doc:`pages/editors/angularjs`
+    Using InlineAttachment with AngularJS
+
+:doc:`pages/editors/codemirror`
+    Using InlineAttachment with CodeMirror 3 and 4
+
+:doc:`pages/editors/jquery`
+    Using InlineAttachment with jQuery
+
 .. toctree::
    :hidden:
