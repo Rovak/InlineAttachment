@@ -12,7 +12,7 @@ All versions can be downloaded [here](http://data.razko.nl/projects/inlineattach
 
 ## Documentation
 
-* [ReadTheDocs](http://inlineattachment.readthedocs.org/en/latest/pages/configuration.html)
+Documentation can be found on [ReadTheDocs](http://inlineattachment.readthedocs.org/en/latest/)
 
 ## Handling image uploads
 
