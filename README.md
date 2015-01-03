@@ -8,7 +8,7 @@ It's similar to pasting of images in Github.
 
 ## Download
 
-The most recent minified versions can be found [here](http://data.razko.nl/projects/inlineattachment/latest/)
+All versions can be downloaded [here](http://data.razko.nl/projects/inlineattachment/versions/)
 
 ## Documentation
 
