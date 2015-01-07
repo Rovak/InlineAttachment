@@ -234,7 +234,12 @@
       }
     }
 
-    formData.append(settings.uploadFieldName, file, "image-" + Date.now() + "." + extension);
+    var remoteFilename = "image-" + Date.now() + "." + extension;
+    if (typeof settings.remoteFilename === 'function') {
+      remoteFilename = settings.remoteFilename(file);
+    }
+
+    formData.append(settings.uploadFieldName, file, remoteFilename);
 
     // Append the extra parameters to the formdata
     if (typeof settings.extraParams === "object") {
