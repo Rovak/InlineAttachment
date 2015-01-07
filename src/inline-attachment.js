@@ -344,6 +344,8 @@
       }
     }
 
+    if (result) { e.preventDefault(); }
+
     return result;
   };
 
