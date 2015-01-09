@@ -1,0 +1,21 @@
+{
+  "name": "inline-attachment",
+  "version": "2.0.0",
+  "homepage": "https://github.com/Rovak/InlineAttachment",
+  "authors": [
+    "Roy van Kaathoven <ik@royvankaathoven.nl>"
+  ],
+  "description": "Add attachments to plain text editors",
+  "main": "src",
+  "keywords": [
+    "upload"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
