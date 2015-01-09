@@ -286,7 +286,7 @@
    * @return {Void}
    */
   inlineAttachment.prototype.onFileUploadResponse = function(xhr) {
-    if (this.settings.onFileUploadResponse(xhr) !== false) {
+    if (this.settings.onFileUploadResponse.call(this, xhr) !== false) {
       var result = JSON.parse(xhr.responseText),
         filename = result[this.settings.jsonFieldName];
 
@@ -306,7 +306,7 @@
    * @return {Void}
    */
   inlineAttachment.prototype.onFileUploadError = function(xhr) {
-    if (this.settings.onFileUploadError(xhr) !== false) {
+    if (this.settings.onFileUploadError.call(this, xhr) !== false) {
       var text = this.editor.getValue().replace(this.lastValue, "");
       this.editor.setValue(text);
     }
@@ -319,7 +319,7 @@
    * @return {Void}
    */
   inlineAttachment.prototype.onFileInserted = function(file) {
-    if (this.settings.onFileReceived(file) !== false) {
+    if (this.settings.onFileReceived.call(this, file) !== false) {
       this.lastValue = this.settings.progressText;
       this.editor.insertValue(this.lastValue);
     }
