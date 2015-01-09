@@ -59,6 +59,10 @@ extraParams: ``{}``
 
     Extra parameters which will be send as POST data when sending a file
 
+extraHeaders: ``{}``
+
+    Extra headers which will be added to the request when uploading a file
+
 
 Events
 ------

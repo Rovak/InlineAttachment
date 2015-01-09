@@ -172,6 +172,11 @@
     extraParams: {},
 
     /**
+     * Extra headers which will be send when uploading a file
+     */
+    extraHeaders: {},
+
+    /**
      * Before the file is send
      */
     beforeFileUpload: function() {
@@ -239,6 +244,15 @@
           formData.append(key, settings.extraParams[key]);
         }
       }
+    }
+
+    // Add any available extra headers
+    if (typeof settings.extraHeaders === "object") {
+        for (var header in settings.extraHeaders) {
+            if (settings.extraHeaders.hasOwnProperty(header)) {
+                xhr.setRequestHeader(header, settings.extraHeaders[header]);
+            }
+        }
     }
 
     xhr.open('POST', settings.uploadUrl);
