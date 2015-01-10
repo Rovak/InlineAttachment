@@ -1,0 +1,48 @@
+CodeMirror
+=============
+
+Inline Attachment supports version CodeMirror 3 and CodeMirror 4
+
+For version 3 use:
+
+.. code-block:: javascript
+
+    inlineAttachment.editors.codemirror3.attach(editor);
+
+For version 4 use:
+
+.. code-block:: javascript
+
+    inlineAttachment.editors.codemirror4.attach(editor);
+
+Full Example:
+
+.. code-block:: html
+
+    <!DOCTYPE html>
+    <html>
+        <head>
+            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+            <title>CodeMirror 3 InlineAttachment Demo</title>
+        </head>
+        <body>
+            <link href="//cdnjs.cloudflare.com/ajax/libs/codemirror/3.24.0/codemirror.css" media="screen" rel="stylesheet" type="text/css">
+            <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/codemirror/3.24.0/codemirror.js"></script>
+
+            <textarea id="code" rows="10" cols="50"></textarea>
+
+            <script src="../src/inline-attachment.js"></script>
+            <script src="../src/codemirror.inline-attachment.js"></script>
+            <script type="text/javascript">
+                var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
+                    lineNumbers: true,
+                    matchBrackets: true,
+                    indentUnit: 4,
+                    indentWithTabs: true,
+                    enterMode: "keep",
+                    tabMode: "shift"
+                });
+                inlineAttachment.editors.codemirror3.attach(editor);
+            </script>
+        </body>
+    </html>
