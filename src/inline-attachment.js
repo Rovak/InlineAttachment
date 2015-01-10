@@ -221,6 +221,10 @@
       settings = this.settings,
       extension = settings.defualtExtension;
 
+    if (typeof settings.setupFormData === 'function') {
+      settings.setupFormData(formData, file);
+    }
+
     // Attach the file. If coming from clipboard, add a default filename (only works in Chrome for now)
     // http://stackoverflow.com/questions/6664967/how-to-give-a-blob-uploaded-as-formdata-a-file-name
     if (file.name) {
