@@ -6,9 +6,17 @@ It's similar to pasting of images in Github.
 
 ![demo](https://f.cloud.github.com/assets/21/678/248aac6a-40a2-11e2-9a76-fd59ded28bbe.gif)
 
-## Download
+## Getting started
 
-All versions can be downloaded [here](http://data.razko.nl/projects/inlineattachment/versions/)
+The latest versions are available [here](http://data.razko.nl/projects/inlineattachment/versions/)
+
+**Bower**
+
+The package can be installed using [Bower](http://bower.io/)
+
+```
+bower install inline-attachment
+```
 
 ## Documentation
 
