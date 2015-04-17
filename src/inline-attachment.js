@@ -286,7 +286,11 @@
    * @param {File} clipboard data file
    */
   inlineAttachment.prototype.isFileAllowed = function(file) {
-    return this.settings.allowedTypes.indexOf(file.type) >= 0;
+    if (this.settings.allowedTypes.indexOf('*') === 0){
+      return true;
+    } else {
+      return this.settings.allowedTypes.indexOf(file.type) >= 0;
+    }
   };
 
   /**
