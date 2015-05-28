@@ -30,7 +30,7 @@ module.exports = function(grunt) {
         dest: 'dist/codemirror-4.inline-attachment.js'
       },
       angularjs: {
-        src: ['<banner>', 'src/inline-attachment.js', 'src/angularjs.inline-attachment.js'],
+        src: ['<banner>', 'src/inline-attachment.js', 'src/input.inline-attachment.js', 'src/angularjs.inline-attachment.js'],
         dest: 'dist/angularjs.inline-attachment.js'
       }
     },
