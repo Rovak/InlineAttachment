@@ -88,18 +88,6 @@ onFileUploadError(response)
     :return:
         `Boolean` when false is returned it will prevent default error behavior
 
-onFileUploaded(response)
+onFileUploaded(filename)
 
-    Fires when the upload request has finished
-
-uploadHandler(file)
-
-    Custom upload handler, must return false to prevent default handler.
-    Can be used to send file via custom transport(like socket.io)
-
-    :file:
-        `Blob`
-
-    :return:
-        `Boolean`
-         when false is returned it will prevent default upload behavior
+    Fires when the upload request has finished and the textarea has been updated.

@@ -308,6 +308,7 @@
         var newValue = this.settings.urlText.replace(this.filenameTag, filename);
         var text = this.editor.getValue().replace(this.lastValue, newValue);
         this.editor.setValue(text);
+        this.settings.onFileUploaded.call(this, filename);
       }
     }
   };
