@@ -224,7 +224,7 @@
       formData = new FormData(),
       xhr = new XMLHttpRequest(),
       settings = this.settings,
-      extension = settings.defaultExtension;
+      extension = settings.defaultExtension || settings.defualtExtension;
 
     if (typeof settings.setupFormData === 'function') {
       settings.setupFormData(formData, file);
