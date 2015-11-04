@@ -8,7 +8,7 @@ It's similar to pasting of images in Github.
 
 ## Getting started
 
-The latest versions are available [here](http://data.razko.nl/projects/inlineattachment/versions/)
+The latest versions are available [here](https://github.com/Rovak/InlineAttachment/tree/master/dist)
 
 **Bower**
 
