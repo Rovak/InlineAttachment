@@ -1,35 +1,26 @@
 <!DOCTYPE html>
-<html>
+<html lang="en-us">
   <head>
-    <meta charset='utf-8'>
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
-
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-
+    <meta charset="UTF-8">
     <title>Inline Attachment by Rovak</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
   </head>
-
   <body>
-    <header>
-      <div class="inner">
-        <h1>Inline Attachment</h1>
-        <h2>Embed images inside textareas</h2>
-        <a href="https://github.com/Rovak/InlineAttachment" class="button"><small>View project on</small>GitHub</a>
-      </div>
-    </header>
+    <section class="page-header">
+      <h1 class="project-name">Inline Attachment</h1>
+      <h2 class="project-tagline">Embed images inside textareas</h2>
+      <a href="https://github.com/Rovak/InlineAttachment" class="btn">View on GitHub</a>
+      <a href="https://github.com/Rovak/InlineAttachment/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/Rovak/InlineAttachment/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
 
-    <div id="content-wrapper">
-      <div class="inner clearfix">
-        <section id="main-content">
-          <h1>
-<a name="inline-attachment-131--" class="anchor" href="#inline-attachment-131--"><span class="octicon octicon-link"></span></a>Inline Attachment 1.3.1 <a href="http://travis-ci.org/Rovak/InlineAttachment"><img src="https://api.travis-ci.org/Rovak/InlineAttachment.png?branch=master" alt="Master Branch Build Status"></a> <img src="http://stillmaintained.com/Rovak/InlineAttachment.png" alt="project status">
+    <section class="main-content">
+      <h1>
+<a id="inline-attachment-131--" class="anchor" href="#inline-attachment-131--" aria-hidden="true"><span class="octicon octicon-link"></span></a>Inline Attachment 1.3.1 <a href="http://travis-ci.org/Rovak/InlineAttachment"><img src="https://api.travis-ci.org/Rovak/InlineAttachment.png?branch=master" alt="Master Branch Build Status"></a> <img src="http://stillmaintained.com/Rovak/InlineAttachment.png" alt="project status">
 </h1>
 
 <p>Adds upload functionality to a textarea or CodeMirror instance by either drag-dropping or pasting (only in chrome) an image inside it.</p>
@@ -39,152 +30,146 @@
 <p><img src="https://f.cloud.github.com/assets/21/678/248aac6a-40a2-11e2-9a76-fd59ded28bbe.gif" alt="demo"></p>
 
 <h2>
-<a name="download" class="anchor" href="#download"><span class="octicon octicon-link"></span></a>Download</h2>
+<a id="download" class="anchor" href="#download" aria-hidden="true"><span class="octicon octicon-link"></span></a>Download</h2>
 
 <p>The most recent minified versions can be found <a href="http://data.razko.nl/projects/inlineattachment/latest/">here</a></p>
 
 <h2>
-<a name="usage" class="anchor" href="#usage"><span class="octicon octicon-link"></span></a>Usage</h2>
+<a id="usage" class="anchor" href="#usage" aria-hidden="true"><span class="octicon octicon-link"></span></a>Usage</h2>
 
 <p><strong>Configuration</strong></p>
 
 <p>All versions can be configured using the following options:</p>
 
-<div class="highlight highlight-javascript"><pre><span class="p">{</span>
-    <span class="cm">/**</span>
-<span class="cm">     * URL which handles the data</span>
-<span class="cm">     */</span>
-    <span class="nx">uploadUrl</span><span class="o">:</span> <span class="s1">'upload_attachment.php'</span><span class="p">,</span>
+<div class="highlight highlight-source-js"><pre>{
+    <span class="pl-c">/**</span>
+<span class="pl-c">     * URL which handles the data</span>
+<span class="pl-c">     */</span>
+    uploadUrl<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>upload_attachment.php<span class="pl-pds">'</span></span>,
 
-    <span class="cm">/**</span>
-<span class="cm">     * Name of the POST field where the file will be sent.</span>
-<span class="cm">     * Defaults to 'file'.</span>
-<span class="cm">     */</span>
-    <span class="nx">uploadFieldName</span><span class="o">:</span> <span class="s1">'file'</span><span class="p">,</span>
+    <span class="pl-c">/**</span>
+<span class="pl-c">     * Name of the POST field where the file will be sent.</span>
+<span class="pl-c">     * Defaults to 'file'.</span>
+<span class="pl-c">     */</span>
+    uploadFieldName<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>file<span class="pl-pds">'</span></span>,
 
-    <span class="cm">/**</span>
-<span class="cm">     * Name of the field from the response where the file can be downloaded.</span>
-<span class="cm">     * Defaults to 'filename'</span>
-<span class="cm">     */</span>
-    <span class="nx">downloadFieldName</span><span class="o">:</span> <span class="s1">'file'</span><span class="p">,</span>
+    <span class="pl-c">/**</span>
+<span class="pl-c">     * Name of the field from the response where the file can be downloaded.</span>
+<span class="pl-c">     * Defaults to 'filename'</span>
+<span class="pl-c">     */</span>
+    downloadFieldName<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>file<span class="pl-pds">'</span></span>,
 
-    <span class="c1">// List of allowed MIME types</span>
-    <span class="nx">allowedTypes</span><span class="o">:</span> <span class="p">[</span>
-        <span class="s1">'image/jpeg'</span><span class="p">,</span>
-        <span class="s1">'image/png'</span><span class="p">,</span>
-        <span class="s1">'image/jpg'</span><span class="p">,</span>
-        <span class="s1">'image/gif'</span>
-    <span class="p">],</span>
+    <span class="pl-c">// List of allowed MIME types</span>
+    allowedTypes<span class="pl-k">:</span> [
+        <span class="pl-s"><span class="pl-pds">'</span>image/jpeg<span class="pl-pds">'</span></span>,
+        <span class="pl-s"><span class="pl-pds">'</span>image/png<span class="pl-pds">'</span></span>,
+        <span class="pl-s"><span class="pl-pds">'</span>image/jpg<span class="pl-pds">'</span></span>,
+        <span class="pl-s"><span class="pl-pds">'</span>image/gif<span class="pl-pds">'</span></span>
+    ],
 
-    <span class="cm">/**</span>
-<span class="cm">     * Will be inserted on a drop or paste event</span>
-<span class="cm">     */</span>
-    <span class="nx">progressText</span><span class="o">:</span> <span class="s1">'![Uploading file...]()'</span><span class="p">,</span>
+    <span class="pl-c">/**</span>
+<span class="pl-c">     * Will be inserted on a drop or paste event</span>
+<span class="pl-c">     */</span>
+    progressText<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>![Uploading file...]()<span class="pl-pds">'</span></span>,
 
-    <span class="cm">/**</span>
-<span class="cm">     * When a file has successfully been uploaded the last inserted text</span>
-<span class="cm">     * will be replaced by the urlText, the {filename} tag will be replaced</span>
-<span class="cm">     * by the filename that has been returned by the server</span>
-<span class="cm">     */</span>
-    <span class="nx">urlText</span><span class="o">:</span> <span class="s2">"![file]({filename})"</span><span class="p">,</span>
+    <span class="pl-c">/**</span>
+<span class="pl-c">     * When a file has successfully been uploaded the last inserted text</span>
+<span class="pl-c">     * will be replaced by the urlText, the {filename} tag will be replaced</span>
+<span class="pl-c">     * by the filename that has been returned by the server</span>
+<span class="pl-c">     */</span>
+    urlText<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>![file]({filename})<span class="pl-pds">"</span></span>,
 
-    <span class="cm">/**</span>
-<span class="cm">     * Error message for default error handler</span>
-<span class="cm">     */</span>
-    <span class="nx">errorText</span><span class="o">:</span> <span class="s2">"Error uploading file"</span><span class="p">,</span>
+    <span class="pl-c">/**</span>
+<span class="pl-c">     * Error message for default error handler</span>
+<span class="pl-c">     */</span>
+    errorText<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>Error uploading file<span class="pl-pds">"</span></span>,
 
-    <span class="cm">/**</span>
-<span class="cm">     * Extra parameters which will be send as POST data when sending a file</span>
-<span class="cm">     */</span>
-    <span class="nx">extraParams</span><span class="o">:</span> <span class="p">{},</span>
+    <span class="pl-c">/**</span>
+<span class="pl-c">     * Extra parameters which will be send as POST data when sending a file</span>
+<span class="pl-c">     */</span>
+    extraParams<span class="pl-k">:</span> {},
 
-    <span class="cm">/**</span>
-<span class="cm">     * When a file is received by drag-drop or paste</span>
-<span class="cm">     *</span>
-<span class="cm">     * @param {Blob} file</span>
-<span class="cm">     */</span>
-    <span class="nx">onReceivedFile</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">file</span><span class="p">)</span> <span class="p">{},</span>
+    <span class="pl-c">/**</span>
+<span class="pl-c">     * When a file is received by drag-drop or paste</span>
+<span class="pl-c">     *</span>
+<span class="pl-c">     * <span class="pl-k">@param</span> {Blob} file</span>
+<span class="pl-c">     */</span>
+    <span class="pl-en">onReceivedFile</span><span class="pl-k">:</span> <span class="pl-k">function</span>(<span class="pl-smi">file</span>) {},
 
-    <span class="cm">/**</span>
-<span class="cm">     * When a file has succesfully been uploaded</span>
-<span class="cm">     *</span>
-<span class="cm">     * @param {Object} json JSON data returned from the server</span>
-<span class="cm">     */</span>
-    <span class="nx">onUploadedFile</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">json</span><span class="p">)</span> <span class="p">{},</span>
+    <span class="pl-c">/**</span>
+<span class="pl-c">     * When a file has succesfully been uploaded</span>
+<span class="pl-c">     *</span>
+<span class="pl-c">     * <span class="pl-k">@param</span> {Object} json JSON data returned from the server</span>
+<span class="pl-c">     */</span>
+    <span class="pl-en">onUploadedFile</span><span class="pl-k">:</span> <span class="pl-k">function</span>(<span class="pl-smi">json</span>) {},
 
-    <span class="cm">/**</span>
-<span class="cm">     * Custom error handler. Runs after removing the placeholder text and before the alert().</span>
-<span class="cm">     * Return false from this function to prevent the alert dialog.</span>
-<span class="cm">     *</span>
-<span class="cm">     * @return {Boolean} when false is returned it will prevent default error behavior</span>
-<span class="cm">     */</span>
-    <span class="nx">customErrorHandler</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="kc">true</span><span class="p">;</span> <span class="p">},</span>
+    <span class="pl-c">/**</span>
+<span class="pl-c">     * Custom error handler. Runs after removing the placeholder text and before the alert().</span>
+<span class="pl-c">     * Return false from this function to prevent the alert dialog.</span>
+<span class="pl-c">     *</span>
+<span class="pl-c">     * <span class="pl-k">@return</span> {Boolean} when false is returned it will prevent default error behavior</span>
+<span class="pl-c">     */</span>
+    <span class="pl-en">customErrorHandler</span><span class="pl-k">:</span> <span class="pl-k">function</span>() { <span class="pl-k">return</span> <span class="pl-c1">true</span>; },
 
-    <span class="cm">/**</span>
-<span class="cm">     * Custom upload handler, must return false to prevent default handler.</span>
-<span class="cm">     * Can be used to send file via custom transport(like socket.io)</span>
-<span class="cm">     *</span>
-<span class="cm">     * @param {Blob} file</span>
-<span class="cm">     * @return {Boolean} when false is returned it will prevent default upload behavior</span>
-<span class="cm">     */</span>
-    <span class="nx">customUploadHandler</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">file</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="kc">true</span><span class="p">;</span> <span class="p">},</span>
+    <span class="pl-c">/**</span>
+<span class="pl-c">     * Custom upload handler, must return false to prevent default handler.</span>
+<span class="pl-c">     * Can be used to send file via custom transport(like socket.io)</span>
+<span class="pl-c">     *</span>
+<span class="pl-c">     * <span class="pl-k">@param</span> {Blob} file</span>
+<span class="pl-c">     * <span class="pl-k">@return</span> {Boolean} when false is returned it will prevent default upload behavior</span>
+<span class="pl-c">     */</span>
+    <span class="pl-en">customUploadHandler</span><span class="pl-k">:</span> <span class="pl-k">function</span>(<span class="pl-smi">file</span>) { <span class="pl-k">return</span> <span class="pl-c1">true</span>; }
 
-    <span class="cm">/**</span>
-<span class="cm">     * Data processor after upload a file</span>
-<span class="cm">     *</span>
-<span class="cm">     * @param {Object} data JSON data returned from the server</span>
-<span class="cm">     * @return {Object} modified object</span>
-<span class="cm">     */</span>
-    <span class="nx">dataProcessor</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">data</span><span class="p">;</span> <span class="p">}</span>
-<span class="p">}</span>
-</pre></div>
-
-<h3>
-<a name="jquery" class="anchor" href="#jquery"><span class="octicon octicon-link"></span></a>jQuery</h3>
-
-<div class="highlight highlight-javascript"><pre><span class="nx">$</span><span class="p">(</span><span class="s1">'textarea'</span><span class="p">).</span><span class="nx">inlineattach</span><span class="p">(</span><span class="nx">options</span><span class="p">);</span>
-</pre></div>
+    <span class="pl-c">/**</span>
+<span class="pl-c">     * Data processor after upload a file</span>
+<span class="pl-c">     *</span>
+<span class="pl-c">     * <span class="pl-k">@param</span> {Object} data JSON data returned from the server</span>
+<span class="pl-c">     * <span class="pl-k">@return</span> {Object} modified object</span>
+<span class="pl-c">     */</span>
+    <span class="pl-en">dataProcessor</span><span class="pl-k">:</span> <span class="pl-k">function</span>(<span class="pl-smi">data</span>) { <span class="pl-k">return</span> data; }
+}</pre></div>
 
 <h3>
-<a name="codemirror" class="anchor" href="#codemirror"><span class="octicon octicon-link"></span></a>CodeMirror</h3>
+<a id="jquery" class="anchor" href="#jquery" aria-hidden="true"><span class="octicon octicon-link"></span></a>jQuery</h3>
 
-<div class="highlight highlight-javascript"><pre><span class="kd">var</span> <span class="nx">editor</span> <span class="o">=</span> <span class="nx">CodeMirror</span><span class="p">.</span><span class="nx">fromTextArea</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">"textarea_editor"</span><span class="p">));</span>
-<span class="nx">inlineAttach</span><span class="p">.</span><span class="nx">attachToCodeMirror</span><span class="p">(</span><span class="nx">editor</span><span class="p">,</span> <span class="nx">options</span><span class="p">);</span>
-</pre></div>
+<div class="highlight highlight-source-js"><pre><span class="pl-en">$</span>(<span class="pl-s"><span class="pl-pds">'</span>textarea<span class="pl-pds">'</span></span>).<span class="pl-en">inlineattach</span>(options);</pre></div>
 
 <h3>
-<a name="angularjs" class="anchor" href="#angularjs"><span class="octicon octicon-link"></span></a>AngularJS</h3>
+<a id="codemirror" class="anchor" href="#codemirror" aria-hidden="true"><span class="octicon octicon-link"></span></a>CodeMirror</h3>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-k">var</span> editor <span class="pl-k">=</span> <span class="pl-smi">CodeMirror</span>.<span class="pl-en">fromTextArea</span>(<span class="pl-smi">document</span>.<span class="pl-c1">getElementById</span>(<span class="pl-s"><span class="pl-pds">"</span>textarea_editor<span class="pl-pds">"</span></span>));
+<span class="pl-smi">inlineAttach</span>.<span class="pl-en">attachToCodeMirror</span>(editor, options);</pre></div>
+
+<h3>
+<a id="angularjs" class="anchor" href="#angularjs" aria-hidden="true"><span class="octicon octicon-link"></span></a>AngularJS</h3>
 
 <p>Textarea</p>
 
-<div class="highlight highlight-html"><pre><span class="nt">&lt;textarea</span>
-    <span class="na">inlineattach</span>
-    <span class="na">inlineattach-progress-text=</span><span class="s">"Sending..."</span>
-    <span class="na">inlineattach-on-received-file=</span><span class="s">"receivedFile"</span><span class="nt">&gt;&lt;/textarea&gt;</span>
-</pre></div>
+<div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">textarea</span>
+    <span class="pl-e">inlineattach</span>
+    <span class="pl-e">inlineattach-progress-text</span>=<span class="pl-s"><span class="pl-pds">"</span>Sending...<span class="pl-pds">"</span></span>
+    <span class="pl-e">inlineattach-on-received-file</span>=<span class="pl-s"><span class="pl-pds">"</span>receivedFile<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">textarea</span>&gt;</pre></div>
 
 <p>Controller</p>
 
-<div class="highlight highlight-javascript"><pre><span class="kd">function</span> <span class="nx">textAreaCtrl</span><span class="p">(</span><span class="nx">$scope</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">$scope</span><span class="p">.</span><span class="nx">receivedFile</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">file</span><span class="p">)</span> <span class="p">{</span>
-        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'received file!'</span><span class="p">,</span> <span class="nx">file</span><span class="p">);</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</pre></div>
+<div class="highlight highlight-source-js"><pre><span class="pl-k">function</span> <span class="pl-en">textAreaCtrl</span>(<span class="pl-smi">$scope</span>) {
+    <span class="pl-c1">$scope</span>.<span class="pl-en">receivedFile</span> <span class="pl-k">=</span> <span class="pl-k">function</span>(<span class="pl-smi">file</span>) {
+        <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-s"><span class="pl-pds">'</span>received file!<span class="pl-pds">'</span></span>, file);
+    }
+}</pre></div>
 
 <h3>
-<a name="input-field" class="anchor" href="#input-field"><span class="octicon octicon-link"></span></a>Input field</h3>
+<a id="input-field" class="anchor" href="#input-field" aria-hidden="true"><span class="octicon octicon-link"></span></a>Input field</h3>
 
-<div class="highlight highlight-javascript"><pre><span class="nx">inlineAttach</span><span class="p">.</span><span class="nx">attachToInput</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">'inputfield'</span><span class="p">),</span> <span class="nx">options</span><span class="p">);</span>
-</pre></div>
+<div class="highlight highlight-source-js"><pre><span class="pl-smi">inlineAttach</span>.<span class="pl-en">attachToInput</span>(<span class="pl-smi">document</span>.<span class="pl-c1">getElementById</span>(<span class="pl-s"><span class="pl-pds">'</span>inputfield<span class="pl-pds">'</span></span>), options);</pre></div>
 
 <h2>
-<a name="handling-image-uploads" class="anchor" href="#handling-image-uploads"><span class="octicon octicon-link"></span></a>Handling image uploads</h2>
+<a id="handling-image-uploads" class="anchor" href="#handling-image-uploads" aria-hidden="true"><span class="octicon octicon-link"></span></a>Handling image uploads</h2>
 
 <p>The Demo folder contains an example in PHP on how to handle uploads.</p>
 
 <h2>
-<a name="build" class="anchor" href="#build"><span class="octicon octicon-link"></span></a>Build</h2>
+<a id="build" class="anchor" href="#build" aria-hidden="true"><span class="octicon octicon-link"></span></a>Build</h2>
 
 <p>To build the project you need node, npm and grunt installed. These tools can be installed on Ubuntu as follows:</p>
 
@@ -192,34 +177,23 @@
 
 <p>Go to the project folder and run the following:</p>
 
-<div class="highlight highlight-sh"><pre>npm install
-grunt
-</pre></div>
+<div class="highlight highlight-source-shell"><pre>npm install
+grunt</pre></div>
 
 <p>This should build the project and the files will appear in the <code>dist/</code> folder</p>
 
 <h2>
-<a name="changelog" class="anchor" href="#changelog"><span class="octicon octicon-link"></span></a>Changelog</h2>
+<a id="changelog" class="anchor" href="#changelog" aria-hidden="true"><span class="octicon octicon-link"></span></a>Changelog</h2>
 
 <p><a href="https://github.com/Rovak/InlineAttachment/releases">See Github releases</a></p>
-        </section>
 
-        <aside id="sidebar">
-          <a href="https://github.com/Rovak/InlineAttachment/zipball/master" class="button">
-            <small>Download</small>
-            .zip file
-          </a>
-          <a href="https://github.com/Rovak/InlineAttachment/tarball/master" class="button">
-            <small>Download</small>
-            .tar.gz file
-          </a>
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/Rovak/InlineAttachment">Inline Attachment</a> is maintained by <a href="https://github.com/Rovak">Rovak</a>.</span>
 
-          <p class="repo-owner"><a href="https://github.com/Rovak/InlineAttachment"></a> is maintained by <a href="https://github.com/Rovak">Rovak</a>.</p>
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
 
-          <p>This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the Architect theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.</p>
-        </aside>
-      </div>
-    </div>
+    </section>
 
   
   </body>
