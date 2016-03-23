@@ -286,6 +286,7 @@
    * @param {File} clipboard data file
    */
   inlineAttachment.prototype.isFileAllowed = function(file) {
+    if (file.kind === 'string') { return false; }
     if (this.settings.allowedTypes.indexOf('*') === 0){
       return true;
     } else {
