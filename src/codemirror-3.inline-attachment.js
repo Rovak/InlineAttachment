@@ -58,34 +58,4 @@
   };
 
   inlineAttachment.editors.codemirror3 = codeMirrorEditor;
-
-  var codeMirrorEditor4 = function(instance) {
-    codeMirrorEditor.call(this, instance);
-  };
-
-  codeMirrorEditor4.attach = function(codeMirror, options) {
-
-    options = options || {};
-
-    var editor = new codeMirrorEditor(codeMirror),
-      inlineattach = new inlineAttachment(options, editor),
-      el = codeMirror.getWrapperElement();
-
-    el.addEventListener('paste', function(e) {
-      inlineattach.onPaste(e);
-    }, false);
-
-    codeMirror.on('drop', function(data, e) {
-      if (inlineattach.onDrop(e)) {
-        e.stopPropagation();
-        e.preventDefault();
-        return true;
-      } else {
-        return false;
-      }
-    });
-  };
-
-  inlineAttachment.editors.codemirror4 = codeMirrorEditor4;
-
 })();
