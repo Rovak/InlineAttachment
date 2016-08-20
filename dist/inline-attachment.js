@@ -1,4 +1,4 @@
-/*! inline-attachment - v2.0.3 - 2016-04-10 */
+/*! inline-attachment - v2.0.3 - 2016-08-20 */
 /*jslint newcap: true */
 /*global XMLHttpRequest: false, FormData: false */
 /*
