@@ -19,6 +19,14 @@ export default class Utils {
   }
 
   /**
+   * @param str
+   * @returns {string} Returns the string with the first letter as lowercase
+   */
+  static lcfirst(str) {
+    return str.charAt(0).toLowerCase() + str.substr(1);
+  }
+
+  /**
    * Append a line of text at the bottom, ensuring there aren't unnecessary newlines
    *
    * @param {String} appended Current content

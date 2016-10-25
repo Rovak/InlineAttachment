@@ -1,137 +1,15 @@
 
 import Utils from "./utils";
+import defaultOptions from "./defaults";
 
-/*jslint newcap: true */
-/*global XMLHttpRequest: false, FormData: false */
-/*
- * Inline Text Attachment
- *
- * Author: Roy van Kaathoven
- * Contact: ik@royvankaathoven.nl
- */
-(function(document, window) {
-  'use strict';
+export default class InlineAttachment {
 
-  var inlineAttachment = function(options, instance) {
-    this.settings = Utils.merge(options, inlineAttachment.defaults);
+  constructor(instance, options) {
+    this.settings = Utils.merge(options, defaultOptions);
     this.editor = instance;
     this.filenameTag = '{filename}';
     this.lastValue = null;
-  };
-
-  /**
-   * Will holds the available editors
-   *
-   * @type {Object}
-   */
-  inlineAttachment.editors = {};
-
-  /**
-   * Default configuration options
-   *
-   * @type {Object}
-   */
-  inlineAttachment.defaults = {
-    /**
-     * URL where the file will be send
-     */
-    uploadUrl: 'upload_attachment.php',
-
-    /**
-     * Which method will be used to send the file to the upload URL
-     */
-    uploadMethod: 'POST',
-
-    /**
-     * Name in which the file will be placed
-     */
-    uploadFieldName: 'file',
-
-    /**
-     * Extension which will be used when a file extension could not
-     * be detected
-     */
-    defaultExtension: 'png',
-
-    /**
-     * JSON field which refers to the uploaded file URL
-     */
-    jsonFieldName: 'filename',
-
-    /**
-     * Allowed MIME types
-     */
-    allowedTypes: [
-      'image/jpeg',
-      'image/png',
-      'image/jpg',
-      'image/gif'
-    ],
-
-    /**
-     * Text which will be inserted when dropping or pasting a file.
-     * Acts as a placeholder which will be replaced when the file is done with uploading
-     */
-    progressText: '![Uploading file...]()',
-
-    /**
-     * When a file has successfully been uploaded the progressText
-     * will be replaced by the urlText, the {filename} tag will be replaced
-     * by the filename that has been returned by the server
-     */
-    urlText: "![file]({filename})",
-
-    /**
-     * Text which will be used when uploading has failed
-     */
-    errorText: "Error uploading file",
-
-    /**
-     * Extra parameters which will be send when uploading a file
-     */
-    extraParams: {},
-
-    /**
-     * Extra headers which will be send when uploading a file
-     */
-    extraHeaders: {},
-
-    /**
-     * Before the file is send
-     */
-    beforeFileUpload: function() {
-      return true;
-    },
-
-    /**
-     * Triggers when a file is dropped or pasted
-     */
-    onFileReceived: function() {},
-
-    /**
-     * Custom upload handler
-     *
-     * @return {Boolean} when false is returned it will prevent default upload behavior
-     */
-    onFileUploadResponse: function() {
-      return true;
-    },
-
-    /**
-     * Custom error handler. Runs after removing the placeholder text and before the alert().
-     * Return false from this function to prevent the alert dialog.
-     *
-     * @return {Boolean} when false is returned it will prevent default error behavior
-     */
-    onFileUploadError: function() {
-      return true;
-    },
-
-    /**
-     * When a file has succesfully been uploaded
-     */
-    onFileUploaded: function() {}
-  };
+  }
 
   /**
    * Uploads the blob
@@ -139,7 +17,7 @@ import Utils from "./utils";
    * @param  {Blob} file blob data received from event.dataTransfer object
    * @return {XMLHttpRequest} request object which sends the file
    */
-  inlineAttachment.prototype.uploadFile = function(file) {
+  uploadFile(file) {
     var me = this,
       formData = new FormData(),
       xhr = new XMLHttpRequest(),
@@ -179,14 +57,14 @@ import Utils from "./utils";
 
     // Add any available extra headers
     if (typeof settings.extraHeaders === "object") {
-        for (var header in settings.extraHeaders) {
-            if (settings.extraHeaders.hasOwnProperty(header)) {
-                xhr.setRequestHeader(header, settings.extraHeaders[header]);
-            }
+      for (var header in settings.extraHeaders) {
+        if (settings.extraHeaders.hasOwnProperty(header)) {
+          xhr.setRequestHeader(header, settings.extraHeaders[header]);
         }
+      }
     }
 
-    xhr.onload = function() {
+    xhr.onload = function () {
       // If HTTP status is OK or Created
       if (xhr.status === 200 || xhr.status === 201) {
         me.onFileUploadResponse(xhr);
@@ -198,21 +76,23 @@ import Utils from "./utils";
       xhr.send(formData);
     }
     return xhr;
-  };
+  }
 
   /**
    * Returns if the given file is allowed to handle
    *
-   * @param {File} clipboard data file
+   * @param {File} file clipboard data file
    */
-  inlineAttachment.prototype.isFileAllowed = function(file) {
-    if (file.kind === 'string') { return false; }
-    if (this.settings.allowedTypes.indexOf('*') === 0){
+  isFileAllowed(file) {
+    if (file.kind === 'string') {
+      return false;
+    }
+    if (this.settings.allowedTypes.indexOf('*') === 0) {
       return true;
     } else {
       return this.settings.allowedTypes.indexOf(file.type) >= 0;
     }
-  };
+  }
 
   /**
    * Handles upload response
@@ -220,7 +100,8 @@ import Utils from "./utils";
    * @param  {XMLHttpRequest} xhr
    * @return {Void}
    */
-  inlineAttachment.prototype.onFileUploadResponse = function(xhr) {
+
+  onFileUploadResponse(xhr) {
     if (this.settings.onFileUploadResponse.call(this, xhr) !== false) {
       var result = JSON.parse(xhr.responseText),
         filename = result[this.settings.jsonFieldName];
@@ -237,7 +118,7 @@ import Utils from "./utils";
         this.settings.onFileUploaded.call(this, filename);
       }
     }
-  };
+  }
 
 
   /**
@@ -246,12 +127,12 @@ import Utils from "./utils";
    * @param  {XMLHttpRequest} xhr
    * @return {Void}
    */
-  inlineAttachment.prototype.onFileUploadError = function(xhr) {
+  onFileUploadError(xhr) {
     if (this.settings.onFileUploadError.call(this, xhr) !== false) {
       var text = this.editor.getValue().replace(this.lastValue, "");
       this.editor.setValue(text);
     }
-  };
+  }
 
   /**
    * Called when a file has been inserted, either by drop or paste
@@ -259,12 +140,12 @@ import Utils from "./utils";
    * @param  {File} file
    * @return {Void}
    */
-  inlineAttachment.prototype.onFileInserted = function(file) {
+  onFileInserted(file) {
     if (this.settings.onFileReceived.call(this, file) !== false) {
       this.lastValue = this.settings.progressText;
       this.editor.insertValue(this.lastValue);
     }
-  };
+  }
 
 
   /**
@@ -272,7 +153,7 @@ import Utils from "./utils";
    * @param  {Event} e
    * @return {Boolean} if the event was handled
    */
-  inlineAttachment.prototype.onPaste = function(e) {
+  onPaste(e) {
     var result = false,
       clipboardData = e.clipboardData,
       items;
@@ -290,17 +171,19 @@ import Utils from "./utils";
       }
     }
 
-    if (result) { e.preventDefault(); }
+    if (result) {
+      e.preventDefault();
+    }
 
     return result;
-  };
+  }
 
   /**
    * Called when a drop event occures
    * @param  {Event} e
    * @return {Boolean} if the event was handled
    */
-  inlineAttachment.prototype.onDrop = function(e) {
+  onDrop(e) {
     var result = false;
     for (var i = 0; i < e.dataTransfer.files.length; i++) {
       var file = e.dataTransfer.files[i];
@@ -312,8 +195,5 @@ import Utils from "./utils";
     }
 
     return result;
-  };
-
-  window.inlineAttachment = inlineAttachment;
-
-})(document, window);
+  }
+}

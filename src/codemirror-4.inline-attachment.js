@@ -1,80 +1,44 @@
 /*jslint newcap: true */
 /*global inlineAttachment: false */
-/**
- * CodeMirror version for inlineAttachment
- *
- * Call inlineAttachment.attach(editor) to attach to a codemirror instance
- */
-(function() {
-  'use strict';
 
-  var codeMirrorEditor = function(instance) {
+import InlineAttachment from "./inline-attachment";
 
+export default class CodeMirror4InlineAttachment {
+
+  constructor(instance, options) {
     if (!instance.getWrapperElement) {
       throw "Invalid CodeMirror object given";
     }
 
-    this.codeMirror = instance;
-  };
+    this.instance = instance;
+    this.options = options;
+  }
 
-  codeMirrorEditor.prototype.getValue = function() {
-    return this.codeMirror.getValue();
-  };
+  getValue() {
+    return this.instance.getValue();
+  }
 
-  codeMirrorEditor.prototype.insertValue = function(val) {
-    this.codeMirror.replaceSelection(val);
-  };
+  insertValue(value) {
+    this.instance.replaceSelection(value);
+  }
 
-  codeMirrorEditor.prototype.setValue = function(val) {
-    var cursor = this.codeMirror.getCursor();
-    this.codeMirror.setValue(val);
-    this.codeMirror.setCursor(cursor);
-  };
+  setValue(value) {
+    let cursor = this.instance.getCursor();
+    this.instance.setValue(value);
+    this.instance.setCursor(cursor);
+  }
 
-  /**
-   * Attach InlineAttachment to CodeMirror
-   *
-   * @param {CodeMirror} codeMirror
-   */
-  codeMirrorEditor.attach = function(codeMirror, options) {
+  bind() {
 
-    options = options || {};
+    let inlineAttachment = new InlineAttachment(options, editor);
+    let el = this.instance.getWrapperElement();
 
-    var editor = new codeMirrorEditor(codeMirror),
-      inlineattach = new inlineAttachment(options, editor),
-      el = codeMirror.getWrapperElement();
-
-    el.addEventListener('paste', function(e) {
-      inlineattach.onPaste(e);
+    el.addEventListener('paste', function (e) {
+      inlineAttachment.onPaste(e);
     }, false);
 
-    codeMirror.setOption('onDragEvent', function(data, e) {
-      if (e.type === "drop") {
-        e.stopPropagation();
-        e.preventDefault();
-        return inlineattach.onDrop(e);
-      }
-    });
-  };
-
-  var codeMirrorEditor4 = function(instance) {
-    codeMirrorEditor.call(this, instance);
-  };
-
-  codeMirrorEditor4.attach = function(codeMirror, options) {
-
-    options = options || {};
-
-    var editor = new codeMirrorEditor(codeMirror),
-      inlineattach = new inlineAttachment(options, editor),
-      el = codeMirror.getWrapperElement();
-
-    el.addEventListener('paste', function(e) {
-      inlineattach.onPaste(e);
-    }, false);
-
-    codeMirror.on('drop', function(data, e) {
-      if (inlineattach.onDrop(e)) {
+    this.instance.on('drop', function (data, e) {
+      if (inlineAttachment.onDrop(e)) {
         e.stopPropagation();
         e.preventDefault();
         return true;
@@ -82,8 +46,6 @@
         return false;
       }
     });
-  };
+  }
 
-  inlineAttachment.editors.codemirror4 = codeMirrorEditor4;
-
-})();
+}

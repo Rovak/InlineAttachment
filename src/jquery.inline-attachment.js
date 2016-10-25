@@ -1,68 +1,53 @@
-import Utils from "./utils";
-
 /*jslint newcap: true */
 /*global inlineAttachment: false, jQuery: false */
-/**
- * jQuery plugin for inline attach
- *
- * @param {document} document
- * @param {window} window
- * @param {jQuery} $
- */
-(function(document, window, $) {
-  'use strict';
 
-  inlineAttachment.editors.jquery = {};
+import InlineAttachment from "./inline-attachment";
+import Utils from "./utils";
 
-  /**
-   * Creates a new editor using jQuery
-   */
-  var editor = function(instance) {
+export default class jQueryInlineAttachment {
 
-    var $this = $(instance);
+  constructor(instance, options) {
+    this.instance = $(instance);
+    this.options = options;
+  }
 
-    return {
-      getValue: function() {
-        return $this.val();
+  getValue() {
+    return this.instance.val();
+  }
+
+  insertValue(val) {
+    Utils.insertTextAtCursor($this[0], val);
+  }
+
+  setValue(val) {
+    this.instance.val(val);
+  }
+
+  bind() {
+    var inlineAttachment = new InlineAttachment(this, this.options);
+
+    this.instance.bind({
+      'paste': function(e) {
+        inlineAttachment.onPaste(e.originalEvent);
       },
-      insertValue: function(val) {
-        Utils.insertTextAtCursor($this[0], val);
+      'drop': function(e) {
+        e.stopPropagation();
+        e.preventDefault();
+        inlineAttachment.onDrop(e.originalEvent);
       },
-      setValue: function(val) {
-        $this.val(val);
+      'dragenter dragover': function(e) {
+        e.stopPropagation();
+        e.preventDefault();
       }
-    };
-  };
-
-  $.fn.inlineattachment = function(options) {
-
-    var set = $(this);
-
-    set.each(function() {
-
-      var $this = $(this),
-        ed = new editor($this),
-        inlineattach = new inlineAttachment(options, ed);
-
-      $this.bind({
-        'paste': function(e) {
-          inlineattach.onPaste(e.originalEvent);
-        },
-        'drop': function(e) {
-          e.stopPropagation();
-          e.preventDefault();
-          inlineattach.onDrop(e.originalEvent);
-        },
-        'dragenter dragover': function(e) {
-          e.stopPropagation();
-          e.preventDefault();
-        }
-      });
     });
+  }
+}
 
-    return this;
-  };
+$.fn.inlineattachment = function(options) {
 
-  inlineAttachment.editors.jquery.Editor = editor;
+  $(this).each(function() {
+    new jQueryInlineAttachment(this, options);
+  });
 
-})(document, window, jQuery);
+  return this;
+};
