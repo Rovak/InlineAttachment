@@ -7,11 +7,11 @@ function webpackOptions(options) {
     return {
         watch: options.watch,
         entry: {
-            angular:    './src/angularjs.inline-attachment.js',
-            input:      './src/input.inline-attachment.js',
-            jquery:     './src/jquery.inline-attachment.js',
-            codemirror3:     './src/codemirror-3.inline-attachment.js',
-            codemirror4:     './src/codemirror-4.inline-attachment.js',
+            angular:    './src/angularjs.js',
+            input:      './src/input.js',
+            jquery:     './src/jquery.js',
+            codemirror3:     './src/codemirror-3.js',
+            codemirror4:     './src/codemirror-4.js',
         },
         devtool: options.debug ? 'inline-source-map' : '',
         debug: options.debug,
