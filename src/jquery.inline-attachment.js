@@ -1,3 +1,5 @@
+import Utils from "./utils";
+
 /*jslint newcap: true */
 /*global inlineAttachment: false, jQuery: false */
 /**
@@ -24,7 +26,7 @@
         return $this.val();
       },
       insertValue: function(val) {
-        inlineAttachment.util.insertTextAtCursor($this[0], val);
+        Utils.insertTextAtCursor($this[0], val);
       },
       setValue: function(val) {
         $this.val(val);

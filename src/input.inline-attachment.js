@@ -1,5 +1,8 @@
 /*jslint newcap: true */
 /*global inlineAttachment: false */
+
+import Utils from "./utils";
+
 (function() {
   'use strict';
 
@@ -13,7 +16,7 @@
           return input.value;
         },
         insertValue: function(val) {
-          inlineAttachment.util.insertTextAtCursor(input, val);
+          Utils.insertTextAtCursor(input, val);
         },
         setValue: function(val) {
           input.value = val;
