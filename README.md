@@ -1,4 +1,4 @@
-# Inline Attachment 2.0.3 [![Master Branch Build Status](https://api.travis-ci.org/Rovak/InlineAttachment.png?branch=master)](http://travis-ci.org/Rovak/InlineAttachment)
+# Inline Attachment 2.0.0 [![Master Branch Build Status](https://api.travis-ci.org/Rovak/InlineAttachment.png?branch=master)](http://travis-ci.org/Rovak/InlineAttachment)
 
 Adds upload functionality to a textarea or CodeMirror instance by either drag-dropping or pasting (only in chrome) an image inside it.
 
@@ -36,7 +36,7 @@ Go to the project folder and run the following:
 
 ```sh
 npm install
-grunt
+gulp
 ```
 
 This should build the project and the files will appear in the `dist/` folder
