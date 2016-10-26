@@ -7,7 +7,7 @@ function webpackOptions(options) {
     return {
         watch: options.watch,
         entry: {
-            angular:    './src/angularjs.js',
+            angular:    './src/angular.js',
             input:      './src/input.js',
             jquery:     './src/jquery.js',
             codemirror3:     './src/codemirror-3.js',
