@@ -1,11 +1,9 @@
-/*jslint newcap: true */
-/*global inlineAttachment: false */
+"use strict";
 
 import Utils from "./utils";
 import InlineAttachment from "./inline-attachment";
 
-
-export default class InputInlineAttachment {
+class InputInlineAttachment {
 
   constructor(instance, options) {
     this.instance = instance;
@@ -44,5 +42,10 @@ export default class InputInlineAttachment {
       e.preventDefault();
     }, false);
   }
-
 }
+
+if (typeof window !== 'undefined') {
+  window.InputInlineAttachment = InputInlineAttachment;
+}
+
+export default InputInlineAttachment;

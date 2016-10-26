@@ -16,7 +16,7 @@ export default class jQueryInlineAttachment {
   }
 
   insertValue(val) {
-    Utils.insertTextAtCursor($this[0], val);
+    Utils.insertTextAtCursor(this.instance[0], val);
   }
 
   setValue(val) {
@@ -43,10 +43,18 @@ export default class jQueryInlineAttachment {
   }
 }
 
-$.fn.inlineattachment = function(options) {
+if( typeof jQuery === 'undefined' ) {
+  if( typeof require !== 'undefined' ) {
+    jQuery = require('jquery');
+  } else {
+    throw new Error('jQuery version of InlineAttachment requires jQuery, see https://jquery.com/');
+  }
+}
+
+jQuery.fn.inlineAttachment = function(options) {
 
   $(this).each(function() {
-    new jQueryInlineAttachment(this, options);
+    new jQueryInlineAttachment(this, options).bind();
   });
 
   return this;
