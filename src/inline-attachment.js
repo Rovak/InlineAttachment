@@ -6,7 +6,6 @@ export default class InlineAttachment {
 
   constructor(instance, options) {
     this.settings = Utils.merge(options, defaultOptions);
-    console.log(this.settings);
     this.editor = instance;
     this.filenameTag = '{filename}';
     this.lastValue = null;
