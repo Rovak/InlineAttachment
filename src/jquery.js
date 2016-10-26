@@ -9,6 +9,7 @@ export default class jQueryInlineAttachment {
   constructor(instance, options) {
     this.instance = $(instance);
     this.options = options;
+    this.bind();
   }
 
   getValue() {
@@ -54,7 +55,7 @@ if( typeof jQuery === 'undefined' ) {
 jQuery.fn.inlineAttachment = function(options) {
 
   $(this).each(function() {
-    new jQueryInlineAttachment(this, options).bind();
+    new jQueryInlineAttachment(this, options);
   });
 
   return this;

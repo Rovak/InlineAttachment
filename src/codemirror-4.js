@@ -12,6 +12,7 @@ export default class CodeMirror4InlineAttachment {
 
     this.instance = instance;
     this.options = options;
+    this.bind();
   }
 
   getValue() {

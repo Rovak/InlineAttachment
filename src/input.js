@@ -8,6 +8,7 @@ class InputInlineAttachment {
   constructor(instance, options) {
     this.instance = instance;
     this.options = options;
+    this.bind();
   }
 
   getValue() {
