@@ -18,7 +18,7 @@
     "test",
     "tests"
   ],
-  "dependencies": {
+  "devDependencies": {
     "codemirror-3": "codemirror#3.23.0",
     "codemirror-4": "codemirror#4.13.0"
   }
