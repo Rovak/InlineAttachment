@@ -11,7 +11,7 @@ function webpackOptions(options) {
       "input": './src/input/main.js',
       "jquery": './src/jquery/jquery.js',
       "codemirror-3": './src/codemirror-3/main.js',
-      "codemirror-4": './src/codemirror-4/codemirror-4.js',
+      "codemirror-4": './src/codemirror-4/main.js',
     },
     devtool: options.debug ? 'inline-source-map' : '',
     debug: options.debug,

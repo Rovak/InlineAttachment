@@ -3,7 +3,7 @@
 
 import InlineAttachment from "../inline-attachment";
 
-export default class CodeMirror4InlineAttachment {
+export default class CodeMirror4 {
 
   constructor(instance, options) {
     if (!instance.getWrapperElement) {
@@ -31,7 +31,7 @@ export default class CodeMirror4InlineAttachment {
 
   bind() {
 
-    let inlineAttachment = new InlineAttachment(options, editor);
+    let inlineAttachment = new InlineAttachment(this, this.options);
     let el = this.instance.getWrapperElement();
 
     el.addEventListener('paste', function (e) {
@@ -48,5 +48,4 @@ export default class CodeMirror4InlineAttachment {
       }
     });
   }
-
 }

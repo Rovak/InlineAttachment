@@ -10,7 +10,6 @@
 
         <textarea id="code" rows="10" cols="50"></textarea>
 
-        <script src="../src/inline-attachment.js"></script>
         <script src="../dist/codemirror-4.js"></script>
         <script type="text/javascript">
             var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
@@ -21,7 +20,7 @@
                 enterMode: "keep",
                 tabMode: "shift"
             });
-            inlineAttachment.editors.codemirror4.attach(editor);
+            new InlineAttachment.CodeMirror4(editor);
         </script>
     </body>
 </html>
