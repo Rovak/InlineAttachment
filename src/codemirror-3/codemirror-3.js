@@ -3,7 +3,7 @@
 
 import InlineAttachment from "../inline-attachment";
 
-export default class CodeMirror3InlineAttachment {
+export default class CodeMirror3 {
 
   constructor(instance, options) {
     if (!instance.getWrapperElement) {
