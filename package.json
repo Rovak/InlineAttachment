@@ -1,5 +1,6 @@
 {
   "name": "inline-attachment",
+  "version": "3.0.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/Rovak/InlineAttachment.git"
@@ -7,7 +8,6 @@
   "authors": [
     "Roy van Kaathoven @razko <ik@royvankaathoven.nl> (https://github.com/rovak)"
   ],
-  "version": "3.0.0",
   "dependencies": {
     "babel-core": "^6.18.0",
     "babel-loader": "^6.2.5",
