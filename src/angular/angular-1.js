@@ -5,7 +5,7 @@ import Utils from "../utils";
 import InputInlineAttachment from "../input/input";
 
 let directiveName = 'inlineattachment';
-let module = ng.module(directiveName, []);
+let module = angular.module(directiveName, []);
 
 /**
  * Read all parameters from the given attributes object

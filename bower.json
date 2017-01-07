@@ -20,6 +20,8 @@
   ],
   "devDependencies": {
     "codemirror-3": "codemirror#3.23.0",
-    "codemirror-4": "codemirror#4.13.0"
+    "codemirror-4": "codemirror#4.13.0",
+    "angular-1": "angular#1.6.1",
+    "jquery-1": "jquery#3.1.1"
   }
 }
