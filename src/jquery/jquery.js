@@ -40,20 +40,3 @@ export default class jQueryInlineAttachment {
     });
   }
 }
-
-if( typeof jQuery === 'undefined' ) {
-  if( typeof require !== 'undefined' ) {
-    jQuery = require('jquery');
-  } else {
-    throw new Error('jQuery version of InlineAttachment requires jQuery, see https://jquery.com/');
-  }
-}
-
-jQuery.fn.inlineAttachment = function(options) {
-
-  $(this).each(function() {
-    new jQueryInlineAttachment(this, options);
-  });
-
-  return this;
-};

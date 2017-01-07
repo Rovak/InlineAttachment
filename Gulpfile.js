@@ -9,7 +9,7 @@ function webpackOptions(options) {
     entry: {
       "angular": './src/angular/main.js',
       "input": './src/input/main.js',
-      "jquery": './src/jquery/jquery.js',
+      "jquery": './src/jquery/main.js',
       "codemirror-3": './src/codemirror-3/main.js',
       "codemirror-4": './src/codemirror-4/main.js',
     },
