@@ -1,6 +1,3 @@
-/*jslint newcap: true */
-/*global inlineAttachment: false, angular: false */
-
 import Utils from "../utils";
 import InputInlineAttachment from "../input/input";
 

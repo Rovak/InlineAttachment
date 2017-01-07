@@ -1,6 +1,4 @@
-import InputInlineAttachment from '../input/input';
 import jQueryInlineAttachment from '../jquery/jquery';
-
 
 (function() {
 

@@ -1,4 +1,3 @@
-
 import Utils from "./utils";
 import defaultOptions from "./defaults";
 

@@ -1,6 +1,3 @@
-/*jslint newcap: true */
-/*global inlineAttachment: false */
-
 import InlineAttachment from "../inline-attachment";
 
 export default class CodeMirror4 {
