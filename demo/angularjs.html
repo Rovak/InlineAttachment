@@ -4,21 +4,22 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>AngularJS InlineAttachment Demo</title>
 
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script>
+        <script src="../bower_components/jquery-1/dist/jquery.js"></script>
+        <script src="../bower_components/angular-1/angular.js"></script>
 
-        <script src="../src/inline-attachment.js"></script>
-        <script src="../src/input.inline-attachment.js"></script>
-        <script src="../src/angularjs.inline-attachment.js"></script>
+        <script src="../dist/angular.js"></script>
         <script type="text/javascript">
-            function textAreaCtrl($scope) {
-                $scope.receivedFile = function(file) {
-                    console.log('received file!', file);
-                }
-            }
+            angular
+                .module('demo', ['inlineattachment'])
+                .controller('textAreaCtrl', function ($scope) {
+                    $scope.receivedFile = function (file) {
+                        console.log('received file!', file);
+                    }
+                });
+
         </script>
     </head>
-    <body ng-app="inlineattachment">
+    <body ng-app="demo">
         <div ng-controller="textAreaCtrl">
             <textarea rows="10" cols="50"
                 inlineattachment

@@ -8,10 +8,9 @@
 
         <textarea id="code" rows="10" cols="50"></textarea>
 
-        <script type="text/javascript" src="../src/inline-attachment.js"></script>
-        <script type="text/javascript" src="../src/input.inline-attachment.js"></script>
+        <script type="text/javascript" src="../dist/input.js"></script>
         <script type="text/javascript">
-            inlineAttachment.editors.input.attachToInput(document.getElementById("code"));
+            new InputInlineAttachment(document.getElementById("code"));
         </script>
     </body>
 </html>

@@ -9,6 +9,10 @@ if (isset($_FILES['file'])) {
     $file = $_FILES['file'];
     $filename = uniqid() . '.' . (pathinfo($file['name'], PATHINFO_EXTENSION) ? : 'png');
 
+    if (!is_dir($uploadFolder)) {
+        mkdir($uploadFolder);
+    }
+
     move_uploaded_file($file['tmp_name'], $uploadFolder . $filename);
 
     $response['filename'] = $onlinePath . $filename;

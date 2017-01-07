@@ -9,12 +9,11 @@
         <textarea rows="10" cols="50"></textarea>
         <textarea rows="10" cols="50"></textarea>
 
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-        <script src="../src/inline-attachment.js"></script>
-        <script src="../src/jquery.inline-attachment.js"></script>
+        <script src="../bower_components/jquery-1/dist/jquery.js"></script>
+        <script src="../dist/jquery.js"></script>
         <script type="text/javascript">
             $(function() {
-                $('textarea').inlineattachment({
+                $('textarea').inlineAttachment({
                     uploadUrl: 'upload_attachment.php'
                 });
             });

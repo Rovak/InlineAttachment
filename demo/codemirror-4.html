@@ -5,13 +5,12 @@
         <title>CodeMirror 4 InlineAttachment Demo</title>
     </head>
     <body>
-        <link href="//cdnjs.cloudflare.com/ajax/libs/codemirror/4.0.3/codemirror.css" media="screen" rel="stylesheet" type="text/css">
-        <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/codemirror/4.0.3/codemirror.js"></script>
+        <link href="../bower_components/codemirror-4/lib/codemirror.css" media="screen" rel="stylesheet" type="text/css">
+        <script type="text/javascript" src="../bower_components/codemirror-4/lib/codemirror.js"></script>
 
         <textarea id="code" rows="10" cols="50"></textarea>
 
-        <script src="../src/inline-attachment.js"></script>
-        <script src="../src/codemirror.inline-attachment.js"></script>
+        <script src="../dist/codemirror-4.js"></script>
         <script type="text/javascript">
             var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
                 lineNumbers: true,
@@ -21,7 +20,7 @@
                 enterMode: "keep",
                 tabMode: "shift"
             });
-            inlineAttachment.editors.codemirror4.attach(editor);
+            new InlineAttachment.CodeMirror4(editor);
         </script>
     </body>
 </html>
