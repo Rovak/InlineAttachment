@@ -10,5 +10,4 @@ import InputInlineAttachment from './input';
     exports.InputInlineAttachment = root.InputInlineAttachment;
   }
 
-
 }).call(typeof window !== 'undefined' ? window : this);
