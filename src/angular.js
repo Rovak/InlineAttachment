@@ -2,10 +2,10 @@
 /*global inlineAttachment: false, angular: false */
 
 import Utils from "./utils";
-//import InputInlineAttachment from "./input";
+import InputInlineAttachment from "./input";
 
-let module = ng.module('inlineattachment', []);
 let directiveName = 'inlineattachment';
+let module = ng.module(directiveName, []);
 
 /**
  * Read all parameters from the given attributes object
