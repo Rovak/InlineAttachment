@@ -98,9 +98,8 @@ export default class InlineAttachment {
    * Handles upload response
    *
    * @param  {XMLHttpRequest} xhr
-   * @return {Void}
+   * @return {void}
    */
-
   onFileUploadResponse(xhr) {
     if (this.settings.onFileUploadResponse.call(this, xhr) !== false) {
       var result = JSON.parse(xhr.responseText),
@@ -125,7 +124,7 @@ export default class InlineAttachment {
    * Called when a file has failed to upload
    *
    * @param  {XMLHttpRequest} xhr
-   * @return {Void}
+   * @return {void}
    */
   onFileUploadError(xhr) {
     if (this.settings.onFileUploadError.call(this, xhr) !== false) {
@@ -138,7 +137,7 @@ export default class InlineAttachment {
    * Called when a file has been inserted, either by drop or paste
    *
    * @param  {File} file
-   * @return {Void}
+   * @return {void}
    */
   onFileInserted(file) {
     if (this.settings.onFileReceived.call(this, file) !== false) {

@@ -1,8 +1,5 @@
-/*jslint newcap: true */
-/*global inlineAttachment: false, jQuery: false */
-
-import InlineAttachment from "./inline-attachment";
-import Utils from "./utils";
+import InlineAttachment from "../inline-attachment";
+import Utils from "../utils";
 
 export default class jQueryInlineAttachment {
 

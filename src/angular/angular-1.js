@@ -1,8 +1,8 @@
 /*jslint newcap: true */
 /*global inlineAttachment: false, angular: false */
 
-import Utils from "./utils";
-import InputInlineAttachment from "./input";
+import Utils from "../utils";
+import InputInlineAttachment from "../input/input";
 
 let directiveName = 'inlineattachment';
 let module = ng.module(directiveName, []);

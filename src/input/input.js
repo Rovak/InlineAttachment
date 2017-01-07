@@ -1,7 +1,7 @@
 "use strict";
 
-import Utils from "./utils";
-import InlineAttachment from "./inline-attachment";
+import Utils from "../utils";
+import InlineAttachment from "../inline-attachment";
 
 class InputInlineAttachment {
 
@@ -43,10 +43,6 @@ class InputInlineAttachment {
       e.preventDefault();
     }, false);
   }
-}
-
-if (typeof window !== 'undefined') {
-  window.InputInlineAttachment = InputInlineAttachment;
 }
 
 export default InputInlineAttachment;
