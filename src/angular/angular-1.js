@@ -19,7 +19,7 @@ function readParameters(obj, scope) {
     attrs = obj.$attr,
     option, value;
 
-  for (let key of attrs) {
+  for (let key of Object.keys(attrs)) {
     option = Utils.lcfirst(key.substr(directiveName.length));
     value = obj[key];
     // Check if the given key is a valid string type, not empty and starts with the attribute name
@@ -37,7 +37,7 @@ function readParameters(obj, scope) {
 module.directive(directiveName, function() {
   return function(scope, element, attrs) {
     var options = readParameters(attrs, scope);
-    new InputInlineAttachment(element.context, options);
+    new InputInlineAttachment(element[0], options);
   };
 });
 

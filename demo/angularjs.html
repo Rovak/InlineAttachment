@@ -9,14 +9,17 @@
 
         <script src="../dist/angular.js"></script>
         <script type="text/javascript">
-            function textAreaCtrl($scope) {
-                $scope.receivedFile = function(file) {
-                    console.log('received file!', file);
-                }
-            }
+            angular
+                .module('demo', ['inlineattachment'])
+                .controller('textAreaCtrl', function ($scope) {
+                    $scope.receivedFile = function (file) {
+                        console.log('received file!', file);
+                    }
+                });
+
         </script>
     </head>
-    <body ng-app="inlineattachment">
+    <body ng-app="demo">
         <div ng-controller="textAreaCtrl">
             <textarea rows="10" cols="50"
                 inlineattachment
