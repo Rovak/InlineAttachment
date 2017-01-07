@@ -16,6 +16,8 @@
     "gulp-util": "^3.0.7",
     "webpack": "^1.13.2"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "jquery": "^3.1.1"
+  },
   "scripts": {}
 }
