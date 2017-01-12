@@ -1,0 +1,8 @@
+title: Inline Attachment
+description: Embed images inside textareas
+google_analytics: 
+show_downloads: true
+theme: jekyll-theme-cayman
+
+gems:
+  - jekyll-mentions
