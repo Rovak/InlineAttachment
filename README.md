@@ -1,3 +1,5 @@
+A new version is being developed in the [dev-3.x](https://github.com/Rovak/InlineAttachment/pull/77) branch
+
 # Inline Attachment 2.0.3 [![Master Branch Build Status](https://api.travis-ci.org/Rovak/InlineAttachment.png?branch=master)](http://travis-ci.org/Rovak/InlineAttachment)
 
 Adds upload functionality to a textarea or CodeMirror instance by either drag-dropping or pasting (only in chrome) an image inside it.
